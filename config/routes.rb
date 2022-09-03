@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  
-  get '*path', to: "static_pages#frontend_index"
+
+  get '*path', to: "static_pages#frontend_index" # should be last route, as a fallback
 end
