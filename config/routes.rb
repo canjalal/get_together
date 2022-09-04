@@ -4,5 +4,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  namespace :api, defaults: { format: :json } do
+  
+    resources :users, only: [:show, :create]
+    resource :session, only: [:show, :create, :destroy]
+  end
+
   get '*path', to: "static_pages#frontend_index" # should be last route, as a fallback
 end

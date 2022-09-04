@@ -37,6 +37,14 @@ class User < ApplicationRecord
 
     end
 
+
+    def reset_session_token!
+        self.session_token = generate_unique_session_token
+        self.save!
+
+        return self.session_token
+    end
+
     private
 
     def generate_unique_session_token
@@ -45,13 +53,6 @@ class User < ApplicationRecord
             token = SecureRandom.urlsafe_base64
         end
         return token
-    end
-
-    def reset_session_token!
-        self.session_token = generate_unique_session_token
-        self.save!
-
-        return self.session_token
     end
 
     def ensure_session_token
