@@ -1,0 +1,33 @@
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 64px;
+    align-items: center;
+}
+
+.left-menu {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.left-menu > * {
+    margin-left: 20px;
+    /* border: 2px solid green; */
+    height: auto;
+}
+
+.right-menu {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.right-menu > * {
+    margin-left: 20px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 18pt;
+}

@@ -1,0 +1,13 @@
+label {
+    display: block;
+}
+
+form > div {
+    display: block;
+    margin-bottom: 2em;
+}
+
+.capt {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
