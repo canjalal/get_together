@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Redirect, useNavigate } from 'react-router-dom';
 import sessionReducer, { login } from '../../store/session';
@@ -37,10 +38,24 @@ const LogInForm = () => {
       });
   }
 
+  const cancelModal = (e) => {
+    if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+
+        navigate("/");
+    }
+  }
+
+  useEffect(()=> {
+    window.addEventListener('click', cancelModal);
+    return () => {
+        window.removeEventListener('click', cancelModal);
+    }
+  }, [])
+
     useEffect(()=> {
         if(sessionUser) {
             console.log("hi");
-            navigate("/");
+            navigate("/home");
         }
 
     }, [sessionUser]);
@@ -48,6 +63,7 @@ const LogInForm = () => {
   return (
     <div className="modal-container">
         <div className="modal">
+        <div className="close-icon"><IoMdClose /></div>
         {errors && <ul className="error-console">
         {errors.map(error => <li key={error}>{error}</li>)}
         </ul>}
@@ -67,6 +83,10 @@ const LogInForm = () => {
             </label>
             <input type="submit" value="Log in" />
         </form>
+        <button onClick={(e)=> {
+            setEmail('seth@yorku.ca');
+            setPassword('password');
+        }}>Demo User</button>
         </div>
     </div>
   )

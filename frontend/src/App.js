@@ -9,11 +9,11 @@ function App() {
   return (
     <>
     <NavMenu />
-    <h1>Hello world!</h1>
     
     {/* <Route path="/login" element={<LogInForm />} /> */}
     <Routes>
       <Route path="/" element={<p>Yes it is all</p>} />
+      <Route path="/home" element={<h1>Welcome home!</h1>} />
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
     <Route path="*" element={<NotFoundPage />} />

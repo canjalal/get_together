@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../store/session';
+import { IoMdClose } from 'react-icons/io';
 import './signupform.css'
 
 const SignUpForm = () => {
@@ -26,8 +27,10 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+
         // console.log( {"email": email, "password": password });
-        return dispatch(signup(user))
+        if(ageOk) {
+            return dispatch(signup(user))
       .catch(async (res) => {
         let data;
         try {
@@ -40,12 +43,29 @@ const SignUpForm = () => {
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
       });
+
+        } else {
+            setErrors(['You must be over 18 years of age to join!']);
+        }
+        
+  }
+
+  const cancelModal = (e) => {
+    if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+        navigate("/");
+    }
   }
 
   useEffect(()=> {
+    window.addEventListener('click', cancelModal);
+    return () => {
+        window.removeEventListener('click', cancelModal);
+    }
+  }, [])
+
+  useEffect(()=> {
     if(sessionUser) {
-        console.log("hi");
-        navigate("/");
+        navigate("/home");
     }
 
 }, [sessionUser]);
@@ -53,6 +73,7 @@ const SignUpForm = () => {
   return (
     <div className="modal-container">
     <div className="modal">
+    <div className="close-icon"><IoMdClose /></div>
         <h1>Finish signing up</h1>
         {/* Temporary placeholder for errors that should render as tooltips upon submission
              or as modified captions upon loss of focus */}

@@ -29,4 +29,13 @@ html {
     position: absolute;
     top: 64px;
 }
+
+.close-icon {
+    cursor: pointer;
+    font-size: 22px;
+    position: absolute;
+    right: 11px;
+    top: 11px;
+    color: #181818;
+}
 /* TODO Add site wide styles */
