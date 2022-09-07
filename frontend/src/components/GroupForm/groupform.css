@@ -1,3 +1,31 @@
 .first-step {
     padding-bottom: 36px;
 }
+
+.new-group-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    height: 45px;
+    padding: 20px;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#new-group {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+#bottom-bar {
+    padding: 10px 0px 10px 0px;
+    position: fixed;
+    bottom: 0px;
+}

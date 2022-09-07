@@ -1,11 +1,21 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
-import GroupForm1 from "./components/GroupForm/GroupForm1";
+import GroupFormIntro from "./components/GroupForm/GroupFormIntro";
 import LogInForm from "./components/LogInForm/loginform";
 import NavMenu from "./components/NavMenu/navmenu";
 import NotFoundPage from "./components/NotFoundPage/notfoundpage";
 import SignUpForm from "./components/SignUpForm/signupform";
+import { fetchKeywords } from "./store/keywords";
 
 function App() {
+
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchKeywords());
+  }, []);
 
   return (
     <>
@@ -17,7 +27,7 @@ function App() {
       <Route path="/home" element={<h1>Welcome home!</h1>} />
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
-    <Route path="/groups/new" element={<GroupForm1 />} />
+    <Route path="/groups/new" element={<GroupFormIntro />} />
     <Route path="*" element={<NotFoundPage />} />
     </Routes>
     </>
