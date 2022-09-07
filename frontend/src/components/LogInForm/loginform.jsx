@@ -125,10 +125,10 @@ const LogInForm = () => {
                 <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={()=> setPasswordVisited(true)} />
                 <p id="password-caption" className="capt"></p>
             </label>
-            <label>
+            
                 <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
-                Keep me signed in
-            </label>
+                <span>Keep me signed in</span>
+
             <input type="submit" className="font-title" value="Log in" />
         </form>
         <button onClick={(e)=> {

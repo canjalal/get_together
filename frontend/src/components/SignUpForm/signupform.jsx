@@ -24,6 +24,8 @@ const SignUpForm = () => {
 
     const [errors, setErrors] = useState([]);
 
+    window.ageOk = ageOk;
+
     const sessionUser = useSelector(state => state.session.user);
 
     const [nameVisited, setNameVisited] = useState(false); // whether each form has been visited already by user
@@ -183,7 +185,7 @@ const SignUpForm = () => {
                 <div>
                     <label htmlFor="ageOK">Age
                     </label>
-                    <input type="checkbox" id="ageOk" value={ageOk} onChange={(e) => setAgeOk(e.target.value ? true : false)} />
+                    <input type="checkbox" id="ageOk" value={ageOk} onChange={(e) => setAgeOk(e.target.checked ? true : false)} />
                     I am 18 years of age or older.
                     <p id="age-caption" className="capt"></p>
                 </div>

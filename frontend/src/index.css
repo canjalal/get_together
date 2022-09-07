@@ -68,6 +68,31 @@ html {
     color: #181818;
 }
 
+input:not([type="checkbox"]) {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+form {
+    width: 100%;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-family: 'Graphik Medium';
+    margin-bottom: 0.25rem;
+    line-height: 24px;
+    text-size-adjust: 100%;
+    width: 100%;
+}
+
+form > div {
+    display: block;
+    margin-bottom: 2em;
+}
+
 input[type="submit"] {
     border-radius: 8px;
     cursor: pointer;
@@ -98,10 +123,23 @@ button {
     border: 0 solid;
 }
 /* TODO Add site wide styles */
-input:not([type="submit"]), textarea {
+input:not([type="submit"]):not([type="checkbox"]), textarea {
     padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 0px;
+    outline: 2px solid #e6e6e6;
 }
 
-input:not([type="submit"]), textarea {
-    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+input:not([type="submit"]):not([type="checkbox"]):hover, textarea:hover {
+    outline: 2px solid rgb(117, 117, 117);
+}
+
+input:not([type="submit"]):not([type="checkbox"]):focus, textarea:focus {
+    outline: 2px solid rgb(0, 130, 148);
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 15px;
+    accent-color:rgb(0, 130, 148);
 }
