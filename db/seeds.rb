@@ -41,4 +41,30 @@ ApplicationRecord.transaction do
         password: 'password',
         location: "Stratford, ON"
     )
+
+    puts "Creating groups..."
+    Group.create!(
+        id: 1,
+        name: "East Bay Extreme Knitters",
+        owner_id: 2,
+        description: "Imagine knitting taken as an extreme sport.",
+        member_label: "fan-knit-tics",
+        location: "Piedmont, CA"
+    )
+    Group.create!(
+        id: 4,
+        name: "Pizza Lovers in SF",
+        owner_id: 4,
+        description: "We are the discerning pizza-critics of the Bay",
+        member_label: "pizza lover",
+        location: "San Francisco, CA"
+    )
+    Group.create!(
+        id: 5,
+        name: "Oakland Windows 3.1 Enthusiasts",
+        owner_id: 5,
+        description: "Aficionados of the OS that started it all",
+        member_label: "progman",
+        location: "Oakland, CA"
+    )
 end
