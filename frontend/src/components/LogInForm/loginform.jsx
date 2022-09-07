@@ -101,40 +101,42 @@ const LogInForm = () => {
   return (
     <div className="modal-container">
         <div className="modal">
-        <div className="close-icon"><IoMdClose /></div>
+            <div className="close-icon"><IoMdClose /></div>
 
-        <MiniLogo />
+            <MiniLogo />
 
-        {errors.length > 0 && <div className="error-console">
-        
-        <BiErrorCircle />
-                <ul>
-        {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
-        <div className="close-modal" onClick={(e)=> {setErrors([]);
-        e.stopPropagation();}}><IoMdClose /></div>
-        </div>}
-        <h1>Log in</h1>
-        <p>Not a member yet? Sign up</p>
-        <form onSubmit={handleSubmit}>
-            <label>Email
-                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={()=> setEmailVisited(true)} />
-                <p id="email-caption" className="capt"></p>
-            </label>
-            <label>Password
-                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={()=> setPasswordVisited(true)} />
-                <p id="password-caption" className="capt"></p>
-            </label>
+            {errors.length > 0 && <div className="error-console">
             
-                <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
-                <span>Keep me signed in</span>
+            <BiErrorCircle />
+                    <ul>
+            {errors.map(error => <li key={error}>{error}</li>)}
+            </ul>
+            <div className="close-modal" onClick={(e)=> {setErrors([]);
+            e.stopPropagation();}}><IoMdClose /></div>
+            </div>}
+            <h1>Log in</h1>
+            <p>Not a member yet? Sign up</p>
+            <form onSubmit={handleSubmit}>
+                <label>Email
+                    <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={()=> setEmailVisited(true)} />
+                    <p id="email-caption" className="capt"></p>
+                </label>
+                <label>Password
+                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={()=> setPasswordVisited(true)} />
+                    <p id="password-caption" className="capt"></p>
+                </label>
+                
+                    <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
+                    <span>Keep me signed in</span>
 
-            <input type="submit" className="font-title" value="Log in" />
-        </form>
-        <button onClick={(e)=> {
-            setEmail('seth@yorku.ca');
-            setPassword('password');
-        }}>Demo User</button>
+                <input type="submit" className="font-title" value="Log in" />
+            </form>
+
+            <button className="standard-button demo-user" onClick={(e)=> {
+                setEmail('seth@yorku.ca');
+                setPassword('password');
+            }}>Demo User</button>
+
         </div>
     </div>
   )

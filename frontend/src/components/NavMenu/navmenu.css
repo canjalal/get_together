@@ -25,9 +25,13 @@
 }
 .right-menu > * {
     margin-left: 20px;
+    font-family: 'Graphik Medium';
 }
 
 .logo {
-    font-weight: bold;
+    font-family: "Graphik Bold";
     font-size: 18pt;
+}
+.logo a {
+    color: #f65858;
 }
