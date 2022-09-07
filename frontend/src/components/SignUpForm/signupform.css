@@ -1,5 +1,13 @@
 label {
     display: block;
+    font-size: 16px;
+    font-family: 'Graphik Medium';
+    margin-bottom: 0.25rem;
+    line-height: 24px;
+    text-size-adjust: 100%;
+}
+input {
+    display: block;
 }
 
 form > div {
@@ -10,4 +18,14 @@ form > div {
 .capt {
     font-size: 0.75rem;
     line-height: 1rem;
+}
+
+.invalid {
+    color: red;
+}
+
+.close-modal {
+    cursor: pointer;
+    font-size: 22px;
+    color: white;
 }

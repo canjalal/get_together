@@ -3,6 +3,7 @@ import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Redirect, useNavigate } from 'react-router-dom';
 import sessionReducer, { login } from '../../store/session';
+import MiniLogo from '../logo';
 import './loginform.css';
 
 const LogInForm = () => {
@@ -64,6 +65,9 @@ const LogInForm = () => {
     <div className="modal-container">
         <div className="modal">
         <div className="close-icon"><IoMdClose /></div>
+
+        <MiniLogo />
+
         {errors && <ul className="error-console">
         {errors.map(error => <li key={error}>{error}</li>)}
         </ul>}
@@ -72,7 +76,6 @@ const LogInForm = () => {
         <form onSubmit={handleSubmit}>
             <label>Email
                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-
             </label>
             <label>Password
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -81,7 +84,7 @@ const LogInForm = () => {
                 <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
                 Keep me signed in
             </label>
-            <input type="submit" value="Log in" />
+            <input type="submit" className="font-title" value="Log in" />
         </form>
         <button onClick={(e)=> {
             setEmail('seth@yorku.ca');

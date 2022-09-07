@@ -1,0 +1,15 @@
+.mini-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mini-logo {
+    width: 2.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 1rem;
+    background: radial-gradient(#f65656 50%, #ffffff 100%);
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
