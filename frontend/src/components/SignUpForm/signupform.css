@@ -7,7 +7,7 @@ label {
     text-size-adjust: 100%;
     width: 100%;
 }
-input {
+input:not([type="checkbox"]) {
     display: block;
     box-sizing: border-box;
     width: 100%;
