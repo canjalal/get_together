@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Redirect, useNavigate } from 'react-router-dom';
 import sessionReducer, { login } from '../../store/session';
 import MiniLogo from '../logo';
 import './loginform.css';
+import * as FrontEndValidations from './validations'
 
 const LogInForm = () => {
 
@@ -17,6 +19,9 @@ const LogInForm = () => {
     const [keepSignedIn, setKeepSignedIn] = useState(false);
 
     const [errors, setErrors] = useState([]);
+
+    const [emailVisited, setEmailVisited] = useState(false); // whether each form has been visited already by user
+    const [passwordVisited, setPasswordVisited] = useState(false);
 
     const navigate = useNavigate();
     
@@ -61,6 +66,38 @@ const LogInForm = () => {
 
     }, [sessionUser]);
 
+    useEffect(()=> {
+        if(emailVisited) {
+
+            let field = document.getElementById("email");
+
+            FrontEndValidations.renderEmailError(field.value);
+            
+            field.addEventListener('input', (e) => {
+                FrontEndValidations.renderEmailError(e.target.value);
+            });
+            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
+
+        }
+
+    }, [emailVisited]);
+
+    useEffect(()=> {
+        if(passwordVisited) {
+
+            let field = document.getElementById("password");
+
+            FrontEndValidations.renderPasswordError(field.value);
+            
+            field.addEventListener('input', (e) => {
+                FrontEndValidations.renderPasswordError(e.target.value);
+            });
+            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
+
+        }
+
+    }, [passwordVisited]);
+
   return (
     <div className="modal-container">
         <div className="modal">
@@ -68,17 +105,25 @@ const LogInForm = () => {
 
         <MiniLogo />
 
-        {errors && <ul className="error-console">
+        {errors.length > 0 && <div className="error-console">
+        
+        <BiErrorCircle />
+                <ul>
         {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>}
+        </ul>
+        <div className="close-modal" onClick={(e)=> {setErrors([]);
+        e.stopPropagation();}}><IoMdClose /></div>
+        </div>}
         <h1>Log in</h1>
         <p>Not a member yet? Sign up</p>
         <form onSubmit={handleSubmit}>
             <label>Email
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={()=> setEmailVisited(true)} />
+                <p id="email-caption" className="capt"></p>
             </label>
             <label>Password
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={()=> setPasswordVisited(true)} />
+                <p id="password-caption" className="capt"></p>
             </label>
             <label>
                 <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />

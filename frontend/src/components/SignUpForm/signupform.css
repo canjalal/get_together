@@ -5,9 +5,12 @@ label {
     margin-bottom: 0.25rem;
     line-height: 24px;
     text-size-adjust: 100%;
+    width: 100%;
 }
 input {
     display: block;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 form > div {

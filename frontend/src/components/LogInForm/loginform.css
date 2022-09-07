@@ -1,4 +1,13 @@
-label > input {
-    display: block;
+label {
+    width: 100%;
 }
 
+label > input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+form {
+    width: 100%;
+}
