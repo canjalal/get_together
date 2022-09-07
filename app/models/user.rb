@@ -24,6 +24,13 @@ class User < ApplicationRecord
 
     before_validation :ensure_session_token
 
+    has_many :owned_groups,
+    foreign_key: :owner_id,
+    class_name: :Group,
+    dependent: :destroy; # should I need this?
+
+    has_one_attached :profile_pic
+
     def self.find_by_credentials(email, pw)
 
         user = User.find_by(email: email)

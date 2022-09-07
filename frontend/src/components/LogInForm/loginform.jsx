@@ -60,7 +60,7 @@ const LogInForm = () => {
 
     useEffect(()=> {
         if(sessionUser) {
-            console.log("hi");
+            console.log("hi now logged in. Message from loginform.jsx");
             navigate("/home");
         }
 

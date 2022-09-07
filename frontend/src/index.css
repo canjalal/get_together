@@ -97,6 +97,10 @@ form > div {
     margin-bottom: 2em;
 }
 
+.green-link {
+    color: rgb(0, 130, 148)
+}
+
 .standard-button, input[type="submit"] {
     border-radius: 8px;
     cursor: pointer;
@@ -146,4 +150,11 @@ input[type="checkbox"] {
     transform: scale(1.5);
     margin-right: 15px;
     accent-color:rgb(0, 130, 148);
+}
+
+.pre-heading {
+    font-family: "Graphik Medium";
+    text-transform: capitalize;
+    color: #7a1d47;
+    padding-bottom: 10px;
 }

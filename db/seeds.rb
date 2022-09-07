@@ -5,37 +5,48 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'open-uri'
 
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
     User.destroy_all
+    Group.destroy_all
+    Keyword.destroy_all
 
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
+    ApplicationRecord.connection.reset_pk_sequence!('groups')
+    ApplicationRecord.connection.reset_pk_sequence!('keywords')
     
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:
-    User.create!(
-    name: 'Jane Rabinowitz', 
-    email: 'jane.d.rabinowitz@gmail.com', 
-    password: 'password',
-    location: "Los Angeles, CA"
+    u = User.create!(
+        name: "Seth Goldstein",
+        email: "seth@yorku.ca",
+        password: "password",
+        location: "Thornhill, ON"
     )
-    User.create!(
+    u = User.create!(
+        name: 'Jane Rabinowitz', 
+        email: 'jane.d.rabinowitz@gmail.com', 
+        password: 'password',
+        location: "Los Angeles, CA"
+    )
+    u = User.create!(
         name: 'Lucius Malfoy', 
         email: 'l.malfoy@harthouse.ca', 
         password: 'password',
         location: "Toronto, ON"
     )
-    User.create!(
+    u = User.create!(
         name: 'Tara Reid', 
         email: 'tara.reid@hollywood.com', 
         password: 'password',
         location: "Burbank, CA"
     )
-    User.create!(
+    u = User.create!(
         name: 'Daphne Bridgerton', 
         email: 'd.bridgerton@oxford.edu', 
         password: 'password',
@@ -43,7 +54,7 @@ ApplicationRecord.transaction do
     )
 
     puts "Creating groups..."
-    Group.create!(
+    g = Group.create!(
         id: 1,
         name: "East Bay Extreme Knitters",
         owner_id: 2,
@@ -51,7 +62,9 @@ ApplicationRecord.transaction do
         member_label: "fan-knit-tics",
         location: "Piedmont, CA"
     )
-    Group.create!(
+    file = URI.open('https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/weird-knits-dwarven-helm-bySadDaysCrochet.jpg')
+    g.cover_photo.attach(io: file, filename: 'weird-knits-dwarven-helm-bySadDaysCrochet.jpg')
+    g = Group.create!(
         id: 4,
         name: "Pizza Lovers in SF",
         owner_id: 4,
@@ -59,7 +72,9 @@ ApplicationRecord.transaction do
         member_label: "pizza lover",
         location: "San Francisco, CA"
     )
-    Group.create!(
+    file = URI.open('https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/sfstylepizza.jpg')
+    g.cover_photo.attach(io: file, filename: "sfstylepizza.jpg")
+    g = Group.create!(
         id: 5,
         name: "Oakland Windows 3.1 Enthusiasts",
         owner_id: 5,
@@ -67,4 +82,27 @@ ApplicationRecord.transaction do
         member_label: "progman",
         location: "Oakland, CA"
     )
+    file = URI.open('https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/program-manager.jpg')
+    g.cover_photo.attach(io: file, filename: "program-manager.jpg")
+
+    puts "Creating keywords..."
+    Keyword.create!(
+        keyword: "knitting"
+    )
+    Keyword.create!(
+        keyword: "tech"
+    )
+    Keyword.create!(
+        keyword: "food"
+    )
+    Keyword.create!(
+        keyword: "East Bay"
+    )
+
+    puts "Creating group keywords..."
+    GroupKeyword.create!(group_id: 1, keyword_id: 1)
+    GroupKeyword.create!(group_id: 1, keyword_id: 4)
+    GroupKeyword.create!(group_id: 4, keyword_id: 3)
+    GroupKeyword.create!(group_id: 5, keyword_id: 2)
+    GroupKeyword.create!(group_id: 5, keyword_id: 4)
 end

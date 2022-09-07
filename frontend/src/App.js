@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+import GroupForm1 from "./components/GroupForm/GroupForm1";
 import LogInForm from "./components/LogInForm/loginform";
 import NavMenu from "./components/NavMenu/navmenu";
 import NotFoundPage from "./components/NotFoundPage/notfoundpage";
@@ -16,6 +17,7 @@ function App() {
       <Route path="/home" element={<h1>Welcome home!</h1>} />
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
+    <Route path="/groups/new" element={<GroupForm1 />} />
     <Route path="*" element={<NotFoundPage />} />
     </Routes>
     </>
