@@ -1,3 +1,5 @@
+/* Warning: webpack merges all CSS files anyway */
+
 label {
     display: block;
     font-size: 16px;
@@ -5,11 +7,6 @@ label {
     margin-bottom: 0.25rem;
     line-height: 24px;
     text-size-adjust: 100%;
-    width: 100%;
-}
-input:not([type="checkbox"]) {
-    display: block;
-    box-sizing: border-box;
     width: 100%;
 }
 

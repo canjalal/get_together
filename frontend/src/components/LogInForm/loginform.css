@@ -1,8 +1,4 @@
-label {
-    width: 100%;
-}
-
-label > input:not([type="checkbox"]) {
+input:not([type="checkbox"]) {
     display: block;
     box-sizing: border-box;
     width: 100%;
