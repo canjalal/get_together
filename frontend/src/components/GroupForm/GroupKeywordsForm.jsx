@@ -1,18 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { GroupFormContext } from './GroupFormContext';
 
 const GroupKeywordsForm = () => {
 
     const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
 
+    const keywordList = useSelector((state) => state.keywords);
+
+    const [checkedKeywords, setCheckedKeywords] = useState([]); // list of selected keyword IDs
+
+    useEffect(() => {
+        // console.log(`KeywordList is ${keywordList}`)
+    }, []);
+
+    const handleChange = (e) => {
+
+    }
+
+    const toggleItem = (id) => (e) => {
+        if (e.target.classList.contains("kw-unchecked")) {
+            setCheckedKeywords([...checkedKeywords, Number(id)]);
+            e.target.classList.add("kw-checked");
+            e.target.classList.remove("kw-unchecked")
+            // console.log("checked! " + e.target.value);
+        } else {
+            setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
+            e.target.classList.remove("kw-checked");
+            e.target.classList.add("kw-unchecked");
+            // console.log("unchecked! " + e.target.value)
+        }        
+    }
 
     useEffect(() => {
 
+        setFormData({
+            formData, keywords: checkedKeywords
+        });
 
+        setPageisDone(checkedKeywords.length !== 0);
 
+    }, [checkedKeywords])
 
-    }, []);
-
+    window.checkedKeywords = checkedKeywords;
 
 
     // const handleSubmit = (e) => {
@@ -25,10 +55,11 @@ const GroupKeywordsForm = () => {
     <div className="group-form-body">
         <h1>Choose a few topics that describe your group's interests</h1>
         <p>Be specific! This will help us promote your group to the right people. You can choose up to 15 topics.</p>
-            {/* <div id="location-field">{grpLoc} <a id="loc-change" className="green-link" onClick={toggleLocForm}>Change location</a></div>
-            <form id="loc-form" onSubmit={handleSubmit}>
-                <input type="text" value={grpLoc} onChange={handleLocChange} />
-            </form> */}
+            <form id="kw-form">
+                {Object.values(keywordList).map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+{kw.keyword}
+                </p>)}
+            </form>
 
     </div>
   )

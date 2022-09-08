@@ -1,11 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import groupKeywordsReducer from './groupkeywords';
+import groupReducer from './groups';
 import keywordReducer from './keywords';
 import sessionReducer from './session';
 
 export const rootReducer = combineReducers({
     session: sessionReducer,
-    keywords: keywordReducer
+    keywords: keywordReducer,
+    groups: groupReducer,
+    groupKeywords: groupKeywordsReducer
 });
 
 let enhancer;

@@ -10,11 +10,12 @@ class Api::GroupsController < ApplicationController
         # debugger
         @group = Group.new(group_params)
         # @group_keywords = GroupKeyword.new(group_id: @group.id,)
-
         if(@group.save)
+            @g_keywords = []
             params[:keyword_ids].each do |kwi|
                         
-                gk = GroupKeyword.create!(keyword_id: kwi, group_id: @group.id)
+                @g_keywords << GroupKeyword.create!(keyword_id: kwi, group_id: @group.id)
+                # tweak this to error out and delete group if group keyword saves are unsuccesfful
             end
           render :show
         else

@@ -57,3 +57,28 @@
 #loc-form {
     display: none;
 }
+
+.kw-checkbox {
+    display: inline-flex;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: background 0.15s;
+    cursor: pointer;
+    margin: 10px;
+    border: 1px solid currentColor;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+}
+
+.kw-unchecked {
+    color: #0098ab;
+    background-color: white;
+}
+
+.kw-checked {
+    color: white;
+    background-color: #0098ab;
+
+}
