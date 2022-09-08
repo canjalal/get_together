@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BottomBar from './BottomBar'
 import './groupform.css'
+import { GroupFormContext } from './GroupFormContext'
+import GroupKeywordsForm from './GroupKeywordsForm'
+import GroupLocationForm from './GroupLocationForm'
 import NewGroupNav from './NewGroupNav'
 
 const GroupFormIntro = (props) => {
 
-    const [formData, setFormData] = useState({
-        location: "",
-        group_keywords: "",
-        name: "",
-        description: ""
-    });
+    const { formData, setFormData,
+        pageNum, setPageNum,
+        pageisDone, setPageisDone} = useContext(GroupFormContext);
 
-    const [pageNum, setPageNum] = useState(0);
 
 // const navigate = useNavigate();
 
@@ -22,6 +21,18 @@ const GroupFormIntro = (props) => {
 //     }
 
 // Make a modal that covers entire screen
+
+    const pickElement = (page) => {
+        switch(page) {
+            case 0:
+                return <GroupLocationForm />
+            case 1:
+                return <GroupKeywordsForm />
+                
+            default:
+                 return "Invalido";
+        }
+    }
 
   return (
     <>
@@ -35,9 +46,10 @@ const GroupFormIntro = (props) => {
     </div>
     <div id="new-group">
         <NewGroupNav />
-            Merge your auth branch!
-        <BottomBar props={{pageNum, setPageNum,
-                            formData, setFormData}} />
+            {
+                pickElement(pageNum)
+            }
+        <BottomBar />
         </div>
     </>
 

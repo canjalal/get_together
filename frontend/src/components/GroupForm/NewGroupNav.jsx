@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { GroupFormContext } from './GroupFormContext'
 
 const NewGroupNav = (props) => {
+
+    const { pageNum } = useContext(GroupFormContext);
   return (
     <div className="new-group-nav">
         <div className="left-menu">
@@ -11,7 +14,7 @@ const NewGroupNav = (props) => {
         </div>
         <div className="right-menu">
             {/* Place holder for component */}
-            Save &amp; Exit
+            { pageNum > 1 && "Save &amp;"} Exit
         </div>
     </div>
   )

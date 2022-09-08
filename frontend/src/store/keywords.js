@@ -12,13 +12,11 @@ const receiveKeywords = (keywords) => {
 
 export const fetchKeywords = () => async (dispatch) => {
     
-    const response = await csrfFetch('api/keywords');
+    const response = await csrfFetch('/api/keywords');
 
     const data = await response.json();
 
     dispatch(receiveKeywords(data));
-
-    return response;
 }
 
 const keywordReducer = (state = {}, action) => {

@@ -98,7 +98,8 @@ form > div {
 }
 
 .green-link {
-    color: rgb(0, 130, 148)
+    color: rgb(0, 130, 148);
+    cursor: pointer;    
 }
 
 .standard-button, input[type="submit"] {
@@ -109,6 +110,16 @@ form > div {
     fill: #fff;
     background-color: #f65858;
     border-color: #f65858;
+    padding: 8px 12px;
+}
+
+.standard-button:disabled, input[type="submit"]:disabled {
+    border-radius: 8px;
+    cursor: pointer;
+    color: #d9d9d9;
+    font-family: "Graphik Medium";
+    fill: #d9d9d9;    background-color: #a2a2a2;
+    border-color: #a2a2a2;
     padding: 8px 12px;
 }
 

@@ -22,10 +22,38 @@
     width: 100vw;
     height: 100vh;
     background-color: white;
+    align-items: center;
 }
 
 #bottom-bar {
     padding: 10px 0px 10px 0px;
     position: fixed;
     bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.group-form-body {
+    width: 50vw;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 2px solid teal;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+#location-field {
+    font-size: 36px;
+    display: block;
+}
+
+#location-field > * {
+    font-size: 1rem;
+}
+
+#loc-form {
+    display: none;
 }
