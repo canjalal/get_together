@@ -12,8 +12,15 @@
 #  updated_at   :datetime         not null
 #
 class Group < ApplicationRecord
+    attr_reader :keyword_ids
     validates :name, :description, :location, presence: true
     validates :name, uniqueness: true
+
+    def keyword_ids=(kwis)
+        # letting controller handle them
+    end
+
+    # validate :keyword_ids_is_array 
 
     belongs_to :owner,
     foreign_key: :owner_id,
@@ -29,4 +36,15 @@ class Group < ApplicationRecord
     source: :group_id
 
     has_one_attached :cover_photo
+
+
+    # def keyword_ids_is_array
+    #     if !keyword_ids.is_a? Array
+    #         errors.add :keyword_ids, "must be an array"
+    #     elsif keywords_ids.length == 0
+    #         errors.add :keyword_ids, "must have keywords"
+    #     end
+    # end
+
+
 end

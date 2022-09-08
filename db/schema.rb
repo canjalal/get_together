@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_07_172058) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_08_185839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_172058) do
     t.bigint "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id", "keyword_id"], name: "index_group_keywords_on_group_id_and_keyword_id", unique: true
     t.index ["group_id"], name: "index_group_keywords_on_group_id"
     t.index ["keyword_id"], name: "index_group_keywords_on_keyword_id"
   end
