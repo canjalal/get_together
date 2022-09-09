@@ -110,7 +110,14 @@ form > div {
     fill: #fff;
     background-color: #f65858;
     border-color: #f65858;
+    min-width: 206px;
+    border: 1px solid #f65858;
     padding: 8px 12px;
+}
+
+.standard-button:hover, input[type="submit"]:hover {
+    background-color: rgba(246, 88, 88, 0.9);
+    border: 1px solid rgba(246, 88, 88, 0.9);
 }
 
 .standard-button:disabled, input[type="submit"]:disabled {
@@ -123,7 +130,7 @@ form > div {
     padding: 8px 12px;
 }
 
-button {
+/* button {
     text-rendering: auto;
     text-indent: 0px;
     text-shadow: none;
@@ -131,6 +138,11 @@ button {
     text-align: center;
     align-items: flex-start;
 }
+
+button:hover {
+    background-color: rgba(246, 88, 88, 0.9);
+    border: 1px solid rgba(246, 88, 88, 0.9);
+} */
 
 .font-title {
     font-size: 1.25rem;
@@ -144,17 +156,17 @@ button {
 /* TODO Add site wide styles */
 input:not([type="submit"]):not([type="checkbox"]), textarea {
     padding: 0.5rem 0.75rem 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     border: 0px;
-    outline: 2px solid #e6e6e6;
+    outline: 1px solid #e6e6e6;
 }
 
 input:not([type="submit"]):not([type="checkbox"]):hover, textarea:hover {
-    outline: 2px solid rgb(117, 117, 117);
+    outline: 1px solid rgb(117, 117, 117);
 }
 
 input:not([type="submit"]):not([type="checkbox"]):focus, textarea:focus {
-    outline: 2px solid rgb(0, 130, 148);
+    outline: 1px solid rgb(0, 130, 148);
 }
 
 input[type="checkbox"] {

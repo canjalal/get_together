@@ -19,9 +19,15 @@ const GroupNameForm = () => {
             ...formData, name: e.target.value
         });
 
+
+        let isErrors = !!renderGrpNameError(e.target.value)
+
         setGrpName(e.target.value);
         setCharsLeft(60 - e.target.value.length);
-        setPageisDone(!renderGrpNameError(e.target.value));
+        setPageisDone(!isErrors);
+        let grpName = document.querySelector("#grpName");
+        // console.log(desc);
+        grpName.style.outline = `1px solid ${isErrors ? "red" : "teal"}`;   
     }
 
     window.formData = formData;

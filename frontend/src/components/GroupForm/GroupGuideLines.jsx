@@ -9,12 +9,7 @@ const GroupGuidelinesForm = () => {
     window.formData = formData;
 
     useEffect(() => {
-        console.log(formData);  
-
-
         setPageisDone(true); 
-
-
     }, []);
 
   return (

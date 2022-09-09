@@ -38,11 +38,14 @@
     width: 50vw;
     margin-top: 30px;
     margin-bottom: 30px;
-    border: 2px solid teal;
+    /* border: 2px solid teal; */
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
 
+.group-form-body > h1 {
+    font-size: 2.5rem;
 }
 
 #location-field {
@@ -56,6 +59,10 @@
 
 #loc-form {
     display: none;
+}
+#loc-form input {
+    border-radius: 4px;
+    height: 2.5rem;
 }
 
 .kw-checkbox {
@@ -95,6 +102,11 @@
     position: relative;
 }
 
+#grpName {
+    height: 2.5rem;
+    border-radius: 4px;
+}
+
 #grpName-caption {
     position: absolute;
     bottom: -20px;
@@ -113,8 +125,13 @@
     font-family: "Graphik Medium";
     fill: #fff;
     background-color: #fff;
-    border-color: currentColor;
+    border: 2px solid #9b9b9b;
     padding: 8px 12px;   
+    min-width: 206px;
+}
+
+.back-button:hover {
+    border-color: #757575;
 }
 
 #progress-bar {

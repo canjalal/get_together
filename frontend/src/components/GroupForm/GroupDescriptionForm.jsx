@@ -17,9 +17,9 @@ const GroupDescriptionForm = () => {
             ...formData, description: e.target.value
         });
 
-        let desc = document.querySelector("#grp-description");
-        // console.log(desc);
-        desc.style.outline = `2px solid ${isErrors ? "red" : "teal"}`;      
+        // let desc = document.querySelector("#grp-description");
+        // // console.log(desc);
+        // desc.style.outline = `2px solid ${isErrors ? "red" : "teal"}`;      
         setDescription(e.target.value);
         setPageisDone(!isErrors);
     }
@@ -57,7 +57,7 @@ const GroupDescriptionForm = () => {
         </ol>
 
             <form id="description-form" onSubmit={handleSubmit}>
-                <textarea id="grp-description" value={description} onChange={handleDescriptionChange} />
+                <textarea id="grp-description" value={description} onChange={handleDescriptionChange} onBlur={e => {e.target.style.outline = `2px solid ${!pageisDone ? "red" : "teal"}`}}/>
                 <p id="description-caption" className="capt"></p>
             </form>
 
