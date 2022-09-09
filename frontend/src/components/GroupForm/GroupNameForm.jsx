@@ -31,6 +31,9 @@ const GroupNameForm = () => {
         console.log(formData);  
         // let locationField = document.getElementById("location-field");
         // let locForm = document.getElementById("loc-form");
+        setFormData({
+            ...formData, name: grpName
+        });
 
         setPageisDone(true); // default location of SF is fine
         // locForm.style.display = 'none';
