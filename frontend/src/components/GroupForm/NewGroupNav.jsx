@@ -14,7 +14,7 @@ const NewGroupNav = (props) => {
         </div>
         <div className="right-menu">
             {/* Place holder for component */}
-            { pageNum > 1 && "Save &amp;"} Exit
+        Exit
         </div>
     </div>
   )

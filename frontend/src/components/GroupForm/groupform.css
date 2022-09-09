@@ -105,3 +105,14 @@
     width: inherit;
     height: 200px;
 }
+
+.back-button {
+    border-radius: 8px;
+    cursor: pointer;
+    color: #757575;
+    font-family: "Graphik Medium";
+    fill: #fff;
+    background-color: #fff;
+    border-color: currentColor;
+    padding: 8px 12px;   
+}

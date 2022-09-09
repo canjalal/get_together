@@ -7,14 +7,14 @@ export const addGroup = (payload) => ({
     payload // will have both a group: {} and a groupKeywords: {}
 });
 
-export const createGroup = (group, gkeywords) => async (dispatch) => {
+export const createGroup = (group) => async (dispatch) => {
     const response = await csrfFetch('/api/groups', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({...group, keywordIds: gkeywords})
+        body: JSON.stringify(group)
     });
 
     if(response.ok) {

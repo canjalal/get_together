@@ -8,7 +8,7 @@ const GroupDescriptionForm = () => {
 
     const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
 
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(formData.description || '');
 
     const handleDescriptionChange = (e) => {
 
@@ -18,7 +18,7 @@ const GroupDescriptionForm = () => {
         });
 
         let desc = document.querySelector("#grp-description");
-        console.log(desc);
+        // console.log(desc);
         desc.style.outline = `2px solid ${isErrors ? "red" : "teal"}`;      
         setDescription(e.target.value);
         setPageisDone(!isErrors);
@@ -27,23 +27,12 @@ const GroupDescriptionForm = () => {
     window.formData = formData;
 
     useEffect(() => {
-        console.log(formData);  
-        // let locationField = document.getElementById("location-field");
-        // let locForm = document.getElementById("loc-form");
 
-        setPageisDone(false); 
-        // locForm.style.display = 'none';
-        // locationField.style.display = 'block';
+
+        setPageisDone(!renderDescriptionError(description)); 
+
 
     }, []);
-
-    // const toggleLocForm = (e) => {
-    //     let locationField = document.getElementById("location-field");
-    //     let locForm = document.getElementById("loc-form");
-
-    //     locForm.style.display = locForm.style.display === 'block' ? 'none' : 'block';
-    //     locationField.style.display = locationField.style.display === 'block' ? 'none' : 'block';
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,7 +44,7 @@ const GroupDescriptionForm = () => {
         <h1>Now describe what {formData.name} will be about</h1>
         <p>People will see this when we promote your group, but you’ll be able to add to it later, too.
         </p>
-        <ul>
+        <ol>
             <li>
             What's the purpose of the group?
             </li>
@@ -65,7 +54,7 @@ const GroupDescriptionForm = () => {
             <li>
             What will you do at your events?
             </li>
-        </ul>
+        </ol>
 
             <form id="description-form" onSubmit={handleSubmit}>
                 <textarea id="grp-description" value={description} onChange={handleDescriptionChange} />

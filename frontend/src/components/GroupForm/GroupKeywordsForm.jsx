@@ -8,9 +8,15 @@ const GroupKeywordsForm = () => {
 
     const keywordList = useSelector((state) => state.keywords);
 
-    const [checkedKeywords, setCheckedKeywords] = useState([]); // list of selected keyword IDs
+    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds || []); // list of selected keyword IDs
 
     useEffect(() => {
+
+        for(let id of checkedKeywords) {
+            let cb = document.getElementById(`kw-${id}`);
+            cb.classList.add("kw-checked");
+            cb.classList.remove("kw-unchecked");
+        }
         // console.log(`KeywordList is ${keywordList}`)
     }, []);
 
@@ -34,8 +40,9 @@ const GroupKeywordsForm = () => {
 
     useEffect(() => {
 
+
         setFormData({
-            ...formData, keywords: checkedKeywords
+            ...formData, keywordIds: checkedKeywords
         });
 
         setPageisDone(checkedKeywords.length !== 0);

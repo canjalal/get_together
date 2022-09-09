@@ -5,7 +5,7 @@ const GroupLocationForm = () => {
 
     const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
 
-    const [grpLoc, setGrpLoc] = useState("San Francisco, CA");
+    const [grpLoc, setGrpLoc] = useState(formData.location || "San Francisco, CA");
 
     const handleLocChange = (e) => {
         setFormData({

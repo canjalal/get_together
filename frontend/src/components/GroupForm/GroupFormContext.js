@@ -5,7 +5,7 @@ export const GroupFormContext = createContext();
 export const GroupFormProvider = (props) => {
     const [formData, setFormData] = useState({
         location: "",
-        keywords: "",
+        keywordIds: "",
         name: "",
         description: ""
     });

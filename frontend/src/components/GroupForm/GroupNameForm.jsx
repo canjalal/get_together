@@ -10,7 +10,7 @@ const GroupNameForm = () => {
 
     const keywordList = useSelector(state => state.keywords);
 
-    const [grpName, setGrpName] = useState(`${formData.location.match(/^(.*),/)[1]} ${capitalize(keywordList[formData.keywords[0]].keyword)} Group`);
+    const [grpName, setGrpName] = useState(formData.name || `${formData.location.match(/^(.*),/)[1]} ${capitalize(keywordList[formData.keywordIds[0]].keyword)} Group`);
 
     const [charsLeft, setCharsLeft] = useState(60 - grpName.length);
 
@@ -28,16 +28,12 @@ const GroupNameForm = () => {
     window.keywordList = keywordList;
 
     useEffect(() => {
-        console.log(formData);  
-        // let locationField = document.getElementById("location-field");
-        // let locForm = document.getElementById("loc-form");
+
         setFormData({
             ...formData, name: grpName
         });
 
         setPageisDone(true); // default location of SF is fine
-        // locForm.style.display = 'none';
-        // locationField.style.display = 'block';
 
     }, []);
 
