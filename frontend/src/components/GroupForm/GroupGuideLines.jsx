@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import capitalize from '../../utils/capitalize';
+import React, { useContext, useEffect } from 'react'
 import { GroupFormContext } from './GroupFormContext';
-import { renderDescriptionError } from './validations';
 
-const GroupDescriptionForm = () => {
+const GroupGuidelinesForm = () => {
 
-    const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
+    const {formData, setPageisDone } = useContext(GroupFormContext);
 
 
     window.formData = formData;
@@ -49,4 +46,4 @@ const GroupDescriptionForm = () => {
   )
 }
 
-export default GroupDescriptionForm;
+export default GroupGuidelinesForm;

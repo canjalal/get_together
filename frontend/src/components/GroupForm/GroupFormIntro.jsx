@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
 import BottomBar from './BottomBar'
 import GroupDescriptionForm from './GroupDescriptionForm'
 import './groupform.css'
 import { GroupFormContext } from './GroupFormContext'
+import GroupGuidelinesForm from './GroupGuideLines'
 import GroupKeywordsForm from './GroupKeywordsForm'
 import GroupLocationForm from './GroupLocationForm'
 import GroupNameForm from './GroupNameForm'
@@ -11,11 +11,12 @@ import NewGroupNav from './NewGroupNav'
 
 const GroupFormIntro = (props) => {
 
-    const { formData, setFormData,
-        pageNum, setPageNum,
-        pageisDone, setPageisDone} = useContext(GroupFormContext);
+    const { pageNum } = useContext(GroupFormContext);
 
-
+    useEffect(() => {
+        document.getElementById("completed-progress").style.width = `${pageNum * 100 / 5}%`;
+        document.getElementById("uncompleted-progress").style.width = `${(5 - pageNum) * 100 / 5}%`;
+    }, [pageNum]);
 // const navigate = useNavigate();
 
 //     if(!sessionUser) {
@@ -35,7 +36,7 @@ const GroupFormIntro = (props) => {
             case 4:
                 return <GroupDescriptionForm />
             default:
-                 return "Invalido";
+                 return <GroupGuidelinesForm />
         }
     }
 
@@ -51,6 +52,13 @@ const GroupFormIntro = (props) => {
     </div>
     <div id="new-group">
         <NewGroupNav />
+        <div id="progress-bar">
+            <div id="completed-progress"></div>
+            <div id="uncompleted-progress"></div>
+        </div>
+        <div className="verbal-progress">
+            STEP {pageNum} OF 5 
+        </div>
             {
                 pickElement(pageNum)
             }

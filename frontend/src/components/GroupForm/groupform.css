@@ -116,3 +116,27 @@
     border-color: currentColor;
     padding: 8px 12px;   
 }
+
+#progress-bar {
+    display: flex;
+    width: 100%;
+    height: 2vh;
+
+}
+
+#completed-progress {
+    background-color: #0098ab;
+    width: 20%;
+}
+
+#uncompleted-progress {
+    width: 80%;
+    background-color: #e6e6e6;
+}
+
+.verbal-progress {
+    color: #9b9b9b;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2vh;
+}
