@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BottomBar from './BottomBar'
+import GroupDescriptionForm from './GroupDescriptionForm'
 import './groupform.css'
 import { GroupFormContext } from './GroupFormContext'
 import GroupKeywordsForm from './GroupKeywordsForm'
 import GroupLocationForm from './GroupLocationForm'
+import GroupNameForm from './GroupNameForm'
 import NewGroupNav from './NewGroupNav'
 
 const GroupFormIntro = (props) => {
@@ -24,11 +26,14 @@ const GroupFormIntro = (props) => {
 
     const pickElement = (page) => {
         switch(page) {
-            case 0:
-                return <GroupLocationForm />
             case 1:
+                return <GroupLocationForm />
+            case 2:
                 return <GroupKeywordsForm />
-                
+            case 3:
+                return <GroupNameForm />
+            case 4:
+                return <GroupDescriptionForm />
             default:
                  return "Invalido";
         }

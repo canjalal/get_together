@@ -10,7 +10,7 @@ export const GroupFormProvider = (props) => {
         description: ""
     });
 
-    const [pageNum, setPageNum] = useState(0);
+    const [pageNum, setPageNum] = useState(1);
 
     const [pageisDone, setPageisDone] = useState(false)
 

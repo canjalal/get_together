@@ -35,14 +35,14 @@ const GroupKeywordsForm = () => {
     useEffect(() => {
 
         setFormData({
-            formData, keywords: checkedKeywords
+            ...formData, keywords: checkedKeywords
         });
 
         setPageisDone(checkedKeywords.length !== 0);
-
+        // console.log(formData);
     }, [checkedKeywords])
 
-    window.checkedKeywords = checkedKeywords;
+    // window.checkedKeywords = checkedKeywords;
 
 
     // const handleSubmit = (e) => {

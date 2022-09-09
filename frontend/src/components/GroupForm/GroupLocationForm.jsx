@@ -9,13 +9,14 @@ const GroupLocationForm = () => {
 
     const handleLocChange = (e) => {
         setFormData({
-            formData, location: e.target.value
+            ...formData, location: e.target.value
         });
 
         setGrpLoc(e.target.value);
 
         setPageisDone(!!e.target.value.length);
     }
+
 
     useEffect(() => {
         let locationField = document.getElementById("location-field");
@@ -24,6 +25,10 @@ const GroupLocationForm = () => {
         setPageisDone(true); // default location of SF is fine
         locForm.style.display = 'none';
         locationField.style.display = 'block';
+
+        setFormData({
+            ...formData, location: grpLoc
+        });
 
     }, []);
 

@@ -82,3 +82,26 @@
     background-color: #0098ab;
 
 }
+
+.charsLeft {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 12px;
+    margin: 0;
+}
+
+.charsLeft-container {
+    position: relative;
+}
+
+#grpName-caption {
+    position: absolute;
+    bottom: -20px;
+}
+
+#grp-description {
+    box-sizing: border-box;
+    width: inherit;
+    height: 200px;
+}
