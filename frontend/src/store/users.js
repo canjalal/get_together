@@ -3,6 +3,7 @@ import { SET_SESSION_USER } from "./session";
 
 export const getUser = (id) => (state) => {
     if(!state.users) return null;
+    // if(!id) return null;
     return state.users[id];
 }
 

@@ -28,11 +28,23 @@
 
 .group-menu {
     display: flex;
-    justify-content:space-around;
+    justify-content:space-between;
     padding: 10px;
     border-top: 1px solid #7e7e7e;
     position: sticky;
     top: 2px;
     background-color: white;
 
+}
+
+.g-menu-left {
+    display: flex;
+    align-items: center;
+}
+.g-menu-left > span {
+    padding-left: 20px;
+}
+
+#edit-page {
+    margin-top: 20px;
 }

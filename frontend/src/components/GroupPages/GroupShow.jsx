@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getGroupKeywords } from '../../store/groupkeywords';
 import { fetchGroup, getGroup, getGroupOwner } from '../../store/groups';
 import { getCurrentUser } from '../../store/session';
@@ -10,6 +10,7 @@ import { IoPeopleOutline } from 'react-icons/io5';
 import './showpage.css';
 import { BiUser } from 'react-icons/bi';
 import { getUser, getUsers } from '../../store/users';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 const GroupShow = (props) => {
 
@@ -24,9 +25,10 @@ const GroupShow = (props) => {
 
     const sessionUser = useSelector(getCurrentUser);
 
-    const users = useSelector(getUsers());
+    // const users = useSelector(getUsers());
 
-    let owner;
+    const owner = useSelector(getUser(group ? group.ownerId : null))
+
 
     useEffect(() => {
         dispatch(fetchGroup(groupId)).then(()=> {}, async (res) => {
@@ -60,9 +62,12 @@ const GroupShow = (props) => {
                     <IoPeopleOutline /> Number of members placeholder
                     </li>
                     <li>
-                        <BiUser /> Organized by {!!group && users[group.ownerId].name}
+                        <BiUser /> Organized by {!!group && owner.name}
                     </li>
                 </ul>
+                {sessionUser.id === owner.id && <div id="edit-page">
+                <Link to="edit" className="green-link"><RiEdit2Fill /> Edit Group info</Link>
+                    </div>}
             </div>
         </div>
         <div className="group-menu">
@@ -76,7 +81,8 @@ const GroupShow = (props) => {
             </div>
             <div className="g-menu-right">
                 <button>Donate</button>
-                <span>You're a member</span>
+                <span>You're a member</span> {/* If you're the owner, this appears as
+                                        "Manage Group" with different options instead */}
             </div>
         </div>
         <div>
