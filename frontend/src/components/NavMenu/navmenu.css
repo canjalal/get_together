@@ -2,8 +2,10 @@
     display: flex;
     justify-content: space-between;
     width: 100vw;
-    height: 64px;
+    height: 85px;
+    padding: 20px;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .left-menu {

@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { GroupFormProvider } from "./components/GroupForm/GroupFormContext";
 import GroupFormIntro from "./components/GroupForm/GroupFormIntro";
+import GroupShow from "./components/GroupPages/GroupShow";
+import HomeFeed from "./components/HomeFeed/homefeed";
+import LoggedOutHome from "./components/HomeFeed/loggedouthome";
 import LogInForm from "./components/LogInForm/loginform";
 import NavMenu from "./components/NavMenu/navmenu";
 import NotFoundPage from "./components/NotFoundPage/notfoundpage";
@@ -24,10 +27,11 @@ function App() {
     
     {/* <Route path="/login" element={<LogInForm />} /> */}
     <Routes>
-      <Route path="/" element={<p>Yes it is all</p>} />
-      <Route path="/home" element={<h1>Welcome home!</h1>} />
+      <Route path="/" element={<LoggedOutHome />} />
+      <Route path="/home" element={<HomeFeed />} />
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
+    <Route path="/groups/:groupId" element={<GroupShow />} />
     <Route path="/groups/new" element={<GroupFormProvider>
                                       <GroupFormIntro />
                                       </GroupFormProvider>} />

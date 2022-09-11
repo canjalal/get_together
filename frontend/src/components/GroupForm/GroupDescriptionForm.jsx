@@ -19,7 +19,7 @@ const GroupDescriptionForm = () => {
 
         // let desc = document.querySelector("#grp-description");
         // // console.log(desc);
-        // desc.style.outline = `2px solid ${isErrors ? "red" : "teal"}`;      
+        if(!isErrors) document.querySelector("#grp-description").style.outline = `2px solid teal`;      
         setDescription(e.target.value);
         setPageisDone(!isErrors);
     }
@@ -41,7 +41,7 @@ const GroupDescriptionForm = () => {
 
   return (
     <div className="group-form-body">
-        <h1>Now describe what {formData.name} will be about</h1>
+        <h1>Now describe what the {formData.name} will be about</h1>
         <p>People will see this when we promote your group, but you’ll be able to add to it later, too.
         </p>
         <ol>

@@ -6,7 +6,7 @@ const NewGroupNav = (props) => {
 
     const { pageNum } = useContext(GroupFormContext);
   return (
-    <div className="new-group-nav">
+    <div className="nav-menu">
         <div className="left-menu">
             <div className="logo">
                 <Link to="/">GetTogether</Link>
@@ -14,7 +14,7 @@ const NewGroupNav = (props) => {
         </div>
         <div className="right-menu">
             {/* Place holder for component */}
-        Exit
+            <Link to="/">Exit</Link>
         </div>
     </div>
   )

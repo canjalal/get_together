@@ -42,7 +42,7 @@ const GroupFormIntro = (props) => {
 
   return (
     <>
-        <div >
+        <div className="group-intro">
         <p className="pre-heading">
             BECOME AN ORGANIZER
         </p>

@@ -4,9 +4,11 @@ import groupKeywordsReducer from './groupkeywords';
 import groupReducer from './groups';
 import keywordReducer from './keywords';
 import sessionReducer from './session';
+import usersReducer from './users';
 
 export const rootReducer = combineReducers({
     session: sessionReducer,
+    users: usersReducer,
     keywords: keywordReducer,
     groups: groupReducer,
     groupKeywords: groupKeywordsReducer

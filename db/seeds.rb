@@ -7,18 +7,28 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'open-uri'
 
-ApplicationRecord.transaction do 
+# ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
+    puts "User first has #{User.count} elements"
     User.destroy_all
+    puts "User now has #{User.count} elements"
+    puts "Group first had #{Group.count} elements"
     Group.destroy_all
+    puts "Group now has #{Group.count} elements"
+    puts "Keyword first had #{Keyword.count} elements"
     Keyword.destroy_all
+    puts "Keyword now has #{Keyword.count} elements"
+    puts "GroupKeyword first had #{GroupKeyword.count} elements"
+    GroupKeyword.destroy_all
+    puts "GroupKeyword now has #{GroupKeyword.count} elements"
 
     puts "Resetting primary keys..."
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('groups')
     ApplicationRecord.connection.reset_pk_sequence!('keywords')
+    ApplicationRecord.connection.reset_pk_sequence!('group_keywords')
     
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:
@@ -55,7 +65,6 @@ ApplicationRecord.transaction do
 
     puts "Creating groups..."
     g = Group.create!(
-        id: 1,
         name: "East Bay Extreme Knitters",
         owner_id: 2,
         description: "Imagine knitting taken as an extreme sport.",
@@ -65,7 +74,6 @@ ApplicationRecord.transaction do
     file = URI.open('https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/weird-knits-dwarven-helm-bySadDaysCrochet.jpg')
     g.cover_photo.attach(io: file, filename: 'weird-knits-dwarven-helm-bySadDaysCrochet.jpg')
     g = Group.create!(
-        id: 4,
         name: "Pizza Lovers in SF",
         owner_id: 4,
         description: "We are the discerning pizza-critics of the Bay",
@@ -74,8 +82,8 @@ ApplicationRecord.transaction do
     )
     file = URI.open('https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/sfstylepizza.jpg')
     g.cover_photo.attach(io: file, filename: "sfstylepizza.jpg")
+
     g = Group.create!(
-        id: 5,
         name: "Oakland Windows 3.1 Enthusiasts",
         owner_id: 5,
         description: "Aficionados of the OS that started it all",
@@ -98,11 +106,29 @@ ApplicationRecord.transaction do
     Keyword.create!(
         keyword: "East Bay"
     )
+    Keyword.create!(
+        keyword: "music"
+    )
+    Keyword.create!(
+        keyword: "movies"
+    )
+    Keyword.create!(
+        keyword: "language"
+    )
+    Keyword.create!(
+        keyword: "drinking"
+    )
+    Keyword.create!(
+        keyword: "hiking"
+    )
+    Keyword.create!(
+        keyword: "dancing"
+    )
 
     puts "Creating group keywords..."
     GroupKeyword.create!(group_id: 1, keyword_id: 1)
     GroupKeyword.create!(group_id: 1, keyword_id: 4)
-    GroupKeyword.create!(group_id: 4, keyword_id: 3)
-    GroupKeyword.create!(group_id: 5, keyword_id: 2)
-    GroupKeyword.create!(group_id: 5, keyword_id: 4)
-end
+    GroupKeyword.create!(group_id: 2, keyword_id: 3)
+    GroupKeyword.create!(group_id: 3, keyword_id: 2)
+    GroupKeyword.create!(group_id: 3, keyword_id: 4)
+# end

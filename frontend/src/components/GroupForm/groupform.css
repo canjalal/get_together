@@ -13,6 +13,16 @@
     box-sizing: border-box;
 }
 
+.nav-menu-home {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 64px;
+    padding: 2px;
+    align-items: center;
+    box-sizing: content-box;
+}
+
 #new-group {
     display: none;
     flex-direction: column;
@@ -35,7 +45,7 @@
 }
 
 .group-form-body {
-    width: 50vw;
+    width: 706px;
     margin-top: 30px;
     margin-bottom: 30px;
     /* border: 2px solid teal; */
@@ -65,10 +75,15 @@
     height: 2.5rem;
 }
 
+.group-intro {
+    padding-top: 100px;
+    padding-left: calc((100vw - 1080px) / 4);
+}
+
 .kw-checkbox {
     display: inline-flex;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 20px;
     transition: background 0.15s;
     cursor: pointer;

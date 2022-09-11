@@ -1,5 +1,6 @@
 class Api::GroupsController < ApplicationController
-    before_action :require_logged_in
+    # before_action :require_logged_in
+    # don't need to be logged in to view groups, but do need to be logged in to join or edit
 
     wrap_parameters include: Group.attribute_names + ['keywordIds', 'ownerId']
 
@@ -17,6 +18,7 @@ class Api::GroupsController < ApplicationController
                 @g_keywords << GroupKeyword.create!(keyword_id: kwi, group_id: @group.id)
                 # tweak this to error out and delete group if group keyword saves are unsuccesfful
             end
+            @owner = current_user
           render :show
         else
           render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
@@ -24,9 +26,18 @@ class Api::GroupsController < ApplicationController
     end
 
     def show
+        @group = Group.find_by(id: params[:id])
+        if(@group)
+            @g_keywords = @group.group_keywords
+            @owner = @group.owner
+            render :show
+        else # will this work? not found.
+            render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
+        end
     end
     
     def update
+        # make sure to check that the current user is the owner of the group
     end
 
     private

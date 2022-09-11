@@ -7,6 +7,14 @@ export const addGroup = (payload) => ({
     payload // will have both a group: {} and a groupKeywords: {}
 });
 
+export const getGroup = (groupId) => (state) => {
+    if(!state.groups) return null; // refactor it when you add entitites
+
+    return state.groups[groupId];
+
+}
+
+
 export const createGroup = (group) => async (dispatch) => {
     const response = await csrfFetch('/api/groups', { 
         method: 'POST',
@@ -17,12 +25,21 @@ export const createGroup = (group) => async (dispatch) => {
         body: JSON.stringify(group)
     });
 
-    if(response.ok) {
         const data = await response.json();
         dispatch(addGroup(data));
+
+        return response;
         // dispatch(addGroupKeywords(data.groupKeywords));
-    }
  // dispatch two regular action creators, one for group and one for group_keywords?
+}
+
+export const fetchGroup = (groupId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}`);
+
+    const data = await response.json();
+    dispatch(addGroup(data));
+
+    return response;
 }
 
 const groupReducer = (state = {}, action) => {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../store/session';
+import { getCurrentUser, logout } from '../../store/session';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import './loggedinmenu.css';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const LoggedInMenu = () => {
 
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(getCurrentUser);
 
     const dispatch = useDispatch();
 

@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
+import { getCurrentUser } from '../../store/session';
 import LoggedInMenu from '../LoggedInMenu/loggedinmenu';
 import LoggedOutMenu from '../LoggedOutMenu/loggedoutmenu';
 import './navmenu.css'
 
 const NavMenu = (props) => {
 
-    const sessionUser = useSelector(state => state.session.user);
+    const location = useLocation();
+
+    useEffect(() => {
+        if(location.pathname === "/") document.querySelector(".nav-menu").classList.add("home-nav");
+    }, []);
+
+    const sessionUser = useSelector(getCurrentUser);
   return (
     <div className="nav-menu">
         <div className="left-menu">

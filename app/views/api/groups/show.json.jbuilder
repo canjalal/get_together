@@ -1,6 +1,7 @@
 if(@group)
     json.group do
         json.extract! @group, :id, :name, :description, :member_label, :location, :owner_id, :created_at, :updated_at
+        json.photoURL @group.cover_photo.url
     end
     json.group_keywords do
         @g_keywords.each do |g_keyword|
@@ -11,6 +12,11 @@ if(@group)
             end
         end
 
+    end
+
+    json.owner do
+        
+            json.extract! @owner, :id, :name, :email, :location
     end
 
 else

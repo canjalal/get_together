@@ -10,7 +10,8 @@ const GroupNameForm = () => {
 
     const keywordList = useSelector(state => state.keywords);
 
-    const [grpName, setGrpName] = useState(formData.name || `${formData.location.match(/^(.*),/)[1]} ${capitalize(keywordList[formData.keywordIds[0]].keyword)} Group`);
+    const [grpName, setGrpName] = useState(formData.name ||
+        `${formData.location.match(/^(.*),/) ? formData.location.match(/^(.*),/)[1] : formData.location } ${capitalize(keywordList[formData.keywordIds[0]].keyword)} Group`);
 
     const [charsLeft, setCharsLeft] = useState(60 - grpName.length);
 
