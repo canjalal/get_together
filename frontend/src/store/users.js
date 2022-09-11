@@ -1,7 +1,15 @@
 import { ADD_GROUP } from "./groups";
 import { SET_SESSION_USER } from "./session";
 
-export const getUser = (id) => (state) => state.users[id];
+export const getUser = (id) => (state) => {
+    if(!state.users) return null;
+    return state.users[id];
+}
+
+export const getUsers = () => (state) => {
+    if(!state.users) return null;
+    return state.users;
+}
 
 const usersReducer = (state = {}, action) => {
     Object.freeze(state);
