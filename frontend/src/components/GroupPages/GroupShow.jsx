@@ -11,6 +11,8 @@ import './showpage.css';
 import { BiUser } from 'react-icons/bi';
 import { getUser, getUsers } from '../../store/users';
 import { RiEdit2Fill } from 'react-icons/ri';
+import { GrImage } from 'react-icons/gr';
+import AttachNewPhoto from './AttachNewPhoto';
 
 const GroupShow = (props) => {
 
@@ -28,6 +30,12 @@ const GroupShow = (props) => {
     // const users = useSelector(getUsers());
 
     const owner = useSelector(getUser(group ? group.ownerId : null))
+
+    const isOwner = (sessionUser && owner) && sessionUser.id === owner.id;
+
+    window.group = group;
+
+    const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
 
 
     useEffect(() => {
@@ -51,7 +59,12 @@ const GroupShow = (props) => {
   return (
     <div className="show-page-flex">
         <div className="show-page-header">
-            <div id="group-cover" style={{backgroundImage: `url(${group.photoURL})`}}>s</div>
+            <div id="group-cover" style={{backgroundImage: `url(${group.photoURL || 'https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/group_fallback_large.png'})`}}>
+                {isOwner && <div id="change-photo-button" onClick={(e) => setDisplayPhotoModal(true)}>
+                {displayPhotoModal && <AttachNewPhoto setDisplayPhotoModal={setDisplayPhotoModal} />}
+                <GrImage /> <span>Change photo</span>  
+                            </div>}
+            </div>
             <div id="group-info">
                 <h1>{group.name}</h1>
                 <ul>
@@ -65,27 +78,26 @@ const GroupShow = (props) => {
                         <BiUser /> Organized by {!!group && owner.name}
                     </li>
                 </ul>
-                {sessionUser.id === owner.id && <div id="edit-page">
+                {isOwner && <div id="edit-page">
                 <Link to="edit" className="green-link"><RiEdit2Fill /> Edit Group info</Link>
                     </div>}
             </div>
         </div>
-        <div className="group-menu">
-            <div className="g-menu-left">
-            <span>About</span>
-            <span>Events</span>
-            <span>Members</span>
-            <span>Photos</span>
-            <span>Discussions</span>
-            <span>More</span>
-            </div>
-            <div className="g-menu-right">
-                <button>Donate</button>
-                <span>You're a member</span> {/* If you're the owner, this appears as
-                                        "Manage Group" with different options instead */}
-            </div>
-        </div>
-        <div>
+        <div className="main-content">
+            <div className="left-content">
+                <div className="group-menu">
+                    <span>About</span>
+                    <span>Events</span>
+                    <span>Members</span>
+                    <span>Photos</span>
+                    <span>Discussions</span>
+                    <span>More</span>
+                </div>
+                <div className="group-description">
+                    <h1>What we're about</h1>
+                    {!!group && group.description}
+                </div>
+                <div>
         Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
@@ -544,6 +556,476 @@ Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
 
         </div>
+            </div>
+            <div className="right-content">
+                <div className="group-menu">
+                    <button>Donate</button>
+                    <span>You're a member</span> {/* If you're the owner, this appears as
+                                        "Manage Group" with different options instead */}
+                </div>
+                <div>
+        Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+        Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+        
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet
+Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
+
+        </div>
+            </div>
+        </div>
+        
+
 
      </div>
   )
