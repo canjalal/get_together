@@ -82,7 +82,7 @@ class Api::GroupsController < ApplicationController
         @g_keywords = @group.group_keywords
         if(@group.owner_id == current_user.id)
             @group.destroy
-            render :show
+            render json: {message: "removed" }, status: :ok
         else
             render json: { errors: @group.errors.full_messages }, status: 401
         end

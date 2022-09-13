@@ -54,8 +54,6 @@ export const removeGroup = (groupId) => async (dispatch) => {
         method: 'DELETE'
     });
 
-    const data = await response.json();
-
     dispatch(deleteGroup(groupId));
     // clear keywords
 }

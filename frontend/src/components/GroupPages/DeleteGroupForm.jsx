@@ -22,7 +22,6 @@ const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
         dispatch(removeGroup(groupId)).then(
             async (res) => {
 
-                setDeleteGroupModal(false);
                 navigate("/home");
 
 
