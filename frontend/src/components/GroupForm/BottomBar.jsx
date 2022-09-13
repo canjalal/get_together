@@ -59,7 +59,7 @@ const BottomBar = (props) => {
         {pageNum < 5 && <button className="standard-button" id="next-button" onClick={()=> setPageNum((prev)=> prev + 1)}>Next</button>}
         {pageNum === 5 && <button className="standard-button" id="next-button" onClick={submitGroup}>Agree & Continue</button>}
         {errors.length > 0 && <ul>
-            <li>Fuck! Errors!!!</li>
+            <li>Errors:</li>
             {errors.map((err, i) => <li key={i}>{err}</li>)}
         </ul>
             }

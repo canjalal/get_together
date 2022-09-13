@@ -14,7 +14,11 @@ const csrfFetch = async (url, options = {}) => {
     options.headers ||= {};
     
     if(options.method.toUpperCase() !== 'GET') {
-        options.headers['Content-Type']  ||= 'application/json';
+        if(('Content-Type' in options.headers) && !options.headers['Content-Type']) {
+            delete options.headers['Content-Type'];
+        } else {
+            options.headers['Content-Type'] = 'application/json';
+        }
         options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token');
     }
 

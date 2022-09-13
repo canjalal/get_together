@@ -68,7 +68,6 @@
 #change-photo-button {
     border-radius: 8px;
     width:fit-content;
-    cursor: pointer;
     color: #757575;
     font-family: "Graphik Medium";
     fill: #fff;
@@ -94,4 +93,134 @@
 
 #change-photo-button:hover {
     outline: 2px solid #757575;
+}
+
+#attach-new-photo {
+    align-items: flex-start;
+    padding: 15px;
+    padding-top: 100px;
+}
+
+#attach-new-photo-close {
+    left: var(--anp-size);
+    top: var(--anp-size);
+    color: rgba(46, 62, 72, 0.6);
+    font-size: calc(1.25 * var(--anp-size));
+    --anp-size: 24px;
+}
+
+.attach-new-photo-title {
+    color: #2e3e48;
+    line-height: 1.1;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+#add-photo-box {
+    width: 100%;
+    border: 1px dashed #9b9b9b;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 64px 0px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}
+
+#upload-icon-container {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+#attach-photo {
+    opacity: 0;
+}
+
+h2 {
+    font-family: "Graphik Medium";
+    font-size: 36px;
+}
+
+#attach-photo-caption {
+    text-align:center;
+    font-family: 'Graphik Regular';
+    font-size: 16px;
+    color: black;
+    padding-bottom: 20px;
+}
+
+#uploaded-group-cover-image {
+    min-height: 140px;
+}
+
+#submit-group-photo {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    gap: 20px;
+}
+
+#submit-group-photo-button, #save-group-info-button {
+    width: fit-content;
+    padding: 10px;
+    min-width: auto;
+    display: inline;
+    margin-right: 50px;
+}
+
+#group-edit-header {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    border-bottom: 1px solid #9b9b9b;
+    padding: 10px;
+
+}
+
+#mini-grp-image {
+    width: 200px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    box-sizing: border-box;
+    /* margin: 10px; */
+
+}
+
+.mid-title {
+    font-size: 36px;
+    font-family: "Graphik Medium";
+}
+
+.edit-form-body {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 200px;
+}
+
+.submit-edit-group {
+    display: flex;
+    justify-content:space-between;
+}
+
+.sub-labels {
+    font-size: 14px;
+    color: #6e6e6e;
+    font-family: 'Graphik Regular';
 }

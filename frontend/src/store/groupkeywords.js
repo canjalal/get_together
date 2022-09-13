@@ -4,9 +4,8 @@ export const getGroupKeywords = (groupId) => (state) => {
     if(!state.groupKeywords) return null; // refactor it when you add entitites
 
     const groupsKeywords = {};
-
     for(let gkid in state.groupKeywords) {
-        if(state.groupKeywords[gkid].groupId === groupId) {
+        if(state.groupKeywords[gkid].groupId === Number(groupId)) {
             groupsKeywords[gkid] = state.groupKeywords[gkid];
         }
     }

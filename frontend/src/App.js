@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { GroupFormProvider } from "./components/GroupForm/GroupFormContext";
 import GroupFormIntro from "./components/GroupForm/GroupFormIntro";
+import GroupEditPage from "./components/GroupPages/GroupEditPage";
 import GroupShow from "./components/GroupPages/GroupShow";
 import HomeFeed from "./components/HomeFeed/homefeed";
 import LoggedOutHome from "./components/HomeFeed/loggedouthome";
@@ -32,6 +33,7 @@ function App() {
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
     <Route path="/groups/:groupId" element={<GroupShow />} />
+    <Route path="/groups/:groupId/edit" element={<GroupEditPage />} />
     <Route path="/groups/new" element={<GroupFormProvider>
                                       <GroupFormIntro />
                                       </GroupFormProvider>} />

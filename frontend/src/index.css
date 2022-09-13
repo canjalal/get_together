@@ -36,7 +36,7 @@ html {
 }
 
 .secondary-button:hover {
-    background-color: #757575;
+    outline: 1px solid #757575;
 }
 
 .error-console {
@@ -65,7 +65,8 @@ html {
     justify-content: center;
 }
 .modal {
-    border: 2px solid black;
+    /* border: 1px solid black; */
+    border-radius: 6px;
     background-color: white;
     width: 484px;
     height: 600px;

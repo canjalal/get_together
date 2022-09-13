@@ -38,6 +38,43 @@ export const createGroup = (group) => async (dispatch) => {
  // dispatch two regular action creators, one for group and one for group_keywords?
 }
 
+export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}`, { 
+        method: 'PATCH',
+        headers: {
+            'Content-Type': false
+            // 'Accept': 'image/*',
+            // 'Process-Data': false
+        },
+        body: photo
+    });
+
+        const data = await response.json();
+        dispatch(addGroup(data));
+
+        return response;
+        // dispatch(addGroupKeywords(data.groupKeywords));
+ // dispatch two regular action creators, one for group and one for group_keywords?
+}
+
+export const patchGroup = (fdata, groupId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/groups/${groupId}`, { 
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify(fdata)
+    });
+
+        const data = await response.json();
+        dispatch(addGroup(data));
+
+        return response;
+        // dispatch(addGroupKeywords(data.groupKeywords));
+ // dispatch two regular action creators, one for group and one for group_keywords?
+}
+
 export const fetchGroup = (groupId) => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`);
 

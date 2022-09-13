@@ -61,7 +61,7 @@ const GroupShow = (props) => {
         <div className="show-page-header">
             <div id="group-cover" style={{backgroundImage: `url(${group.photoURL || 'https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/group_fallback_large.png'})`}}>
                 {isOwner && <div id="change-photo-button" onClick={(e) => setDisplayPhotoModal(true)}>
-                {displayPhotoModal && <AttachNewPhoto setDisplayPhotoModal={setDisplayPhotoModal} />}
+                {displayPhotoModal && <AttachNewPhoto setDisplayPhotoModal={setDisplayPhotoModal} groupId={groupId} />}
                 <GrImage /> <span>Change photo</span>  
                             </div>}
             </div>
