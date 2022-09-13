@@ -20,6 +20,25 @@ html {
     height: 100%;
 }
 
+.big-title {
+    font-size: 2.5rem;
+}
+
+.secondary-button {
+    border-radius: 8px;
+    cursor: pointer;
+    color: #757575;
+    font-family: "Graphik Medium";
+    fill: #fff;
+    background-color: #fff;
+    border: 2px solid #9b9b9b;
+    padding: 8px 12px;   
+}
+
+.secondary-button:hover {
+    outline: 1px solid #757575;
+}
+
 .error-console {
     position: fixed;
     width: 33%;
@@ -35,7 +54,7 @@ html {
 }
 
 .modal-container {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -46,7 +65,8 @@ html {
     justify-content: center;
 }
 .modal {
-    border: 2px solid black;
+    /* border: 1px solid black; */
+    border-radius: 6px;
     background-color: white;
     width: 484px;
     height: 600px;
@@ -97,6 +117,11 @@ form > div {
     margin-bottom: 2em;
 }
 
+.green-link {
+    color: rgb(0, 130, 148);
+    cursor: pointer;    
+}
+
 .standard-button, input[type="submit"] {
     border-radius: 8px;
     cursor: pointer;
@@ -105,10 +130,27 @@ form > div {
     fill: #fff;
     background-color: #f65858;
     border-color: #f65858;
+    min-width: 206px;
+    border: 1px solid #f65858;
     padding: 8px 12px;
 }
 
-button {
+.standard-button:hover, input[type="submit"]:hover {
+    background-color: rgba(246, 88, 88, 0.9);
+    border: 1px solid rgba(246, 88, 88, 0.9);
+}
+
+.standard-button:disabled, input[type="submit"]:disabled {
+    border-radius: 8px;
+    cursor: pointer;
+    color: #d9d9d9;
+    font-family: "Graphik Medium";
+    fill: #d9d9d9;    background-color: #a2a2a2;
+    border-color: #a2a2a2;
+    padding: 8px 12px;
+}
+
+/* button {
     text-rendering: auto;
     text-indent: 0px;
     text-shadow: none;
@@ -117,6 +159,13 @@ button {
     align-items: flex-start;
 }
 
+button:hover {
+    background-color: rgba(246, 88, 88, 0.9);
+    border: 1px solid rgba(246, 88, 88, 0.9);
+} */
+a {
+    color: inherit;
+}
 .font-title {
     font-size: 1.25rem;
     line-height: 24px;
@@ -129,21 +178,28 @@ button {
 /* TODO Add site wide styles */
 input:not([type="submit"]):not([type="checkbox"]), textarea {
     padding: 0.5rem 0.75rem 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     border: 0px;
-    outline: 2px solid #e6e6e6;
+    outline: 1px solid #e6e6e6;
 }
 
 input:not([type="submit"]):not([type="checkbox"]):hover, textarea:hover {
-    outline: 2px solid rgb(117, 117, 117);
+    outline: 1px solid rgb(117, 117, 117);
 }
 
 input:not([type="submit"]):not([type="checkbox"]):focus, textarea:focus {
-    outline: 2px solid rgb(0, 130, 148);
+    outline: 1px solid rgb(0, 130, 148);
 }
 
 input[type="checkbox"] {
     transform: scale(1.5);
     margin-right: 15px;
     accent-color:rgb(0, 130, 148);
+}
+
+.pre-heading {
+    font-family: "Graphik Medium";
+    text-transform: capitalize;
+    color: #7a1d47;
+    padding-bottom: 10px;
 }

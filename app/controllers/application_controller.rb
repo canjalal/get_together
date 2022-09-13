@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
     before_action :snake_case_params, :attach_authenticity_token
     include ActionController::RequestForgeryProtection
+    helper_method :require_logged_in
 
     protect_from_forgery with: :exception
 
@@ -24,6 +25,7 @@ class ApplicationController < ActionController::API
     end
 
     def require_logged_in
+        # debugger, upon restarting Rails server then it loses sesion info but frontend thinks it's still logged in
         unless current_user
             render json: { message: 'Unauthorized' }, status: :unauthorized
         end

@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../store/session';
+import { getCurrentUser, logout } from '../../store/session';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import './loggedinmenu.css';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const LoggedInMenu = () => {
 
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(getCurrentUser);
 
     const dispatch = useDispatch();
 
     const [showMenu, setShowMenu] = useState(false);
+
+    const location = useLocation();
+
+    const navigate = useNavigate();
 
     useEffect(()=> {
         if(showMenu) {
@@ -35,7 +40,7 @@ const LoggedInMenu = () => {
     
   return (
     <>
-    <div>Start a new group</div>
+    {location.pathname !== '/groups/new' && <div><Link to="/groups/new" className="green-link">Start a new group</Link></div>}
     <div>Notifications</div>
     <div className="profile-link" onClick={(e)=> { setShowMenu((prev) => !prev);
     e.stopPropagation();}}>{sessionUser.name}'s Profile

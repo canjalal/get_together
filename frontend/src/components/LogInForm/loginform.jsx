@@ -3,7 +3,7 @@ import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Redirect, useNavigate } from 'react-router-dom';
-import sessionReducer, { login } from '../../store/session';
+import sessionReducer, { getCurrentUser, login } from '../../store/session';
 import MiniLogo from '../logo';
 import './loginform.css';
 import * as FrontEndValidations from './validations'
@@ -12,7 +12,7 @@ const LogInForm = () => {
 
     const dispatch = useDispatch();
 
-    const sessionUser = useSelector(state => state.session.user)
+    const sessionUser = useSelector(getCurrentUser)
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -60,7 +60,7 @@ const LogInForm = () => {
 
     useEffect(()=> {
         if(sessionUser) {
-            console.log("hi");
+            // console.log("hi now logged in. Message from loginform.jsx");
             navigate("/home");
         }
 

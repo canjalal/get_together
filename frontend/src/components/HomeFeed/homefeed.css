@@ -1,0 +1,29 @@
+#intro-row {
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid green; */
+    padding-top: 120px;
+    padding-left: calc((100vw - 1080px) / 4);
+    padding-right: calc((100vw - 1080px) / 4);
+    gap: 5vw;
+
+}
+
+#intro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+    /* border: 2px solid green; */
+    line-height: 1.25;
+}
+
+#intro-image {
+    width: 50%;
+    /* border: 2px solid red; */
+    background-image: url(../../assets/online_events.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
