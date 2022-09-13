@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: group_keywords
+#
+#  id         :bigint           not null, primary key
+#  keyword_id :bigint           not null
+#  group_id   :bigint           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class GroupKeyword < ApplicationRecord
     validates :keyword_id, uniqueness: {scope: :group_id, message: "Group already has this keyword listed"}
     

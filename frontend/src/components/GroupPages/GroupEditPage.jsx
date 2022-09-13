@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getGroupKeywords } from '../../store/groupkeywords';
 import { fetchGroup, getGroup, patchGroup } from '../../store/groups';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import './showpage.css';
+import { getCurrentUser } from '../../store/session';
+import { BiErrorCircle } from 'react-icons/bi';
+import { IoMdClose } from 'react-icons/io';
+import DeleteGroupForm from './DeleteGroupForm';
 
 const GroupEditPage = () => {
     
@@ -25,12 +29,18 @@ const GroupEditPage = () => {
     const [memberLabel, setMemberLabel] = useState('');
     const [location, setLocation] = useState('');
     const [checkedKeywords, setCheckedKeywords] = useState([]);
+    const [deleteGroupModal, setDeleteGroupModal] = useState(false);
+    const navigate = useNavigate();
+
+    const sessionUser = useSelector(getCurrentUser);
+
     // const [gkeywords, setGKeywords] = useState([]);
 
     window.group = group;
 
     window.groupId = groupId;
     window.checkedKeywords = checkedKeywords;
+    window.memberLabel = memberLabel;
 
 
 
@@ -52,7 +62,9 @@ const GroupEditPage = () => {
     }, [groupId])
 
     useEffect(()=> {
-        if(group) {
+        if(group && groupKeywords) {
+
+            if(sessionUser.id !== group.ownerId) navigate(`../groups/${groupId}`);
             setName(group.name);
             setDescription(group.description);
             setMemberLabel(group.memberLabel);
@@ -63,8 +75,11 @@ const GroupEditPage = () => {
 
             for(let id of tempKeywordIds) {
                 let cb = document.getElementById(`kw-${id}`);
-                cb.classList.add("kw-checked");
-                cb.classList.remove("kw-unchecked");
+                if(cb) {
+                    cb.classList.add("kw-checked");
+                    cb.classList.remove("kw-unchecked");
+                }
+            
             }
 
         }
@@ -95,6 +110,7 @@ const GroupEditPage = () => {
             ownerId: group.ownerId,
             keywordIds: checkedKeywords
         };
+
         // formData.append('name', name);
         // formData.append('description', description);
         // formData.append('memberLabel', memberLabel);
@@ -102,8 +118,20 @@ const GroupEditPage = () => {
         // formData.append('ownerId', group.ownerId);
         // formData.append('keywordIds', checkedKeywords);
         // console.log
-        dispatch(patchGroup(formData, groupId));
-
+        dispatch(patchGroup(formData, groupId)).then(() => {
+            navigate(`../groups/${groupId}`);
+        }, async (res) => {
+            let data;
+            try {
+              // .clone() essentially allows you to read the response body twice
+              data = await res.clone().json();
+            } catch {
+              data = await res.text(); // Will hit this case if the server is down
+            }
+            if (data?.errors) setErrors(data.errors);
+            else if (data) setErrors([data]);
+            else setErrors([res.statusText]);
+          });
 
     }
 
@@ -120,7 +148,7 @@ const GroupEditPage = () => {
             <h1 className="mid-title">{group.name}</h1>
             </div>
         </div>
-        <div >
+        <div>
             <form className="edit-form-body" onSubmit={handleSubmit}>
                 <div className="group-form-body">
                     <h1>Basic information</h1>
@@ -153,11 +181,25 @@ const GroupEditPage = () => {
                 </p>)}
                 </div>
                 <div className="submit-edit-group">
+                {errors.length > 0 && <div className="error-console">
+                                        
+                                        <BiErrorCircle />
+                                                <ul>
+                                        {errors.map(error => <li key={error}>{error}</li>)}
+                                        </ul>
+                                        <div className="close-modal" onClick={(e)=> {setErrors([]);
+                                        e.stopPropagation();}}><IoMdClose /></div>
+                                        </div>}
                     <input type="submit" value="Save" id="save-group-info-button" />
-                    <button className="secondary-button" style={{width: "fit-content"}}>Delete Group</button>
+                    <button className="secondary-button" style={{width: "fit-content"}} onClick={(e) => {
+                        e.preventDefault();
+                        setDeleteGroupModal(true);
+                    }}>Delete Group</button>
+                
                 </div>
             </form>
         </div>
+        {deleteGroupModal && <DeleteGroupForm setDeleteGroupModal={setDeleteGroupModal} groupId={groupId} />}
     </div>
   )
 }

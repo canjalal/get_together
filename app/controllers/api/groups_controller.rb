@@ -2,7 +2,7 @@ class Api::GroupsController < ApplicationController
     # before_action :require_logged_in
     # don't need to be logged in to view groups, but do need to be logged in to join or edit
 
-    wrap_parameters include: Group.attribute_names + ['keywordIds', 'ownerId', 'coverPhoto']
+    wrap_parameters include: Group.attribute_names + ['memberLabel', 'keywordIds', 'ownerId', 'coverPhoto', 'memberId']
 
     def index
     end
@@ -67,15 +67,31 @@ class Api::GroupsController < ApplicationController
                 render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
             end
 
+        else  # handle joining / unjoining groups here
+            if(current_user.id == params[:member_id])
+
+            else
+                render json: { errors: @group.errors.full_messages }, status: 401
+            end
+        end
+    end
+
+    def destroy
+        # debugger
+        @group = Group.find_by(id: params[:id])
+        @g_keywords = @group.group_keywords
+        if(@group.owner_id == current_user.id)
+            @group.destroy
+            render :show
         else
-            render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
+            render json: { errors: @group.errors.full_messages }, status: 401
         end
     end
 
     private
 
     def group_params # group here is NOT bananable, it searches for controller
-        params.require(:group).permit(:name, :description, :member_label, :location, :cover_photo, :owner_id, keyword_ids: [])
+        params.require(:group).permit(:name, :description, :member_label, :location, :cover_photo, :member_id, :owner_id, keyword_ids: [])
     end
 
 end

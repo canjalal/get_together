@@ -35,6 +35,15 @@ class Group < ApplicationRecord
     through: :group_keywords,
     source: :group_id
 
+    has_many :memberships,
+    foreign_key: :group_id,
+    class_name: :Membership,
+    dependent: :destroy
+
+    has_many :members,
+    through: :memberships,
+    source: :member
+
     has_one_attached :cover_photo
 
 

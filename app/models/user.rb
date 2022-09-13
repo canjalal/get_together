@@ -29,6 +29,15 @@ class User < ApplicationRecord
     class_name: :Group,
     dependent: :destroy; # should I need this?
 
+    has_many :memberships,
+    foreign_key: :member_id,
+    class_name: :Membership,
+    dependent: :destroy
+
+    has_many :joined_groups,
+    through: :memberships,
+    source: :group
+
     has_one_attached :profile_pic
 
     def self.find_by_credentials(email, pw)

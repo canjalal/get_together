@@ -27,6 +27,8 @@ const GroupShow = (props) => {
 
     const sessionUser = useSelector(getCurrentUser);
 
+    const keywordList = useSelector(state => state.keywords);
+
     // const users = useSelector(getUsers());
 
     const owner = useSelector(getUser(group ? group.ownerId : null))
@@ -34,6 +36,8 @@ const GroupShow = (props) => {
     const isOwner = (sessionUser && owner) && sessionUser.id === owner.id;
 
     window.group = group;
+    window.keywordList = keywordList;
+    window.groupKeywords = groupKeywords;
 
     const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
 
@@ -72,7 +76,7 @@ const GroupShow = (props) => {
                         {group.location}
                     </li>
                     <li>
-                    <IoPeopleOutline /> Number of members placeholder
+                    <IoPeopleOutline /> Number of members ({group.memberLabel}) placeholder
                     </li>
                     <li>
                         <BiUser /> Organized by {!!group && owner.name}
@@ -96,6 +100,12 @@ const GroupShow = (props) => {
                 <div className="group-description">
                     <h1>What we're about</h1>
                     {!!group && group.description}
+                </div>
+                <div className="group-keywords">
+                    <h1>Related kewyoreds</h1>
+                    <ul>
+                        {Object.keys(keywordList).length > 0 && Object.values(groupKeywords).map(gk => <li key={gk.id}>{keywordList[gk.keywordId].keyword}</li>)}
+                    </ul>
                 </div>
                 <div>
         Lorem ipsum dolor sit amet
@@ -238,90 +248,6 @@ Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-        Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit amet
@@ -559,8 +485,8 @@ Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
             </div>
             <div className="right-content">
                 <div className="group-menu">
-                    <button>Donate</button>
-                    <span>You're a member</span> {/* If you're the owner, this appears as
+                    <button className="standard-button">Donate</button>
+                    {sessionUser.id === owner.id && <span className="secondary-button">You're the owner</span>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}
                 </div>
                 <div>
