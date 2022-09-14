@@ -19,6 +19,7 @@ class Api::GroupsController < ApplicationController
                 # tweak this to error out and delete group if group keyword saves are unsuccesfful
             end
             @owner = current_user
+            @memberships = []
           render :show
         else
           render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
@@ -45,6 +46,7 @@ class Api::GroupsController < ApplicationController
         p 'foo'
         # make sure to check that the current user is the owner of the group
         @group = Group.find_by(id: params[:id])
+        @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
             # if( @group.update(group_params))
             if(params[:cover_photo])
