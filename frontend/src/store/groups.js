@@ -45,7 +45,8 @@ export const createGroup = (group) => async (dispatch) => {
         const data = await response.json();
         dispatch(addGroup(data));
 
-        return response;
+
+        return {response, data};
         // dispatch(addGroupKeywords(data.groupKeywords));
  // dispatch two regular action creators, one for group and one for group_keywords?
 }
