@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 class GroupKeyword < ApplicationRecord
-    validates :keyword_id, uniqueness: {scope: :group_id, message: "Group already has this keyword listed"}
+    validates :keyword_id, uniqueness: {scope: :group_id, message: "is already listed in this group as a group_keyword"}
     
     belongs_to :keyword,
     foreign_key: :keyword_id,

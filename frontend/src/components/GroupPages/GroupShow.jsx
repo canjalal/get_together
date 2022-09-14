@@ -447,10 +447,17 @@ Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
             </div>
             <div className="right-content">
                 <div className="group-menu">
-                    <button className="standard-button">Donate</button>
-                    {sessionUser && sessionUser.id === owner.id && <span className="secondary-button">You're the owner</span>} {/* If you're the owner, this appears as
+
+                    {sessionUser && sessionUser.id === owner.id && 
+                    <>
+                    <button className="standard-button">Create Event</button>
+                    <span className="secondary-button">You're the owner</span>
+                    </>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}
-                    {sessionUser && sessionUser.id !== owner.id && <button className="secondary-button" onClick={toggleMembership}>{isMember ? "Leave" : "Join"} Group</button>}
+                    {sessionUser && sessionUser.id !== owner.id && <>
+                        <button className="standard-button">Donate</button>
+                        <button className="secondary-button" onClick={toggleMembership}>{isMember ? "Leave" : "Join"} Group</button>
+                    </>}
                 </div>
                 <div className="group-members">
                     <h1>Members</h1>

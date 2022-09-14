@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_205535) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_14_184826) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_205535) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "date_time", null: false
+    t.float "duration", null: false
+    t.text "description", null: false
+    t.string "online", default: "no", null: false
+    t.string "venue"
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date_time"], name: "index_events_on_date_time"
+    t.index ["group_id"], name: "index_events_on_group_id"
+    t.index ["title"], name: "index_events_on_title"
   end
 
   create_table "group_keywords", force: :cascade do |t|
@@ -81,6 +96,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_205535) do
     t.index ["member_id"], name: "index_memberships_on_member_id"
   end
 
+  create_table "signups", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "attendee_id", null: false
+    t.string "rsvp_status", default: "going", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendee_id"], name: "index_signups_on_attendee_id"
+    t.index ["event_id", "attendee_id"], name: "index_signups_on_event_id_and_attendee_id", unique: true
+    t.index ["event_id"], name: "index_signups_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -96,9 +122,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_205535) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "groups"
   add_foreign_key "group_keywords", "groups"
   add_foreign_key "group_keywords", "keywords"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users", column: "member_id"
+  add_foreign_key "signups", "events"
+  add_foreign_key "signups", "users", column: "attendee_id"
 end

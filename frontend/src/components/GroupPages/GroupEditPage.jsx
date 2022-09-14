@@ -67,7 +67,7 @@ const GroupEditPage = () => {
             if(sessionUser.id !== group.ownerId) navigate(`../groups/${groupId}`);
             setName(group.name);
             setDescription(group.description);
-            setMemberLabel(group.memberLabel);
+            setMemberLabel(group.memberLabel || "");
             setLocation(group.location);
 
             let tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);

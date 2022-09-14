@@ -38,6 +38,15 @@ class User < ApplicationRecord
     through: :memberships,
     source: :group
 
+    has_many :signups,
+    foreign_key: :attendee_id,
+    class_name: :Signup,
+    dependent: :destroy
+
+    has_many :events_attending,
+    through: :signups,
+    source: :attendee
+
     has_one_attached :profile_pic
 
     def self.find_by_credentials(email, pw)
