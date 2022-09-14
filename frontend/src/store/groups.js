@@ -1,5 +1,6 @@
 import csrfFetch from "./csrf";
 import { updateGroupKeywords } from "./groupkeywords";
+import { ADD_MEMBERSHIP, REMOVE_MEMBERSHIP } from "./memberships";
 
 export const ADD_GROUP = 'groups/ADD_GROUP';
 

@@ -17,7 +17,7 @@ const HomeFeed = () => {
     }, [])
   return (
     <div>
-        <h1 className="big-title">{currentUser.name}</h1>
+        <h1 className="big-title">{currentUser && currentUser.name}</h1>
         <div className="group-organizer">
 
         </div>

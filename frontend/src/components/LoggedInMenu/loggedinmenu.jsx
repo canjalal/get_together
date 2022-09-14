@@ -62,7 +62,10 @@ const LoggedInMenu = () => {
             <li>Log out</li>
         </ul>
     </div>
-    <button onClick={()=> dispatch(logout())}>Logout</button>
+    <button onClick={()=> {
+        dispatch(logout());
+        navigate("/");
+    }}>Logout</button>
     </>
   )
 }

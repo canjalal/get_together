@@ -9,10 +9,11 @@ import NotFoundPage from '../NotFoundPage/notfoundpage';
 import { IoPeopleOutline } from 'react-icons/io5';
 import './showpage.css';
 import { BiUser } from 'react-icons/bi';
-import { getUser, getUsers } from '../../store/users';
+import { getUser, getUsers, getUsersfromGrp, sustainCurrentUser } from '../../store/users';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { GrImage } from 'react-icons/gr';
 import AttachNewPhoto from './AttachNewPhoto';
+import { getMemberStatus, joinGroup, leaveGroup } from '../../store/memberships';
 
 const GroupShow = (props) => {
 
@@ -29,17 +30,19 @@ const GroupShow = (props) => {
 
     const keywordList = useSelector(state => state.keywords);
 
-    // const users = useSelector(getUsers());
+    const users = useSelector(getUsersfromGrp(groupId));
 
     const owner = useSelector(getUser(group ? group.ownerId : null))
 
     const isOwner = (sessionUser && owner) && sessionUser.id === owner.id;
 
     window.group = group;
-    window.keywordList = keywordList;
-    window.groupKeywords = groupKeywords;
+    window.users = users
+    window.sessionUser = sessionUser;
 
     const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
+
+    let isMember = useSelector(getMemberStatus(sessionUser ? sessionUser.id : null, groupId));
 
 
     useEffect(() => {
@@ -56,7 +59,20 @@ const GroupShow = (props) => {
             else setErrors([res.statusText]);
           }
         );
+        if(sessionUser) dispatch(sustainCurrentUser(sessionUser));
     }, [groupId])
+
+    const toggleMembership = (e) => {
+        e.preventDefault();
+
+        if(isMember) {
+            dispatch(leaveGroup(groupId));
+            // setIsMember(false);
+        } else {
+            dispatch(joinGroup(groupId));
+            // setIsMember(true);
+        }
+    }
  
     if(!group || !groupKeywords) return <NotFoundPage />;
 
@@ -76,7 +92,7 @@ const GroupShow = (props) => {
                         {group.location}
                     </li>
                     <li>
-                    <IoPeopleOutline /> Number of members ({group.memberLabel}) placeholder
+                    <IoPeopleOutline /> {users.length + 1} {group.memberLabel || "members"}
                     </li>
                     <li>
                         <BiUser /> Organized by {!!group && owner.name}
@@ -432,8 +448,16 @@ Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
             <div className="right-content">
                 <div className="group-menu">
                     <button className="standard-button">Donate</button>
-                    {sessionUser.id === owner.id && <span className="secondary-button">You're the owner</span>} {/* If you're the owner, this appears as
+                    {sessionUser && sessionUser.id === owner.id && <span className="secondary-button">You're the owner</span>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}
+                    {sessionUser && sessionUser.id !== owner.id && <button className="secondary-button" onClick={toggleMembership}>{isMember ? "Leave" : "Join"} Group</button>}
+                </div>
+                <div className="group-members">
+                    <h1>Members</h1>
+                    <ul>
+                        <li>{owner.name}</li>
+                        {users.length > 0 && users.map(user => <li key={user.id}>{user.name}</li>)}
+                    </ul>
                 </div>
                 <div>
         Lorem ipsum dolor sit amet

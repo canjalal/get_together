@@ -27,9 +27,13 @@ class Api::GroupsController < ApplicationController
 
     def show
         @group = Group.find_by(id: params[:id])
+
         if(@group)
             @g_keywords = @group.group_keywords
             @owner = @group.owner
+            @memberships = @group.memberships
+            @is_member = !!current_user && !!current_user.memberships.find_by(group_id: @group.id)
+            @count = @group.memberships.count
             render :show
         else # will this work? not found.
             render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
@@ -67,12 +71,8 @@ class Api::GroupsController < ApplicationController
                 render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
             end
 
-        else  # handle joining / unjoining groups here
-            if(current_user.id == params[:member_id])
-
-            else
-                render json: { errors: @group.errors.full_messages }, status: 401
-            end
+        else 
+            render json: { errors: @group.errors.full_messages }, status: 401
         end
     end
 
