@@ -20,26 +20,9 @@ const BottomBar = (props) => {
     const submitGroup = async () => {
 
 
-        dispatch(createGroup({...formData, ownerId: currentUser.id})).then(
-            async (res) => {
-                // instead of redirecting to show page, just go home. Feed will have the new group at the top
-                navigate("/home");
-            },
-            async (res) => { // not correctly catching error 422, re-renders a blank page (not what we want)
-              let data;
-              try {
-                // .clone() essentially allows you to read the response body twice
-                data = await res.clone().json();
-              } catch {
-                data = await res.text(); // Will hit this case if, e.g., server is down
-              }
-              if (data?.errors) setErrors(data.errors);
-              else if (data) setErrors([data]);
-              else setErrors([res.statusText]);
+        const { response, data } = await dispatch(createGroup({...formData, ownerId: currentUser.id}))
 
-              setPageisDone(false);
-            }
-          );
+        navigate(`/groups/${data.group.id}`);
 
     }
 
@@ -57,7 +40,22 @@ const BottomBar = (props) => {
     <div id="bottom-bar">
         <div>{pageNum !== 1 && <button className="back-button" onClick={() => setPageNum((prev) => prev - 1)}>Back</button>}</div>
         {pageNum < 5 && <button className="standard-button" id="next-button" onClick={()=> setPageNum((prev)=> prev + 1)}>Next</button>}
-        {pageNum === 5 && <button className="standard-button" id="next-button" onClick={submitGroup}>Agree & Continue</button>}
+        {pageNum === 5 && <button className="standard-button" id="next-button" onClick={(e) => submitGroup(e).catch(
+            async (res) => { // not correctly catching error 422, re-renders a blank page (not what we want)
+              let data;
+              try {
+                // .clone() essentially allows you to read the response body twice
+                data = await res.clone().json();
+              } catch {
+                data = await res.text(); // Will hit this case if, e.g., server is down
+              }
+              if (data?.errors) setErrors(data.errors);
+              else if (data) setErrors([data]);
+              else setErrors([res.statusText]);
+
+              setPageisDone(false);
+            }
+          )}>Agree & Continue</button>}
         {errors.length > 0 && <ul>
             <li>Errors:</li>
             {errors.map((err, i) => <li key={i}>{err}</li>)}

@@ -44,6 +44,11 @@ class Group < ApplicationRecord
     through: :memberships,
     source: :member
 
+    has_many :events,
+    foreign_key: :group_id,
+    class_name: :Event,
+    dependent: :destroy
+
     has_one_attached :cover_photo
 
 

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import groupKeywordsReducer from './groupkeywords';
 import groupReducer from './groups';
 import keywordReducer from './keywords';
+import membershipsReducer from './memberships';
 import sessionReducer from './session';
 import usersReducer from './users';
 
@@ -11,7 +12,8 @@ export const rootReducer = combineReducers({
     users: usersReducer,
     keywords: keywordReducer,
     groups: groupReducer,
-    groupKeywords: groupKeywordsReducer
+    groupKeywords: groupKeywordsReducer,
+    memberships: membershipsReducer
 });
 
 let enhancer;

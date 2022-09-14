@@ -225,6 +225,6 @@ textarea {
     font-family: 'Graphik Regular';
 }
 
-.group-keywords {
+.group-keywords, .group-members {
     margin-bottom: 30px;
 }

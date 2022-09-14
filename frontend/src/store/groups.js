@@ -1,5 +1,6 @@
 import csrfFetch from "./csrf";
 import { updateGroupKeywords } from "./groupkeywords";
+import { ADD_MEMBERSHIP, REMOVE_MEMBERSHIP } from "./memberships";
 
 export const ADD_GROUP = 'groups/ADD_GROUP';
 
@@ -44,7 +45,8 @@ export const createGroup = (group) => async (dispatch) => {
         const data = await response.json();
         dispatch(addGroup(data));
 
-        return response;
+
+        return {response, data};
         // dispatch(addGroupKeywords(data.groupKeywords));
  // dispatch two regular action creators, one for group and one for group_keywords?
 }

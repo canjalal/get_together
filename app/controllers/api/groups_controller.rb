@@ -19,6 +19,7 @@ class Api::GroupsController < ApplicationController
                 # tweak this to error out and delete group if group keyword saves are unsuccesfful
             end
             @owner = current_user
+            @memberships = []
           render :show
         else
           render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
@@ -27,9 +28,13 @@ class Api::GroupsController < ApplicationController
 
     def show
         @group = Group.find_by(id: params[:id])
+
         if(@group)
             @g_keywords = @group.group_keywords
             @owner = @group.owner
+            @memberships = @group.memberships
+            @is_member = !!current_user && !!current_user.memberships.find_by(group_id: @group.id)
+            @count = @group.memberships.count
             render :show
         else # will this work? not found.
             render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
@@ -41,6 +46,7 @@ class Api::GroupsController < ApplicationController
         p 'foo'
         # make sure to check that the current user is the owner of the group
         @group = Group.find_by(id: params[:id])
+        @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
             # if( @group.update(group_params))
             if(params[:cover_photo])
@@ -67,12 +73,8 @@ class Api::GroupsController < ApplicationController
                 render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
             end
 
-        else  # handle joining / unjoining groups here
-            if(current_user.id == params[:member_id])
-
-            else
-                render json: { errors: @group.errors.full_messages }, status: 401
-            end
+        else 
+            render json: { errors: @group.errors.full_messages }, status: 401
         end
     end
 

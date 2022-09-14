@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :create]
     resource :session, only: [:show, :create, :destroy]
     resources :keywords, only: [:index]
-    resources :groups, only: [:create, :show, :update, :index, :destroy]
+    resources :groups, only: [:create, :show, :update, :index, :destroy] do
+      resources :memberships, only: [:create]
+    end
+    resources :memberships, only: [:destroy]
+    resources :events, only: [:create, :show, :update, :index]
   end
 
   get '*path', to: "static_pages#frontend_index" # should be last route, as a fallback
