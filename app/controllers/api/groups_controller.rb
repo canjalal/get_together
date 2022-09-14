@@ -20,6 +20,7 @@ class Api::GroupsController < ApplicationController
             end
             @owner = current_user
             @memberships = []
+            @count = 0
           render :show
         else
           render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
@@ -42,9 +43,6 @@ class Api::GroupsController < ApplicationController
     end
     
     def update
-        # debugger
-        p 'foo'
-        # make sure to check that the current user is the owner of the group
         @group = Group.find_by(id: params[:id])
         @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
@@ -68,13 +66,15 @@ class Api::GroupsController < ApplicationController
 
                 @g_keywords = @group.group_keywords
                 @owner = @group.owner
+                @count = 0
                 render :show
             else
+                @group.errors.add("params", " are invalid") if(@group.errors.full_messages.length == 0)
                 render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
             end
 
         else 
-            render json: { errors: @group.errors.full_messages }, status: 401
+            render json: { errors: ["You must be the group owner to edit"] }, status: 401
         end
     end
 
