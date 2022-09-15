@@ -1,4 +1,5 @@
 import csrfFetch from "./csrf";
+import { ADD_EVENT } from "./events";
 import { updateGroupKeywords } from "./groupkeywords";
 import { ADD_MEMBERSHIP, REMOVE_MEMBERSHIP } from "./memberships";
 
@@ -112,6 +113,8 @@ const groupReducer = (state = {}, action) => {
     Object.freeze(state);
     const newState = {...state};
     switch(action.type) {
+        case ADD_EVENT:
+            // intentional fall through
         case ADD_GROUP:
             newState[action.payload.group.id] = action.payload.group;
             return newState;

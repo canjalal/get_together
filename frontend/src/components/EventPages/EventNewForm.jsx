@@ -1,0 +1,172 @@
+import React, { useState } from 'react'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom';
+import { createEvent } from '../../store/events';
+import { fetchGroup, getGroup } from '../../store/groups';
+import { getCurrentUser } from '../../store/session'
+import { getUser } from '../../store/users';
+import './eventform.css';
+
+const EventNewForm = () => {
+
+    const sessionUser = useSelector(getCurrentUser);
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const { groupId } = useParams();
+    const group = useSelector(getGroup(groupId));
+    const owner = useSelector(getUser(group ? group.ownerId : null));
+
+    const [errors, setErrors] = useState([]);
+
+    const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
+
+    const [title, setTitle] = useState('');
+    const [dateTime, setDateTime] = useState(new Date().toISOString().slice(0, -8));
+    // cutt of last 8 characters of date string
+
+    const [duration, setDuration] = useState(60);
+
+    const [description, setDescription] = useState("");
+
+    const [isOnline, setIsOnline] = useState(false);
+
+    const [venue, setVenue] = useState("");
+
+
+    window.group = group;
+    window.owner = owner;
+    window.groupId = groupId;
+
+    window.dateTime = dateTime;
+
+    window.isOnline = isOnline;
+
+    const submitEvent = async (e) => {
+        e.preventDefault();
+
+        setErrors([]);
+
+        const formData = {
+            groupId: groupId,
+            title: title,
+            dateTime: dateTime,
+            duration: duration,
+            description: description,
+            online: isOnline ? "yes" : "no",
+            venue: venue
+        }
+
+        const {response, data} = await dispatch(createEvent(formData));
+
+        navigate(`../events/${data.event.id}`);
+    }
+
+    useEffect(() => {
+        dispatch(fetchGroup(groupId)).then(()=> {
+        }, async (res) => {
+            let data;
+            try {
+              // .clone() essentially allows you to read the response body twice
+              data = await res.clone().json();
+            } catch {
+              data = await res.text(); // Will hit this case if, e.g., server is down
+            }
+            if (data?.errors) setErrors(data.errors);
+            else if (data) setErrors([data]);
+            else setErrors([res.statusText]);
+          }
+        );
+    }, [groupId])
+
+    useEffect(() => {
+        if(group) {
+            if(sessionUser.id !== group.ownerId) navigate(`../groups/${groupId}`);
+        }
+
+        let defaultDate = new Date();
+
+        defaultDate.setDate(defaultDate.getDate() + 5);
+
+        setDateTime(defaultDate.toISOString().slice(0, -8));
+
+
+    }, [group])
+
+    if(!group) return null;
+
+
+  return (
+    <div>
+        <form className="event-form-body">
+            <div className="group-form-body">
+                <h1>Create an event</h1>
+                <p className="sub-labels">{group.name}</p>
+                <label>
+                    Title (required)
+                    <input type="text" className="high-inputs" value={title} onChange={(e)=> setTitle(e.target.value)} />
+                </label>
+                <label>
+                    Date and time
+                    <input type="datetime-local" className="high-inputs" value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
+                </label>
+                <label>
+                    Duration
+                    <select value={duration} className="high-inputs" onChange={(e)=> setDuration(e.target.value)}>
+                        <option value="30">0.5 hours</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                        <option value="180">3 hours</option>
+                    </select>
+                </label>
+                <label>
+                    Description
+                    <p className="sub-labels">Let your attendees know what to expect, including the agenda, what they need to bring, and how to find the group.</p>
+                    <textarea value={description} onChange={(e)=> setDescription(e.target.value)} />
+                </label>
+                <label>
+                    Location
+                    <br />
+                    <input type="checkbox" id="is-online-checkbox" value={isOnline} onChange={(e) => setIsOnline(e.target.checked ? true : false)} /> Make this an online event
+
+                </label>
+                <label>
+                    Add venue
+                    <input type="text" className="high-inputs" placeholder="Add a location" value={venue} onChange={(e) => setVenue(e.target.value)} />
+                </label>
+            </div>
+            <div id="event-submit-bar">
+                <div>
+                    <button className="back-button" onClick={() => navigate(`../groups/${groupId}`)}>Cancel</button>
+                </div>
+                <div>
+                    <button className="standard-button" id="next-button" onClick={(e) => submitEvent(e).catch(
+                    async (res) => { // not correctly catching error 422, re-renders a blank page (not what we want)
+                    let data;
+                    try {
+                        // .clone() essentially allows you to read the response body twice
+                        data = await res.clone().json();
+                    } catch {
+                        data = await res.text(); // Will hit this case if, e.g., server is down
+                    }
+                    if (data?.errors) setErrors(data.errors);
+                    else if (data) setErrors([data]);
+                    else setErrors([res.statusText]);
+                    }
+                )}>Publish</button>
+                {errors.length > 0 && <ul>
+                <li>Errors:</li>
+                {errors.map((err, i) => <li key={i}>{err}</li>)}
+                </ul>
+                }
+                </div>
+            </div>
+        </form>
+    </div>
+  )
+}
+
+export default EventNewForm

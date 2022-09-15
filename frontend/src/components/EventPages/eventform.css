@@ -1,0 +1,34 @@
+.event-form-body {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.event-form-body .high-inputs {
+    height: 55.2px;
+}
+
+.event-form-body select {
+    display: block;
+}
+
+#event-submit-bar {
+    padding: 10px 0px 10px 0px;
+    position: sticky;
+    z-index: 1;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+}
+
+#is-online-checkbox {
+    margin: 1.5rem 0.5rem 1.5rem 0.5rem;
+}
+
+.event-panel {
+    margin-bottom: 30px;
+}

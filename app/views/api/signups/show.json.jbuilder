@@ -1,1 +1,1 @@
-json.extract! @su, :id, :title, :date_time, :duration, :description, :online, :venue, :group_id
+json.extract! @su, :id, :event_id, :rsvp_status, :attendee_id

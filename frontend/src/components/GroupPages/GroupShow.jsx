@@ -14,6 +14,8 @@ import { RiEdit2Fill } from 'react-icons/ri';
 import { GrImage } from 'react-icons/gr';
 import AttachNewPhoto from './AttachNewPhoto';
 import { getMemberStatus, joinGroup, leaveGroup } from '../../store/memberships';
+import { getEventsfromGrp } from '../../store/events';
+import EventPanel from '../EventPages/eventpanel';
 
 const GroupShow = (props) => {
 
@@ -31,6 +33,8 @@ const GroupShow = (props) => {
     const keywordList = useSelector(state => state.keywords);
 
     const users = useSelector(getUsersfromGrp(groupId));
+    
+    const events = useSelector(getEventsfromGrp(groupId));
 
     const owner = useSelector(getUser(group ? group.ownerId : null))
 
@@ -39,6 +43,7 @@ const GroupShow = (props) => {
     window.group = group;
     window.users = users
     window.sessionUser = sessionUser;
+    window.events = events;
 
     const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
 
@@ -123,245 +128,14 @@ const GroupShow = (props) => {
                         {Object.keys(keywordList).length > 0 && Object.values(groupKeywords).map(gk => <li key={gk.id}>{keywordList[gk.keywordId].keyword}</li>)}
                     </ul>
                 </div>
+                <div className="group-events">
+                    <h1>Events</h1>
+                    <ul>
+                        {events.length > 0 && events.map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
+                    </ul>
+                </div>
                 <div>
         Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
-Lorem ipsum dolor sit amet
 
 Lorem ipsum dolor sit amet
 Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
@@ -450,7 +224,7 @@ Lorem ipsum dolor sit ametLorem ipsum dolor sit amet
 
                     {sessionUser && sessionUser.id === owner.id && 
                     <>
-                    <button className="standard-button">Create Event</button>
+                    <Link to="events/new" className="standard-button" id="create-event">Create Event</Link>
                     <span className="secondary-button">You're the owner</span>
                     </>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}

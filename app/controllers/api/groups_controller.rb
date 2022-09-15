@@ -21,6 +21,7 @@ class Api::GroupsController < ApplicationController
             @owner = current_user
             @memberships = []
             @count = 0
+            @events = []
           render :show
         else
           render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
@@ -36,6 +37,7 @@ class Api::GroupsController < ApplicationController
             @memberships = @group.memberships
             @is_member = !!current_user && !!current_user.memberships.find_by(group_id: @group.id)
             @count = @group.memberships.count
+            @events = @group.events
             render :show
         else # will this work? not found.
             render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
@@ -66,7 +68,8 @@ class Api::GroupsController < ApplicationController
 
                 @g_keywords = @group.group_keywords
                 @owner = @group.owner
-                @count = 0
+                @events = @group.events
+                @count = @group.memberships.count
                 render :show
             else
                 @group.errors.add("params", " are invalid") if(@group.errors.full_messages.length == 0)
@@ -82,12 +85,17 @@ class Api::GroupsController < ApplicationController
         # debugger
         @group = Group.find_by(id: params[:id])
         @g_keywords = @group.group_keywords
+        @events = @group.events
         if(@group.owner_id == current_user.id)
             @group.destroy
             render json: {message: "removed" }, status: :ok
         else
-            render json: { errors: @group.errors.full_messages }, status: 401
+            render json: { errors: ["You must be the group owner to delete the group"] }, status: 401
         end
+    end
+
+    def eventslist
+        @group = Group.find_by(id: params[:id])
     end
 
     private

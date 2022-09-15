@@ -11,12 +11,15 @@ Rails.application.routes.draw do
     resources :keywords, only: [:index]
     resources :groups, only: [:create, :show, :update, :index, :destroy] do
       resources :memberships, only: [:create]
+      member do
+        get 'eventslist'
+      end
     end
     resources :memberships, only: [:destroy]
-    resources :events, only: [:create, :show, :update, :index] do
+    resources :events, only: [:create, :show, :update, :index, :destroy] do
       resources :signups, only: [:create]
     end
-    resources :signups, only: [:destroy]
+    resources :signups, only: [:update]
   end
 
   get '*path', to: "static_pages#frontend_index" # should be last route, as a fallback

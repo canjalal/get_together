@@ -2,10 +2,12 @@ class Api::EventsController < ApplicationController
     wrap_parameters include: Event.attribute_names + ['dateTime', 'groupId']
 
     def create
+        # debugger
         @event = Event.new(event_params)
         @group = Group.find_by(id: params[:group_id])
         @attendees = []
         @signups = []
+        @count = 0
 
         if(@group.owner_id == current_user.id)
             if(@event.save)
@@ -25,7 +27,7 @@ class Api::EventsController < ApplicationController
         if(@event)
             @attendees = @event.attendees
             @group = @event.group
-            @count = @event.attendees.count
+            @count = @event.signups.select {|su| su.rsvp_status == "going"}
             @signups = @event.signups
             render :show
         else
@@ -42,7 +44,7 @@ class Api::EventsController < ApplicationController
                 # in the future, add updating of event topics
 
                 @attendees = @event.attendees
-                @count = @event.attendees.count
+                @count = @event.signups.select {|su| su.rsvp_status == "going"}
                 @signups = @event.signups
 
                 render :show
@@ -51,6 +53,22 @@ class Api::EventsController < ApplicationController
             end
         else
             render json: { errors: ["You must be the group owner to edit"] }, status: 401
+        end
+    end
+
+    def destroy
+        @event = Event.find_by(id: params[:id])
+        @group = @event.group
+        if(@group.owner_id == current_user.id)
+            @attendees = @event.attendees
+            @count = @event.signups.select {|su| su.rsvp_status == "going"}
+            @signups = @event.signups
+
+            @event.destroy
+            render json: {message: "removed" }, status: :ok
+
+        else
+            render json: { errors: ["You must be the group owner to delete an event"] }, status: 401
         end
     end
 

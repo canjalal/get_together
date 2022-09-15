@@ -13,7 +13,6 @@ if(@group)
                 json.group_id g_keyword.group_id
             end
         end
-
     end
 
     json.users do
@@ -31,6 +30,14 @@ if(@group)
         @memberships.each do |membership|
             json.set! membership.id do
                 json.extract! membership, :id, :group_id, :member_id, :created_at
+            end
+        end
+    end
+
+    json.events do
+        @events.each do |event|
+            json.set! event.id do
+                json.extract! event, :id, :title, :date_time, :duration, :description, :online, :venue, :group_id
             end
         end
     end

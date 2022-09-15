@@ -11,10 +11,13 @@ class Api::SignupsController < ApplicationController
         end
     end
 
-    def destroy
+    def update
         @event = Event.find_by(id: params[:id])
         @su = @event.signups.find_by(attendee_id: current_user.id)
-        if(@su.destroy)
+        if(@su)
+            # debugger
+            @su.rsvp_status = @su.rsvp_status == "going" ? "not" : "going"
+            @su.save!
             render :show
         else
             render json: {errors: @su.errors.full_messages }, status: :unprocessable_entity
