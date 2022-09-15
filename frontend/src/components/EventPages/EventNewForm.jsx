@@ -8,7 +8,16 @@ import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
 import './eventform.css';
 
-const EventNewForm = () => {
+const EventNewForm = ({oldEvent}) => {
+
+    oldEvent ||= {
+        title: "",
+        dateTime: new Date().toISOString().slice(0, -8),
+        duration: 60,
+        description: "",
+        online: "no",
+        venue: ""
+    }
 
     const sessionUser = useSelector(getCurrentUser);
     const navigate = useNavigate();
@@ -23,17 +32,17 @@ const EventNewForm = () => {
 
     const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
 
-    const [title, setTitle] = useState('');
-    const [dateTime, setDateTime] = useState(new Date().toISOString().slice(0, -8));
+    const [title, setTitle] = useState(oldEvent.title);
+    const [dateTime, setDateTime] = useState(oldEvent.dateTime);
     // cutt of last 8 characters of date string
 
-    const [duration, setDuration] = useState(60);
+    const [duration, setDuration] = useState(oldEvent.duration);
 
-    const [description, setDescription] = useState("");
+    const [description, setDescription] = useState(oldEvent.description);
 
-    const [isOnline, setIsOnline] = useState(false);
+    const [isOnline, setIsOnline] = useState(oldEvent.online === "yes");
 
-    const [venue, setVenue] = useState("");
+    const [venue, setVenue] = useState(oldEvent.venue);
 
 
     window.group = group;
@@ -94,6 +103,7 @@ const EventNewForm = () => {
 
 
     }, [group])
+    
 
     if(!group) return null;
 

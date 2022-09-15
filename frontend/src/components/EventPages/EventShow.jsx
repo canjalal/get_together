@@ -32,6 +32,7 @@ const EventShow = () => {
         <h1>{event.title}</h1>
         <p>{event.dateTime}</p>
         <p>{event.description}</p>
+        <p></p>
         <p><Link to={`../groups/${group.id}`} className="green-link">{group.name}</Link></p>
     </div>
   )
