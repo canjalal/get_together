@@ -1,7 +1,8 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom';
-import { getanEvent } from '../../store/events';
+import { fetchEvent, getanEvent } from '../../store/events';
 import { getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
@@ -17,6 +18,12 @@ const EventShow = () => {
     const group = useSelector(getGroup(event ? event.groupId : null));
 
     const owner = useSelector(getUser(group ? group.ownerId : null));
+
+    useEffect(() => {
+
+        dispatch(fetchEvent(eventId));
+
+    }, [])
 
     if(!event) return null;
 
