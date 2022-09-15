@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, matchPath, useLocation } from 'react-router-dom'
 import { getCurrentUser } from '../../store/session';
 import LoggedInMenu from '../LoggedInMenu/loggedinmenu';
 import LoggedOutMenu from '../LoggedOutMenu/loggedoutmenu';
@@ -12,6 +12,8 @@ const NavMenu = (props) => {
 
     useEffect(() => {
         if(location.pathname === "/") document.querySelector(".nav-menu").classList.add("home-nav");
+        // console.log(location.pathname);
+
     }, []);
 
     const sessionUser = useSelector(getCurrentUser);

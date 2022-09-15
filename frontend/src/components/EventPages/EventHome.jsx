@@ -26,7 +26,7 @@ const EventHome = () => {
     <>
     <Routes>
         <Route path="/" element={<EventShow event={event} />} />
-        <Route path="/edit" element={<EventNewForm oldEvent={event} />} />
+        <Route path="/group/:groupId/edit" element={<EventNewForm oldEvent={event} />} />
     </Routes>
     </>
   )

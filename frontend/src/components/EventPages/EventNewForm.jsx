@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
-import { createEvent } from '../../store/events';
+import { createEvent, patchEvent } from '../../store/events';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
@@ -16,7 +16,8 @@ const EventNewForm = ({oldEvent}) => {
         duration: 60,
         description: "",
         online: "no",
-        venue: ""
+        venue: "",
+        method: 'POST'
     }
 
     const sessionUser = useSelector(getCurrentUser);
@@ -68,9 +69,17 @@ const EventNewForm = ({oldEvent}) => {
             venue: venue
         }
 
-        const {response, data} = await dispatch(createEvent(formData));
+        if(oldEvent.method) {
+            const {response, data} = await dispatch(createEvent(formData));
+            navigate(`/events/${data.event.id}`);
+        } else {
+            formData["id"] = oldEvent.id;
+            const {response, data} = await dispatch(patchEvent(formData));
+            navigate(`/events/${oldEvent.id}`)
 
-        navigate(`../events/${data.event.id}`);
+        }
+
+
     }
 
     useEffect(() => {
@@ -112,7 +121,7 @@ const EventNewForm = ({oldEvent}) => {
     <div>
         <form className="event-form-body">
             <div className="group-form-body">
-                <h1>Create an event</h1>
+                <h1>{oldEvent.method ? "Create" : "Edit" } an event</h1>
                 <p className="sub-labels">{group.name}</p>
                 <label>
                     Title (required)
@@ -166,7 +175,7 @@ const EventNewForm = ({oldEvent}) => {
                     else if (data) setErrors([data]);
                     else setErrors([res.statusText]);
                     }
-                )}>Publish</button>
+                )}>{oldEvent.method ? "Publish" : "Save Changes"}</button>
                 {errors.length > 0 && <ul>
                 <li>Errors:</li>
                 {errors.map((err, i) => <li key={i}>{err}</li>)}

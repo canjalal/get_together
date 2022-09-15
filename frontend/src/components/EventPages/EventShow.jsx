@@ -7,13 +7,13 @@ import { getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
 
-const EventShow = () => {
+const EventShow = ({event}) => {
 
     const sessionUser = useSelector(getCurrentUser);
     const dispatch = useDispatch();
     const { eventId } = useParams();
 
-    const event = useSelector(getanEvent(eventId));
+    // const event = useSelector(getanEvent(eventId));
 
     const group = useSelector(getGroup(event ? event.groupId : null));
 
@@ -32,8 +32,8 @@ const EventShow = () => {
         <h1>{event.title}</h1>
         <p>{event.dateTime}</p>
         <p>{event.description}</p>
-        <p></p>
-        <p><Link to={`../groups/${group.id}`} className="green-link">{group.name}</Link></p>
+        <p><Link to={`group/${group.id}/edit`}>Edit Page</Link></p>
+        <p><Link to={`/groups/${group.id}`} className="green-link">{group.name}</Link></p>
     </div>
   )
 }
