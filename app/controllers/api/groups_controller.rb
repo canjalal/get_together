@@ -53,6 +53,8 @@ class Api::GroupsController < ApplicationController
                 @group.cover_photo.attach(params[:cover_photo])
                 @g_keywords = @group.group_keywords
                 @owner = @group.owner
+                @events = @group.events
+                @count = @group.memberships.count
                 render :show
             elsif(@group.update(group_params))
                 @group.group_keywords.each do |gk|
