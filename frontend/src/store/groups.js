@@ -93,12 +93,11 @@ export const patchGroup = (fdata, groupId) => async (dispatch) => {
     });
 
         const data = await response.json();
+        
         dispatch(addGroup(data));
         dispatch(updateGroupKeywords(data.groupKeywords));
 
         return response;
-        // dispatch(addGroupKeywords(data.groupKeywords));
- // dispatch two regular action creators, one for group and one for group_keywords?
 }
 
 export const fetchGroup = (groupId) => async (dispatch) => {

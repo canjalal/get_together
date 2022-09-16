@@ -37,6 +37,7 @@ const groupKeywordsReducer = (state = {}, action) => {
             }
             return newState;
         case UPDATE_GKWORDS:
+            // debugger
             // ADD_GROUP is already called, so only need to delete keys that were removed
             for(let gkw in newState) {
                 // console.log(`newState has ${newState[gkw]}. action.payload has `, action.payload[gkw])

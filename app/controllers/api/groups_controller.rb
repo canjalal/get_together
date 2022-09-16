@@ -69,6 +69,7 @@ class Api::GroupsController < ApplicationController
                 @count = @group.memberships.count
                 render :show
             elsif(@group.update(group_params))
+                # debugger
                 @group.group_keywords.each do |gk|
                     gk.destroy unless params[:keyword_ids].include?(gk.keyword_id) 
                 end
@@ -80,7 +81,7 @@ class Api::GroupsController < ApplicationController
                     end
                 end
 
-                @g_keywords = @group.group_keywords
+                @g_keywords = GroupKeyword.where(group_id: @group.id)
                 @owner = @group.owner
                 @events = @group.events
                 @count = @group.memberships.count

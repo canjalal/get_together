@@ -1,7 +1,7 @@
 if(@group)
     json.group do
         json.extract! @group, :id, :name, :description, :member_label, :location, :owner_id, :created_at, :updated_at
-        json.photoURL @group.cover_photo.url
+        json.photoURL @group.   cover_photo.url
         json.is_member @is_member
         json.member_count @count
     end
