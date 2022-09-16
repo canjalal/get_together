@@ -31,7 +31,7 @@ const HomeFeed = () => {
 
     }, [])
   return (
-    <div>
+    <div className="home-feed">
         <h1 className="big-title">{currentUser && currentUser.name}</h1>
         {ownedGroups.length > 0 && <>
             <h1>Groups you organize:</h1>

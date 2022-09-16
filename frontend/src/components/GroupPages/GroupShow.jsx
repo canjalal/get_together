@@ -144,7 +144,7 @@ const GroupShow = (props) => {
                     {sessionUser && sessionUser.id === owner.id && 
                     <>
                     <Link to="events/new" className="small-button" id="create-event">Create Event</Link>
-                    <span className="secondary-button">You're the owner</span>
+                    <span id="owner-logo">You're the owner</span>
                     </>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}
                     {sessionUser && sessionUser.id !== owner.id && <>

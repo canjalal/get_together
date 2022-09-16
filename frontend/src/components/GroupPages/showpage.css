@@ -41,6 +41,16 @@
     background-color: white;
 }
 
+#owner-logo {
+    border-radius: 8px;
+    color: #757575;
+    font-family: "Graphik Medium";
+    fill: #fff;
+    background-color: #fff;
+    border: 2px solid #9b9b9b;
+    padding: 8px 12px;   
+}
+
 .gmr {
     justify-content: space-between;
 }

@@ -31,7 +31,7 @@ const EventNewForm = ({oldEvent}) => {
         method: 'POST'
     }
 
-    console.log(oldEvent.dateTime);
+    // console.log(oldEvent.dateTime);
 
     const sessionUser = useSelector(getCurrentUser);
     const navigate = useNavigate();

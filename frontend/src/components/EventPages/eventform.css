@@ -100,11 +100,13 @@
     padding-left: max(calc((100vw - 1080px) / 6), 20px);
     background-color: #f6f7f8;
     display: flex;
+    justify-content: space-between;
 }
 
 .event-show-left {
     padding-right: 20px;
     padding-top: 20px;
+    /* min-width: 400px; */
 }
 
 #edit-event-button {
