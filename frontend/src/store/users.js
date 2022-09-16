@@ -48,7 +48,7 @@ const usersReducer = (state = {}, action) => {
             return newState;
         case ADD_GROUP:
             for(let uid in action.payload.users) {
-                newState[uid] = action.payload.users[uid];
+                newState[uid] ||= action.payload.users[uid];
             }
             // newState[action.payload.owner.id] = action.payload.owner;
             return newState;

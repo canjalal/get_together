@@ -32,13 +32,27 @@
 
 .group-menu {
     display: flex;
-    justify-content:flex-start;
+
     padding-top: 15px;
     padding-bottom: 15px;
     border-top: 1px solid #7e7e7e;
     position: sticky;
     top: 2px;
     background-color: white;
+}
+
+#owner-logo {
+    border-radius: 8px;
+    color: #757575;
+    font-family: "Graphik Medium";
+    fill: #fff;
+    background-color: #fff;
+    border: 2px solid #9b9b9b;
+    padding: 8px 12px;   
+}
+
+.gmr {
+    justify-content: space-between;
 }
 
 .group-menu > span {
@@ -48,11 +62,17 @@
 .left-content {
     display: flex;
     flex-direction: column;
+    width: 55%;
+}
+
+.left-main-content {
+    padding-right: 60px;
 }
 
 .right-content {
     display: flex;
     flex-direction: column;
+    width: 45%;
 
 }
 
@@ -211,7 +231,7 @@ h2 {
 textarea {
     box-sizing: border-box;
     width: 100%;
-    height: 200px;
+    height: 256px;
 }
 
 .submit-edit-group {
@@ -225,6 +245,24 @@ textarea {
     font-family: 'Graphik Regular';
 }
 
-.group-keywords, .group-members {
+.group-keywords, .group-members, .group-events {
     margin-bottom: 30px;
+}
+
+.group-keywords > ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-items: center;
+}
+
+.group-keywords li {
+    padding: 4px 16px;
+    background-color: rgba(41, 77, 107, 0.12);
+    margin: 8px;
+}
+
+.member-list {
+    display: flex;
+    flex-wrap: wrap;
 }

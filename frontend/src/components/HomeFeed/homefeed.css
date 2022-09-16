@@ -27,3 +27,15 @@
     background-position: center;
     
 }
+
+.organized-groups, .member-of-groups, .other-groups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3vw;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.home-feed {
+    padding-left: calc((100vw - 1080px) / 4);
+}

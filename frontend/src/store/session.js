@@ -1,9 +1,16 @@
 import csrfFetch, { storeCSRFToken } from "./csrf";
+import { ADD_GROUPS, DELETE_GROUP } from "./groups";
 
 export const SET_SESSION_USER = 'session/SET_SESSION_USER';
 export const REMOVE_SESSION_USER = 'session/REMOVE_SESSION_USER';
 
 export const getCurrentUser = (state) => state.session.user;
+
+export const getGroupData = (state) => ({
+    joinedGroups: state.session.joinedGroups,
+    ownedGroups: state.session.ownedGroups,
+    otherGroups: state.session.otherGroups
+});
 
 const setSessionUser = (user) => {
     return {
@@ -86,7 +93,7 @@ function storeCurrentUser(user) {
     }
 }
 
-const initialState = {user: JSON.parse(sessionStorage.getItem('currentUser')) };
+const initialState = {user: JSON.parse(sessionStorage.getItem('currentUser')), joinedGroups: [], ownedGroups: [], otherGroups: [] };
 
 const sessionReducer = (state = initialState, action) => {
     Object.freeze(state);
@@ -97,6 +104,13 @@ const sessionReducer = (state = initialState, action) => {
             return { ...state, user: action.payload };
         case REMOVE_SESSION_USER:
             return { ...state, user: null};
+        case ADD_GROUPS: // this is only a partial add. Not all headers are gotten
+            return { ...state,
+                joinedGroups: action.payload.joinedGroups,
+                ownedGroups: action.payload.ownedGroups,
+                otherGroups: action.payload.otherGroups
+            } // don't worry about when person joines /unjoins / deletes groups
+               // thesee attributes are only for the home page and are refreshed there
         default:
             return state;
     }
