@@ -29,6 +29,85 @@
     margin: 1.5rem 0.5rem 1.5rem 0.5rem;
 }
 
+.date-label {
+    color: rgb(0, 152, 171);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    word-spacing: 1.4px;
+    line-height: 20px;
+    font-family: "Graphik Medium";
+}
+
+.event-panel-title {
+    color: rgb(33, 33, 33);
+    font-size: 20px;
+    line-height: 24px;
+    font-family: 'Graphik Bold';
+}
+
+.event-panel-description {
+    padding-top: 20px;
+    color: rgb(33, 33, 33);
+    font-size: 14px;
+    line-height: 20px;
+
+}
 .event-panel {
     margin-bottom: 30px;
+    background: #fff;
+    border: 1px solid rgba(46, 62, 72, 0.12);
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: block;
+    min-height: 160px;
+    padding: 10px;
+
+}
+
+.event-show-header {
+    background-color: #fff;
+    padding-top: 25px;
+    padding-left: max(calc((100vw - 1080px) / 6), 20px);
+}
+
+.organizer-tag {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.host-caption {
+    font-family: "Graphik Medium";
+}
+
+.host-caption-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.user-symbol {
+    font-size: 5vw;
+    color: rgb(0, 130, 148);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-show-body {
+    padding-left: max(calc((100vw - 1080px) / 6), 20px);
+    background-color: #f6f7f8;
+    display: flex;
+}
+
+.event-show-left {
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+#edit-event-button {
+    position: absolute;
+    right: 20px;
 }

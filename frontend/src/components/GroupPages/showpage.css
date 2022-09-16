@@ -32,13 +32,17 @@
 
 .group-menu {
     display: flex;
-    justify-content:flex-start;
+
     padding-top: 15px;
     padding-bottom: 15px;
     border-top: 1px solid #7e7e7e;
     position: sticky;
     top: 2px;
     background-color: white;
+}
+
+.gmr {
+    justify-content: space-between;
 }
 
 .group-menu > span {
@@ -48,11 +52,17 @@
 .left-content {
     display: flex;
     flex-direction: column;
+    width: 55%;
+}
+
+.left-main-content {
+    padding-right: 60px;
 }
 
 .right-content {
     display: flex;
     flex-direction: column;
+    width: 45%;
 
 }
 
@@ -227,4 +237,22 @@ textarea {
 
 .group-keywords, .group-members, .group-events {
     margin-bottom: 30px;
+}
+
+.group-keywords > ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-items: center;
+}
+
+.group-keywords li {
+    padding: 4px 16px;
+    background-color: rgba(41, 77, 107, 0.12);
+    margin: 8px;
+}
+
+.member-list {
+    display: flex;
+    flex-wrap: wrap;
 }

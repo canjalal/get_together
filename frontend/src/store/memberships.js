@@ -66,7 +66,7 @@ const membershipsReducer = (state = {}, action) => {
             return newState;
         case ADD_GROUP:
             for(let m_id in action.payload.memberships) {
-                newState[m_id] = action.payload.memberships[m_id];
+                newState[m_id] ||= action.payload.memberships[m_id];
             }
             return newState;
         case REMOVE_MEMBERSHIP:

@@ -20,7 +20,10 @@ const NavMenu = (props) => {
   return (
     <div className="nav-menu">
         <div className="left-menu">
-            <div className="logo"><Link to="/">GetTogether</Link></div>
+            <div className="logo">
+                {sessionUser ? <Link to="/home">GetTogether</Link> : <Link to="/">GetTogether</Link>}
+            </div>
+                
             <div className="search-bar">Search Placeholder</div>
         </div>
         <div className="right-menu">

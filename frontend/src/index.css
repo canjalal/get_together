@@ -135,7 +135,19 @@ form > div {
     padding: 8px 12px;
 }
 
-.standard-button:hover, input[type="submit"]:hover {
+.small-button {
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-family: "Graphik Medium";
+    fill: #fff;
+    background-color: #f65858;
+    border-color: #f65858;
+    border: 1px solid #f65858;
+    padding: 8px 12px;
+}
+
+.standard-button:hover, input[type="submit"]:hover .small-button:hover {
     background-color: rgba(246, 88, 88, 0.9);
     border: 1px solid rgba(246, 88, 88, 0.9);
 }

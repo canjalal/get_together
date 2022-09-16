@@ -87,7 +87,8 @@ const eventsReducer = (state = {}, action) => {
             return newState;
         case ADD_GROUP:
             for(let eid in action.payload.events) {
-                newState[eid] = action.payload.events[eid];
+                newState[eid] ||= action.payload.events[eid];
+                // this won't update an event if it changed on the backend
             }
             return newState;
         default:

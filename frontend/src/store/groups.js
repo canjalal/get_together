@@ -7,6 +7,8 @@ export const ADD_GROUP = 'groups/ADD_GROUP';
 
 export const DELETE_GROUP = 'groups/DELETE_GROUP';
 
+export const ADD_GROUPS = 'groups/ADD_GROUPS';
+
 export const addGroup = (payload) => ({
     type: ADD_GROUP,
     payload // will have both a group: {} and a groupKeywords: {}
@@ -109,6 +111,22 @@ export const fetchGroup = (groupId) => async (dispatch) => {
     return response;
 }
 
+export const addGroups = (payload) => ({
+    type: ADD_GROUPS,
+    payload  
+})
+
+export const fetchGroups = () => async (dispatch) => {
+
+    const response = await csrfFetch(`/api/groups`);
+
+    const data = await response.json();
+    dispatch(addGroups(data));
+
+    return { response, data};
+
+}
+
 const groupReducer = (state = {}, action) => {
     Object.freeze(state);
     const newState = {...state};
@@ -120,6 +138,12 @@ const groupReducer = (state = {}, action) => {
             return newState;
         case DELETE_GROUP:
             delete newState[action.groupId];
+            return newState;
+
+        case ADD_GROUPS: // this is only a partial add. Not all headers are gotten
+            for(let gid in action.payload.groups) {
+                newState[gid] ||= action.payload.groups[gid];
+            }
             return newState;
         default:
             return state;

@@ -5,6 +5,18 @@ class Api::GroupsController < ApplicationController
     wrap_parameters include: Group.attribute_names + ['memberLabel', 'keywordIds', 'ownerId', 'coverPhoto', 'memberId']
 
     def index
+        #until we redesign to make the site centered around events rather than groups,
+        # compile list of all groups
+        if(current_user)
+            @joined_groups = current_user.joined_groups.map(&:id)
+            @owned_groups = current_user.owned_groups.map(&:id)
+            @groups = Group.all
+            @other_groups = @groups.map(&:id) - @joined_groups - @owned_groups
+        else
+            @joined_groups = []
+            @owned_groups = []
+            @groups = Group.limit(5)
+        end
     end
 
     def create

@@ -10,15 +10,28 @@ import './eventform.css';
 
 const EventNewForm = ({oldEvent}) => {
 
+    const formatDateString = (fecha) => {
+        // let hours = (fecha.getHours() + fecha.getTimezoneOffset()/60 + 24) % 24
+        let hours = fecha.getHours();
+        return `${fecha.getFullYear()}-${fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : fecha.getMonth() + 1 }-${fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate()}T${hours < 10 ? "0" + hours : hours}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
+    }
+
+    let defaultDate = new Date();
+
+
+    defaultDate.setDate(defaultDate.getDate() + 5);
+
     oldEvent ||= {
         title: "",
-        dateTime: new Date().toISOString().slice(0, -8),
+        dateTime: formatDateString(defaultDate),
         duration: 60,
         description: "",
         online: "no",
         venue: "",
         method: 'POST'
     }
+
+    console.log(oldEvent.dateTime);
 
     const sessionUser = useSelector(getCurrentUser);
     const navigate = useNavigate();
@@ -34,7 +47,7 @@ const EventNewForm = ({oldEvent}) => {
     const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
 
     const [title, setTitle] = useState(oldEvent.title);
-    const [dateTime, setDateTime] = useState(oldEvent.dateTime);
+    const [dateTime, setDateTime] = useState(formatDateString(new Date(oldEvent.dateTime)));
     // cutt of last 8 characters of date string
 
     const [duration, setDuration] = useState(oldEvent.duration);
@@ -54,15 +67,20 @@ const EventNewForm = ({oldEvent}) => {
 
     window.isOnline = isOnline;
 
+    window.formatDateString = formatDateString;
+
     const submitEvent = async (e) => {
         e.preventDefault();
 
         setErrors([]);
 
+        let saveDate = new Date(dateTime);
+        // saveDate.setTime(saveDate.getTime() + saveDate.getTimezoneOffset()*60*1000);
+
         const formData = {
             groupId: groupId,
             title: title,
-            dateTime: dateTime,
+            dateTime: saveDate,
             duration: duration,
             description: description,
             online: isOnline ? "yes" : "no",
@@ -101,15 +119,8 @@ const EventNewForm = ({oldEvent}) => {
 
     useEffect(() => {
         if(group) {
-            if(sessionUser.id !== group.ownerId) navigate(`../groups/${groupId}`);
+            if(sessionUser.id !== group.ownerId) navigate(`/groups/${groupId}`);
         }
-
-        let defaultDate = new Date();
-
-        defaultDate.setDate(defaultDate.getDate() + 5);
-
-        setDateTime(defaultDate.toISOString().slice(0, -8));
-
 
     }, [group])
     
@@ -159,7 +170,7 @@ const EventNewForm = ({oldEvent}) => {
             </div>
             <div id="event-submit-bar">
                 <div>
-                    <button className="back-button" onClick={() => navigate(`../groups/${groupId}`)}>Cancel</button>
+                    <button className="back-button" onClick={() => navigate(`/groups/${groupId}`)}>Cancel</button>
                 </div>
                 <div>
                     <button className="standard-button" id="next-button" onClick={(e) => submitEvent(e).catch(

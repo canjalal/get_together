@@ -48,7 +48,7 @@ const LoggedInMenu = () => {
     </div>
     {/* placeholder for dropdown menu with logout */}
     <div className="dropdown">
-        <div>
+        {/* <div>
             <ul>
                 <li>Your events</li>
                 <li>Your groups</li>
@@ -60,12 +60,13 @@ const LoggedInMenu = () => {
             <li>View profile</li>
             <li>Settings</li>
             <li>Log out</li>
-        </ul>
-    </div>
-    <button onClick={()=> {
+        </ul> */}
+        <button className="small-button" onClick={()=> {
         dispatch(logout());
         navigate("/");
     }}>Logout</button>
+    </div>
+    
     </>
   )
 }

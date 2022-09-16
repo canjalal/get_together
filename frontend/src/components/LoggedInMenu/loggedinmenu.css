@@ -8,7 +8,7 @@
     border: 1px solid rgb(217, 217, 217);
     border-radius: 4px;
     box-shadow: 0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
-
+    background-color: white;
 }
 
 hr {
@@ -21,10 +21,10 @@ hr {
     cursor: pointer;
 }
 
-ul > li {
+.dropdown ul > li {
     margin-top: 12px;
 }
 
-li:first-of-type {
+.dropdown li:first-of-type {
     margin-top: 0px;
 }
