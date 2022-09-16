@@ -16,7 +16,7 @@ const LogInForm = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [keepSignedIn, setKeepSignedIn] = useState(false);
+    // const [keepSignedIn, setKeepSignedIn] = useState(false);
 
     const [errors, setErrors] = useState([]);
 
@@ -28,7 +28,7 @@ const LogInForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        // console.log( {"email": email, "password": password });
+    
         return dispatch(login({ email, password }))
       .catch(async (res) => {
         let data;
@@ -126,10 +126,10 @@ const LogInForm = () => {
                     <p id="password-caption" className="capt"></p>
                 </label>
                 
-                    <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
-                    <span>Keep me signed in</span>
+                    {/* <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />
+                    <span>Keep me signed in</span> */}
 
-                <input type="submit" className="font-title" value="Log in" />
+                <input type="submit" className="font-title" value="Log in" id="login-button" />
             </form>
 
             <button className="standard-button demo-user" onClick={(e)=> {

@@ -43,7 +43,6 @@ const usersReducer = (state = {}, action) => {
 
     switch(action.type) {
         case SET_SESSION_USER:
-            console.log(action.payload);
             if(action.payload) newState[action.payload.id] = action.payload;
             return newState;
         case ADD_GROUP:
