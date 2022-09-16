@@ -124,6 +124,19 @@ require 'open-uri'
     Keyword.create!(
         keyword: "dancing"
     )
+    Keyword.create!(
+        keyword: "improv"
+    )
+    Keyword.create!(
+        keyword: "literature"
+    )
+    Keyword.create!(
+        keyword: "beauty"
+    )
+    Keyword.create!(
+        keyword: "healing"
+    )
+
 
     puts "Creating group keywords..."
     GroupKeyword.create!(group_id: 1, keyword_id: 1)
