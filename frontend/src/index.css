@@ -63,6 +63,7 @@ html {
     z-index: 1;
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 }
 .modal {
     /* border: 1px solid black; */
