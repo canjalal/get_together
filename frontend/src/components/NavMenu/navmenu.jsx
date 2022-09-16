@@ -24,7 +24,7 @@ const NavMenu = (props) => {
                 {sessionUser ? <Link to="/home">GetTogether</Link> : <Link to="/">GetTogether</Link>}
             </div>
                 
-            <div className="search-bar">Search Placeholder</div>
+            {/* <div className="search-bar">Search Placeholder</div> */}
         </div>
         <div className="right-menu">
             {/* Place holder for component */}
