@@ -53,7 +53,7 @@ const HomeFeed = () => {
             </div>        
         </>}
 
-        <h1>Other groups</h1>
+        <h1>{(ownedGroups.length === 0 && joinedGroups.length === 0 ) ? "All" : "Other" } groups</h1>
         <div className="other-groups">
             
             { otherGroups.map((gid) => <GroupLargeIcon group={groups[gid]} key={gid} /> )}
