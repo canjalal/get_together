@@ -15,6 +15,7 @@ import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import UserIcon from '../GroupPages/UserIcon';
+import DeleteEventForm from './DeleteEventForm';
 
 const EventShow = ({event}) => {
 
@@ -23,6 +24,7 @@ const EventShow = ({event}) => {
     const { eventId } = useParams();
 
     const [showMenu, setShowMenu] = useState(false);
+    const [deleteEventModal, setDeleteEventModal] = useState(false);
 
     const navigate = useNavigate();
 
@@ -49,9 +51,8 @@ const EventShow = ({event}) => {
     // console.log(event);
 
     const deleteThisEvent = () => {
-        dispatch(removeEvent(eventId)).then(() => {
-            navigate(`/groups/${group.id}`)
-        })
+        setShowMenu(false);
+        setDeleteEventModal(true);
     }
 
 
@@ -76,7 +77,7 @@ const EventShow = ({event}) => {
         if(!document.querySelector('.organizer-dropdown')?.contains(e.target)) {
             setShowMenu(false);
         } else {
-            console.log(`group Id is ${event}`);
+
             if(document.querySelector('#edit-event-link')?.contains(e.target)) navigate(`group/${group.id}/edit`);
             if(document.querySelector('#copy-event-link')?.contains(e.target)) navigate(`group/${group.id}/copy`);
             if(document.querySelector('#delete-event-link')?.contains(e.target)) deleteThisEvent();
@@ -171,6 +172,7 @@ const EventShow = ({event}) => {
             </div>
 
         </div>
+        {deleteEventModal && <DeleteEventForm setDeleteEventModal={setDeleteEventModal} groupId={event.groupId} eventId={event.id} />}
         {/* <p><Link to={`/groups/${group.id}`} className="green-link">{group.name}</Link></p> */}
     </div>
   )
