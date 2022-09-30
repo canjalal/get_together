@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import { BiTimeFive } from 'react-icons/bi';
 import { GrVideo } from 'react-icons/gr';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom';
-import { fetchEvent, getanEvent } from '../../store/events';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteEvent, fetchEvent, getanEvent, removeEvent } from '../../store/events';
+import { IoChevronUp, IoChevronDown } from 'react-icons/io5';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import { BiCopy } from 'react-icons/bi';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
@@ -19,10 +22,17 @@ const EventShow = ({event}) => {
     const dispatch = useDispatch();
     const { eventId } = useParams();
 
+    const [showMenu, setShowMenu] = useState(false);
+
+    const navigate = useNavigate();
+
     // const event = useSelector(getanEvent(eventId));
 
     const group = useSelector(getGroup(event ? event.groupId : null));
 
+
+    window.group = group
+    
     const owner = useSelector(getUser(group ? group.ownerId : null));
 
     function getDateAndTimeString(fecha) {
@@ -37,6 +47,14 @@ const EventShow = ({event}) => {
 
     // }, [])
     // console.log(event);
+
+    const deleteThisEvent = () => {
+        dispatch(removeEvent(eventId)).then(() => {
+            navigate(`/groups/${group.id}`)
+        })
+    }
+
+
     useEffect(() => {
         // dispatch(fetchEvent(eventId));
         if(event) {
@@ -44,6 +62,35 @@ const EventShow = ({event}) => {
         }
 
     }, [event])
+
+    useEffect(()=> {
+        let od = document.querySelector('.organizer-dropdown');
+        if(showMenu) {
+            od.style.display = "flex";
+        } else {
+            if(od) od.style.display = "none";
+        }
+    }, [showMenu]);
+
+    const cancelModal = (e) => {
+        if(!document.querySelector('.organizer-dropdown')?.contains(e.target)) {
+            setShowMenu(false);
+        } else {
+            console.log(`group Id is ${event}`);
+            if(document.querySelector('#edit-event-link')?.contains(e.target)) navigate(`group/${group.id}/edit`);
+            if(document.querySelector('#copy-event-link')?.contains(e.target)) navigate(`group/${group.id}/copy`);
+            if(document.querySelector('#delete-event-link')?.contains(e.target)) deleteThisEvent();
+        }
+      }
+    
+      useEffect(()=> {
+       if(group) {
+        window.addEventListener('click', cancelModal);
+       }
+        return () => {
+            if(group) window.removeEventListener('click', cancelModal);
+        }
+      }, [group])
 
     if(!event || !owner) return null;
 
@@ -91,6 +138,20 @@ const EventShow = ({event}) => {
                 </div>
             </div>
             <div className="event-show-left">
+                {owner.id === sessionUser.id && <><div className="organizer-tools" onClick={(e)=> { setShowMenu((prev) => !prev);
+    e.stopPropagation();}}>Organizer tools { }
+    { showMenu ? <IoChevronUp /> : <IoChevronDown />}
+    </div>
+        {/* placeholder for dropdown menu with logout */}
+    <div className="organizer-dropdown">
+        <div>
+            <ul>
+                <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>
+                <li id="copy-event-link"><BiCopy />  <span className="dropdown-text">Copy event</span></li>
+                <li id="delete-event-link"><AiOutlineDelete />  <span className="dropdown-text">Delete event</span></li>
+            </ul>
+        </div>
+    </div></> }
                 <h1>Details</h1>
                 <p>{event.description}</p>
 

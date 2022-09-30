@@ -164,6 +164,51 @@
     font-family: "Graphik Medium";
 }
 
+.organizer-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 20px;
+    padding: 12px, 16px, 12px, 16px;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 4px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+    background-color: white;
+}
+
+hr {
+    border-bottom-width: 1px;
+    margin-bottom: 0.5rem;
+    color: inherit;
+}
+
+.organizer-tools {
+    cursor: pointer;
+    margin: 20px;
+    border: 2px solid gray;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.organizer-dropdown ul > li {
+    padding: 16px 24px 16px 24px;
+    cursor: pointer;
+}
+
+.dropdown-text {
+    margin-left: 10px;
+}
+
+.organizer-dropdown ul > li:hover {
+    background-color: #e6e6e6;
+    color:rgb(0, 130, 148);
+}
+
+.organizer-dropdown li:first-of-type {
+    margin-top: 0px;
+}
+
 @media screen and (max-width: 950px) {
     .event-show-body {
         display: block;

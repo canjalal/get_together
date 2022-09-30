@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import EventHome from "./components/EventPages/EventHome";
 import EventNewForm from "./components/EventPages/EventNewForm";
-import EventShow from "./components/EventPages/EventShow";
 import { GroupFormProvider } from "./components/GroupForm/GroupFormContext";
 import GroupFormIntro from "./components/GroupForm/GroupFormIntro";
 import GroupEditPage from "./components/GroupPages/GroupEditPage";

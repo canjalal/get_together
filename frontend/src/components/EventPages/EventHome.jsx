@@ -15,6 +15,12 @@ const EventHome = () => {
 
         const dispatch = useDispatch();
 
+        const formatDateString = (fecha) => {
+            // let hours = (fecha.getHours() + fecha.getTimezoneOffset()/60 + 24) % 24
+            let hours = fecha.getHours();
+            return `${fecha.getFullYear()}-${fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : fecha.getMonth() + 1 }-${fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate()}T${hours < 10 ? "0" + hours : hours}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
+        }
+
         useEffect(() => {
 
             dispatch(fetchEvent(eventId));
@@ -27,6 +33,7 @@ const EventHome = () => {
     <Routes>
         <Route path="/" element={<EventShow event={event} />} />
         <Route path="/group/:groupId/edit" element={<EventNewForm oldEvent={event} />} />
+        <Route path="/group/:groupId/copy" element={<EventNewForm oldEvent={{...event, method: "POST", dateTime: formatDateString(new Date())}} />} />
     </Routes>
     </>
   )
