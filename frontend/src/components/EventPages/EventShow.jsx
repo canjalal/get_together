@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import { BiTimeFive } from 'react-icons/bi';
+import { GrVideo } from 'react-icons/gr';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom';
 import { fetchEvent, getanEvent } from '../../store/events';
@@ -25,7 +26,7 @@ const EventShow = ({event}) => {
     const owner = useSelector(getUser(group ? group.ownerId : null));
 
     function getDateAndTimeString(fecha) {
-        return `${fecha.toDateString()} at ${fecha.toLocaleTimeString()}`
+        return `${fecha.toDateString()} at ${fecha.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'})}`
     }
 
     let endDate;
@@ -66,12 +67,7 @@ const EventShow = ({event}) => {
             </div>
         </div>
         <div className="event-show-body">
-            <div className="event-show-left">
-                <h1>Details</h1>
-                <p>{event.description}</p>
-
-            </div>
-            <div className="event-show-right">
+        <div className="event-show-right">
                 <GroupLargeIcon group={group} />
                 <div className="event-info-container">
                     <div className="event-info-section">
@@ -85,14 +81,32 @@ const EventShow = ({event}) => {
                     </div>
                     <div className="event-info-section">
                         <div className="event-icons">
-                        <IoLocationOutline />
+                        { event.online === "no" ? <IoLocationOutline /> : <GrVideo /> }
                         </div>
                         <div className="event-info">
-                        {event.online === "no" ? event.venue : "ONLINE"}
+                        {event.online === "no" ? event.venue : "Online event"}
                         </div>
                     </div>
 
                 </div>
+            </div>
+            <div className="event-show-left">
+                <h1>Details</h1>
+                <p>{event.description}</p>
+
+            </div>
+
+        </div>
+        <div className="bottom-event-bar">
+            <div className="bottom-event-left">
+                <div className="bottom-event-date">
+                {getDateAndTimeString(new Date(event.dateTime))} 
+                </div>
+                <div className="bottom-event-title">
+                  {event.title}  
+                </div>
+            </div>
+            <div className="bottom-event-right">
             </div>
 
         </div>
