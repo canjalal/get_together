@@ -113,3 +113,30 @@
     position: absolute;
     right: 20px;
 }
+
+.event-show-right {
+    width: 25vw;
+    box-sizing: content-box;
+    padding: 20px;
+
+}
+
+.event-info-container {
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-info-section {
+    display: flex;
+    flex-direction: row;
+    align-items:baseline;
+}
+
+.event-icons {
+    padding: 20px;
+    width: 24px;
+    
+}

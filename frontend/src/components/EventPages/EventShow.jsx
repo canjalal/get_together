@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { IoLocationOutline } from 'react-icons/io5';
+import { BiTimeFive } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom';
 import { fetchEvent, getanEvent } from '../../store/events';
@@ -22,6 +24,11 @@ const EventShow = ({event}) => {
 
     const owner = useSelector(getUser(group ? group.ownerId : null));
 
+    function getDateAndTimeString(fecha) {
+        return `${fecha.toDateString()} at ${fecha.toLocaleTimeString()}`
+    }
+
+    let endDate;
     // useEffect(() => {
 
     //     dispatch(fetchEvent(eventId));
@@ -29,11 +36,11 @@ const EventShow = ({event}) => {
 
     // }, [])
     // console.log(event);
-
     useEffect(() => {
-
         // dispatch(fetchEvent(eventId));
-        if(event) dispatch(fetchGroup(event.groupId));
+        if(event) {
+            dispatch(fetchGroup(event.groupId));
+        }
 
     }, [event])
 
@@ -42,7 +49,7 @@ const EventShow = ({event}) => {
   return (
     <div>
         <div className="event-show-header">
-            <p>{new Date(event.dateTime).toDateString()} {new Date(event.dateTime).toLocaleTimeString()}</p>
+            <p>{getDateAndTimeString(new Date(event.dateTime))}</p>
             <h1>{event.title}</h1>
             <div className="organizer-tag">
                 <div className="user-symbol">
@@ -59,20 +66,36 @@ const EventShow = ({event}) => {
             </div>
         </div>
         <div className="event-show-body">
-<div className="event-show-left">
-    <h1>Details</h1>
-<p>{event.description}</p>
+            <div className="event-show-left">
+                <h1>Details</h1>
+                <p>{event.description}</p>
 
-</div>
-<div className="event-show-right">
-<GroupLargeIcon group={group} />
-</div>
+            </div>
+            <div className="event-show-right">
+                <GroupLargeIcon group={group} />
+                <div className="event-info-container">
+                    <div className="event-info-section">
+                        <div className="event-icons">
+<BiTimeFive />
+                        </div>
+                        <div className="event-info">
+                        {getDateAndTimeString(new Date(event.dateTime))} to 
+                    {' ' + getDateAndTimeString(new Date(new Date(event.dateTime).getTime() + event.duration * 60 * 1000))}
+                        </div>
+                    </div>
+                    <div className="event-info-section">
+                        <div className="event-icons">
+                        <IoLocationOutline />
+                        </div>
+                        <div className="event-info">
+                        {event.online === "no" ? event.venue : "ONLINE"}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
-
-
-
-        
         {/* <p><Link to={`/groups/${group.id}`} className="green-link">{group.name}</Link></p> */}
     </div>
   )
