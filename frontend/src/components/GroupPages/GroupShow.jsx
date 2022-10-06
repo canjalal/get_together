@@ -129,10 +129,19 @@ const GroupShow = (props) => {
                         </ul>
                     </div>
                     <div className="group-events">
-                        <h1>Events</h1>
+                        {events["upcoming"].length > 0 && <>
+                        <h1>Upcoming Events</h1>
                         <ul>
-                            {events.length > 0 && events.map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
+                            {events["upcoming"].length > 0 && events["upcoming"].map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
                         </ul>
+                        </>}
+
+                        {events["past"].length > 0 && <>
+                            <h1>Past Events</h1>
+                            <ul>
+                                {events["past"].length > 0 && events["past"].map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
+                            </ul>
+                        </>}
                     </div>
                 </div>
 

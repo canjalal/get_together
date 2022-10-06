@@ -65,12 +65,25 @@ export const fetchEvent = (eventId) => async (dispatch) => {
 export const getEventsfromGrp = (groupId) => (state) => {
     const events = [];
 
+    const rightnow = new Date();
+
     for(let eid in state.events) {
         if(state.events[eid].groupId === Number(groupId)) events.push(state.events[eid]);
     }
 
-    return events;
+    events.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+
+    const sortedEvents = {"upcoming" : [],
+                          "past" : [],
+                         };
     
+    for(let event of events) {
+        sortedEvents[new Date(event.dateTime) > rightnow ? "upcoming" : "past"].push(event);
+    }
+
+    return sortedEvents;
+
+
 }
 
 const eventsReducer = (state = {}, action) => {
