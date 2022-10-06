@@ -16,12 +16,14 @@ import { getUser } from '../../store/users';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import UserIcon from '../GroupPages/UserIcon';
 import DeleteEventForm from './DeleteEventForm';
+import { getRSVPStatus } from '../../store/signups';
 
 const EventShow = ({event}) => {
 
     const sessionUser = useSelector(getCurrentUser);
     const dispatch = useDispatch();
     const { eventId } = useParams();
+    const [errors, setErrors] = useState([]);
 
     const [showMenu, setShowMenu] = useState(false);
     const [deleteEventModal, setDeleteEventModal] = useState(false);
@@ -36,6 +38,9 @@ const EventShow = ({event}) => {
     window.group = group
     
     const owner = useSelector(getUser(group ? group.ownerId : null));
+    const isOwner = (sessionUser && owner) && (sessionUser.id === owner.id);
+
+    let isRSVPed = useSelector(getRSVPStatus(sessionUser ? sessionUser.id : null, eventId));
 
     function getDateAndTimeString(fecha) {
         return `${fecha.toDateString()} at ${fecha.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'})}`
@@ -57,6 +62,13 @@ const EventShow = ({event}) => {
 
 
     useEffect(() => {
+
+
+        const fetchGroupandEvent = async (event) => {
+            await dispatch(fetchGroup(event.groupId));
+
+            let eventData = await dispatch(fetchEvent(eventId));
+        }
         // dispatch(fetchEvent(eventId));
         if(event) {
             dispatch(fetchGroup(event.groupId));

@@ -53,6 +53,22 @@ export const patchEvent = (event) => async (dispatch) => {
     return { response, data };
 }
 
+export const patchEventPhoto = (photo, eventId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/events/${eventId}`, { 
+        method: 'PATCH',
+        headers: {
+            'Content-Type': false
+
+        },
+        body: photo
+    });
+
+        const data = await response.json();
+        dispatch(addEvent(data));
+
+        return response;
+}
+
 export const fetchEvent = (eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}`);
 

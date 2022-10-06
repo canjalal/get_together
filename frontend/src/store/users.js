@@ -28,6 +28,22 @@ export const getUsersfromGrp = (groupId) => (state) => {
 
 }
 
+export const getUsersfromEvent = (eventId) => (state) => {
+    const attendees = [];
+    // debugger
+    if(!state.signups || !state.users) return [];
+    for(let signupId in state.signups) {
+        let su = state.signups[signupId];
+
+        if(su.eventId === Number(eventId)) attendees.push(state.users[su.attendeeId]);
+
+    }
+    // if(members[0] === undefined) debugger
+
+    return attendees;
+
+}
+
 export const SUSTAIN_CURRENT_USER = 'users/SUSTAIN_CURRENT_USER';
 
 

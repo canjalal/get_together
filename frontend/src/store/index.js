@@ -6,6 +6,7 @@ import groupReducer from './groups';
 import keywordReducer from './keywords';
 import membershipsReducer from './memberships';
 import sessionReducer from './session';
+import signupsReducer from './signups';
 import usersReducer from './users';
 
 export const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ export const rootReducer = combineReducers({
     groups: groupReducer,
     groupKeywords: groupKeywordsReducer,
     memberships: membershipsReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    signups: signupsReducer,
 });
 
 let enhancer;

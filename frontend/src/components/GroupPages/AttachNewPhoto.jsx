@@ -5,7 +5,7 @@ import { BsCloudUpload } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { patchGroupPhoto } from '../../store/groups';
 
-const AttachNewPhoto = ({setDisplayPhotoModal, groupId}) => {
+const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
     const reader = new FileReader();
 

@@ -39,7 +39,13 @@ class Api::EventsController < ApplicationController
         @event = Event.find_by(id: params[:id])
         @group = @event.group
         if(@group.owner_id == current_user.id)
-            if(@event.update(event_params))
+            if(params[:cover_photo])
+                @event.cover_photo.attach(params[:cover_photo])
+                @attendees = @group.attendees
+                @count = @event.signups.select {|su| su.rsvp_status == "going"}
+                @signups = @event.signups
+                render :show
+            elsif(@event.update(event_params))
 
                 # in the future, add updating of event topics
 
