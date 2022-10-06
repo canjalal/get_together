@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, Redirect, useNavigate } from 'react-router-dom';
+import { Link, Navigate, Redirect, useNavigate } from 'react-router-dom';
 import sessionReducer, { getCurrentUser, login } from '../../store/session';
 import MiniLogo from '../logo';
 import './loginform.css';
@@ -46,8 +46,7 @@ const LogInForm = () => {
 
   const cancelModal = (e) => {
     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-
-        navigate("/");
+        navigate(e.target.className === "green-link" ? "/signup" : "/"); // the re-navigation closes the modal and React thinks it's now outside the modal and re-directs back to "/"
     }
   }
 
@@ -115,7 +114,7 @@ const LogInForm = () => {
             e.stopPropagation();}}><IoMdClose /></div>
             </div>}
             <h1>Log in</h1>
-            <p>Not a member yet? Sign up</p>
+            <p>Not a member yet? <Link to="/signup" className="green-link">Sign up</Link></p>
             <form onSubmit={handleSubmit}>
                 <label>Email
                     <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={()=> setEmailVisited(true)} />

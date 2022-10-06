@@ -32,10 +32,14 @@ class Event < ApplicationRecord
     through: :signups,
     source: :attendee
 
+    def is_past_event
+      return date_time.present? && date_time < Date.today
+    end
+
     def event_date_cannot_be_in_the_past
-        if date_time.present? && date_time < Date.today
-          errors.add(:date_time, "can't be in the past")
-        end
+
+          errors.add("Date and time", "can't be in the past") if is_past_event
+
     end
 
 end

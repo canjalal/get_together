@@ -26,7 +26,6 @@ window.groupId = groupId;
 
                 navigate(`/groups/${groupId}`);
 
-
             },
             async (res) => { // not correctly catching error 422, re-renders a blank page (not what we want)
               let data;
