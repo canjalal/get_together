@@ -27,7 +27,7 @@ class Api::EventsController < ApplicationController
         if(@event)
             @attendees = @event.attendees
             @group = @event.group
-            @count = @event.signups.select {|su| su.rsvp_status == "going"}
+            @count = @event.signups.select {|su| su.rsvp_status == "going"}.size
             @signups = @event.signups
             render :show
         else
@@ -42,7 +42,7 @@ class Api::EventsController < ApplicationController
             if(params[:cover_photo])
                 @event.cover_photo.attach(params[:cover_photo])
                 @attendees = @group.attendees
-                @count = @event.signups.select {|su| su.rsvp_status == "going"}
+                @count = @event.signups.select {|su| su.rsvp_status == "going"}.size
                 @signups = @event.signups
                 render :show
             elsif(@event.update(event_params))
@@ -50,7 +50,7 @@ class Api::EventsController < ApplicationController
                 # in the future, add updating of event topics
 
                 @attendees = @event.attendees
-                @count = @event.signups.select {|su| su.rsvp_status == "going"}
+                @count = @event.signups.select {|su| su.rsvp_status == "going"}.size
                 @signups = @event.signups
 
                 render :show
@@ -67,7 +67,7 @@ class Api::EventsController < ApplicationController
         @group = @event.group
         if(@group.owner_id == current_user.id)
             @attendees = @event.attendees
-            @count = @event.signups.select {|su| su.rsvp_status == "going"}
+            @count = @event.signups.select {|su| su.rsvp_status == "going"}.size
             @signups = @event.signups
 
             @event.destroy
