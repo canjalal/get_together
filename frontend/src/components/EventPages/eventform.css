@@ -154,6 +154,14 @@
     bottom: 0px;
     background-color: #fff;
     width: 100%;
+    box-sizing: border-box;
+    height: 94px;
+}
+
+.bottom-event-left, .rsvp-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .bottom-event-date {
@@ -208,6 +216,7 @@ hr {
 .organizer-dropdown li:first-of-type {
     margin-top: 0px;
 }
+
 
 @media screen and (max-width: 950px) {
     .event-show-body {

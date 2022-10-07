@@ -12,13 +12,13 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { BiCopy } from 'react-icons/bi';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
-import { getUser } from '../../store/users';
+import { getUser, getUsersfromEvent } from '../../store/users';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import UserIcon from '../GroupPages/UserIcon';
 import DeleteEventForm from './DeleteEventForm';
-import { getRSVPStatus } from '../../store/signups';
+import { changeRSVP, getRSVPStatus, joinEvent } from '../../store/signups';
 
-const EventShow = ({event}) => {
+const EventShow = ({event, groupId}) => {
 
     const sessionUser = useSelector(getCurrentUser);
     const dispatch = useDispatch();
@@ -30,9 +30,9 @@ const EventShow = ({event}) => {
 
     const navigate = useNavigate();
 
-    // const event = useSelector(getanEvent(eventId));
+    // const event = useSelector(getanEvent(eventId))    
 
-    const group = useSelector(getGroup(event ? event.groupId : null));
+    const group = useSelector(getGroup(groupId));
 
 
     window.group = group
@@ -40,13 +40,18 @@ const EventShow = ({event}) => {
     const owner = useSelector(getUser(group ? group.ownerId : null));
     const isOwner = (sessionUser && owner) && (sessionUser.id === owner.id);
 
+    window.isOwner = isOwner
+
+
     let isRSVPed = useSelector(getRSVPStatus(sessionUser ? sessionUser.id : null, eventId));
 
     function getDateAndTimeString(fecha) {
         return `${fecha.toDateString()} at ${fecha.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'})}`
     }
 
-    let endDate;
+    const users = useSelector(getUsersfromEvent(eventId));
+
+    window.users = users;
     // useEffect(() => {
 
     //     dispatch(fetchEvent(eventId));
@@ -54,6 +59,12 @@ const EventShow = ({event}) => {
 
     // }, [])
     // console.log(event);
+
+    const toggleRSVP = (e) => {
+        e.preventDefault();
+
+        dispatch(changeRSVP(eventId));
+    }
 
     const deleteThisEvent = () => {
         setShowMenu(false);
@@ -64,17 +75,27 @@ const EventShow = ({event}) => {
     useEffect(() => {
 
 
-        const fetchGroupandEvent = async (event) => {
-            await dispatch(fetchGroup(event.groupId));
+        const fetchGroupandEvent = async (gid, eid) => {
+            await dispatch(fetchGroup(gid));
 
-            let eventData = await dispatch(fetchEvent(eventId));
+            let eventData = await dispatch(fetchEvent(eid));
         }
         // dispatch(fetchEvent(eventId));
-        if(event) {
-            dispatch(fetchGroup(event.groupId));
+        if(groupId) {
+            fetchGroupandEvent(groupId, eventId)
         }
 
-    }, [event])
+    }, [groupId])
+
+    useEffect(()=> {
+        if(group) {
+         window.addEventListener('click', cancelModal);
+        }
+         return () => {
+             if(group) window.removeEventListener('click', cancelModal);
+         }
+       }, [group])
+ 
 
     useEffect(()=> {
         let od = document.querySelector('.organizer-dropdown');
@@ -96,15 +117,6 @@ const EventShow = ({event}) => {
         }
       }
     
-      useEffect(()=> {
-       if(group) {
-        window.addEventListener('click', cancelModal);
-       }
-        return () => {
-            if(group) window.removeEventListener('click', cancelModal);
-        }
-      }, [group])
-
     if(!event || !owner) return null;
 
   return (
@@ -168,6 +180,11 @@ const EventShow = ({event}) => {
                 <h1>Details</h1>
                 <p>{event.description}</p>
 
+                    <h1>Attendees ({users.length + 1})</h1>
+                    <ul className="member-list">
+                        <UserIcon name={owner.name} />
+                        {users?.length > 0 && users.map((user) => <UserIcon key={user.id} name={user.name} />)}
+                    </ul>
             </div>
 
         </div>
@@ -180,8 +197,18 @@ const EventShow = ({event}) => {
                   {event.title}  
                 </div>
             </div>
-            <div className="bottom-event-right">
-            </div>
+            { /* only show RSVP info if the event is in the future. If you havne't RSVP'd here's a signup button */ }
+            { new Date(event.dateTime) > new Date() ? <>{!isRSVPed && !isOwner ? <button className="standard-button" onClick={(e) => dispatch(joinEvent(eventId))}>Attend</button>
+                            : <div className="rsvp-info">  {/* Otherwise here's some RSVP options */}
+                                <div>You're { isRSVPed === "not" ? "not going" : "going"}! </div>
+                                {!isOwner ? <div onClick={toggleRSVP} className="green-link">Change RSVP</div> : <div>You're the host</div>}
+                                </div>}</> /* If you're the owner, you're forced to go and can't change your RSVP */
+                                : <><div className="rsvp-info">
+                                    <div>This event passed</div>
+                                    
+                                  </div></>
+            }
+            
 
         </div>
         {deleteEventModal && <DeleteEventForm setDeleteEventModal={setDeleteEventModal} groupId={event.groupId} eventId={event.id} />}

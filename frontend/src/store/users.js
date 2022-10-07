@@ -1,3 +1,4 @@
+import { ADD_EVENT } from "./events";
 import { ADD_GROUP } from "./groups";
 import { SET_SESSION_USER } from "./session";
 
@@ -30,12 +31,11 @@ export const getUsersfromGrp = (groupId) => (state) => {
 
 export const getUsersfromEvent = (eventId) => (state) => {
     const attendees = [];
-    // debugger
     if(!state.signups || !state.users) return [];
     for(let signupId in state.signups) {
         let su = state.signups[signupId];
 
-        if(su.eventId === Number(eventId)) attendees.push(state.users[su.attendeeId]);
+        if(su.eventId === Number(eventId) && su.rsvpStatus === "going") attendees.push(state.users[su.attendeeId]);
 
     }
     // if(members[0] === undefined) debugger
@@ -61,6 +61,7 @@ const usersReducer = (state = {}, action) => {
         case SET_SESSION_USER:
             if(action.payload) newState[action.payload.id] = action.payload;
             return newState;
+        case ADD_EVENT: // intentional fall-through
         case ADD_GROUP:
             for(let uid in action.payload.users) {
                 newState[uid] ||= action.payload.users[uid];

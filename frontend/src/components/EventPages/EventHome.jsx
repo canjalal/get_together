@@ -31,7 +31,7 @@ const EventHome = () => {
   return (
     <>
     <Routes>
-        <Route path="/" element={<EventShow event={event} />} />
+        <Route path="/" element={<EventShow event={event} groupId={event ? event.groupId : null} />} />
         <Route path="/group/:groupId/edit" element={<EventNewForm oldEvent={event} />} />
         <Route path="/group/:groupId/copy" element={<EventNewForm oldEvent={{...event, method: "POST", dateTime: formatDateString(new Date())}} />} />
     </Routes>

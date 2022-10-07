@@ -48,7 +48,7 @@ export const changeRSVP = (eventId) => async (dispatch) => {
 export const getRSVPStatus = (attendeeId, eventId) => (state) => {
     // debugger
     let eventSignups = Object.values(state.signups).filter((su) => su.eventId === Number(eventId));
-    return !!eventSignups.find((ele) => ele.attendeeId === Number(attendeeId));
+    return eventSignups.find((ele) => ele.attendeeId === Number(attendeeId))?.rsvpStatus;
 }
 
 
