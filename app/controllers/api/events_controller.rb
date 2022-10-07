@@ -83,6 +83,11 @@ class Api::EventsController < ApplicationController
         render :index
     end
 
+    def search
+                @events = Event.where("title ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
+                render :search
+    end
+
     private
 
     def event_params

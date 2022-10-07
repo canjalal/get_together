@@ -113,6 +113,12 @@ class Api::GroupsController < ApplicationController
         @group = Group.find_by(id: params[:id])
     end
 
+    def search
+        # debugger
+        @groups = Group.where("name ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
+        render :search
+    end
+
     private
 
     def group_params # group here is NOT bananable, it searches for controller

@@ -9,6 +9,8 @@ export const DELETE_GROUP = 'groups/DELETE_GROUP';
 
 export const ADD_GROUPS = 'groups/ADD_GROUPS';
 
+export const ADD_SEARCHED_GROUPS = 'groups/ADD_SEARCHED_GROUPS';
+
 export const addGroup = (payload) => ({
     type: ADD_GROUP,
     payload // will have both a group: {} and a groupKeywords: {}
@@ -20,6 +22,11 @@ export const deleteGroup = (groupId) => (state) => ({
     groupId
 
 });
+
+export const addSearchedGroups = (payload) => ({
+    type: ADD_SEARCHED_GROUPS,
+    payload
+})
 
 
 export const getGroup = (groupId) => (state) => {
@@ -52,6 +59,23 @@ export const createGroup = (group) => async (dispatch) => {
         return {response, data};
         // dispatch(addGroupKeywords(data.groupKeywords));
  // dispatch two regular action creators, one for group and one for group_keywords?
+}
+
+export const searchGroups = (query) => async dispatch => {
+
+    const response = await csrfFetch('/api/groups/search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify(query)
+    });
+    const data = await response.json();
+
+    dispatch(addSearchedGroups(data));
+
+    return { response, data};
 }
 
 export const removeGroup = (groupId) => async (dispatch) => {
@@ -139,6 +163,7 @@ const groupReducer = (state = {}, action) => {
             delete newState[action.groupId];
             return newState;
 
+        case ADD_SEARCHED_GROUPS: // intentional fall-through
         case ADD_GROUPS: // this is only a partial add. Not all headers are gotten
             for(let gid in action.payload.groups) {
                 newState[gid] ||= action.payload.groups[gid];

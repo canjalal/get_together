@@ -12,6 +12,7 @@ import LoggedOutHome from "./components/HomeFeed/loggedouthome";
 import LogInForm from "./components/LogInForm/loginform";
 import NavMenu from "./components/NavMenu/navmenu";
 import NotFoundPage from "./components/NotFoundPage/notfoundpage";
+import SearchResults from "./components/Search/searchresults";
 import SignUpForm from "./components/SignUpForm/signupform";
 import { fetchKeywords } from "./store/keywords";
 
@@ -34,6 +35,7 @@ function App() {
       <Route path="/home" element={<HomeFeed />} />
     <Route path="/login" element={<LogInForm />} />
     <Route path="/signup" element={<SignUpForm />} />
+    <Route path="/searchresults" element={<SearchResults />} />
     <Route path="/groups/:groupId" element={<GroupShow />} />
     <Route path="/groups/:groupId/edit" element={<GroupEditPage />} />
     <Route path="/groups/new" element={<GroupFormProvider>

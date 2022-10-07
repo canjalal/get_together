@@ -14,10 +14,16 @@ Rails.application.routes.draw do
       member do
         get 'eventslist'
       end
+      collection do
+        post 'search'
+      end
     end
     resources :memberships, only: [:destroy]
     resources :events, only: [:create, :show, :update, :index, :destroy] do
       resources :signups, only: [:create]
+      collection do
+        post 'search'
+      end
     end
     resources :signups, only: [:update]
   end

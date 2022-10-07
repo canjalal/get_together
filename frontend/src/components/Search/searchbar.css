@@ -1,0 +1,33 @@
+.search-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+#search-field {
+    border-radius: 8px 0px 0px 8px;
+    height: 24px;
+    padding: 8px;
+    box-sizing: content-box;
+    font-size: 1rem;
+}
+
+#search-button {
+    background-color: var(--main-red);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 42px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    box-sizing: content-box;
+    outline: var(--main-red) solid 1px;
+
+}
+
+@media screen and (max-width > 770px) {
+    .search-bar {
+        display: none;
+    }
+}

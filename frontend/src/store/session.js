@@ -1,5 +1,5 @@
 import csrfFetch, { storeCSRFToken } from "./csrf";
-import { ADD_GROUPS, DELETE_GROUP } from "./groups";
+import { ADD_GROUPS, ADD_SEARCHED_GROUPS, DELETE_GROUP } from "./groups";
 
 export const SET_SESSION_USER = 'session/SET_SESSION_USER';
 export const REMOVE_SESSION_USER = 'session/REMOVE_SESSION_USER';
@@ -11,6 +11,8 @@ export const getGroupData = (state) => ({
     ownedGroups: state.session.ownedGroups,
     otherGroups: state.session.otherGroups
 });
+
+export const getSearchedGroupData = (state) => Object.values(state.session.searchedGroups);
 
 const setSessionUser = (user) => {
     return {
@@ -111,6 +113,10 @@ const sessionReducer = (state = initialState, action) => {
                 otherGroups: action.payload.otherGroups
             } // don't worry about when person joines /unjoins / deletes groups
                // thesee attributes are only for the home page and are refreshed there
+        case ADD_SEARCHED_GROUPS:
+            return { ...state,
+                searchedGroups: action.payload.groups
+            }
         default:
             return state;
     }

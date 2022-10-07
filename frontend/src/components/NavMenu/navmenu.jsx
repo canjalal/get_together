@@ -7,6 +7,7 @@ import LoggedOutMenu from '../LoggedOutMenu/loggedoutmenu';
 import './navmenu.css'
 import linkedinlogo from './LI-Bug.svg.original.svg';
 import githublogo from './GitHub-Mark-120px-plus.png';
+import SearchBar from '../Search/SearchBar';
 
 const NavMenu = (props) => {
 
@@ -31,7 +32,7 @@ const NavMenu = (props) => {
                 <a href="https://github.com/canjalal"><img src={githublogo} alt="GitHub-link" className="logos" /></a>
     </span>
             </div>    
-            {/* <div className="search-bar">Search Placeholder</div> */}
+            <SearchBar />
         </div>
         <div className="right-menu">
             {/* Place holder for component */}
