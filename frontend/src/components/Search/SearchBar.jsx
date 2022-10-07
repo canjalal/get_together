@@ -4,6 +4,7 @@ import { IoMdSearch } from 'react-icons/io'
 import { useDispatch } from 'react-redux';
 import { clearGroups, searchGroups } from '../../store/groups';
 import { useNavigate } from 'react-router-dom';
+import { searchEvents } from '../../store/events';
 
 const SearchBar = () => {
 
@@ -20,6 +21,10 @@ const SearchBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const {data } = await dispatch(searchGroups({
+            query: searchQuery
+        }));
+
+        await dispatch(searchEvents({
             query: searchQuery
         }));
         console.log(data);

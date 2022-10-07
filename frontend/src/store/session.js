@@ -1,4 +1,5 @@
 import csrfFetch, { storeCSRFToken } from "./csrf";
+import { ADD_SEARCHED_EVENTS } from "./events";
 import { ADD_GROUPS, ADD_SEARCHED_GROUPS, DELETE_GROUP } from "./groups";
 
 export const SET_SESSION_USER = 'session/SET_SESSION_USER';
@@ -13,6 +14,9 @@ export const getGroupData = (state) => ({
 });
 
 export const getSearchedGroupData = (state) => Object.values(state.session.searchedGroups);
+
+export const getSearchedEventData = (state) => Object.values(state.session.searchedEvents);
+
 
 const setSessionUser = (user) => {
     return {
@@ -117,6 +121,10 @@ const sessionReducer = (state = initialState, action) => {
             return { ...state,
                 searchedGroups: action.payload.groups
             }
+        case ADD_SEARCHED_EVENTS:
+                return { ...state,
+                    searchedEvents: action.payload.events
+                }
         default:
             return state;
     }

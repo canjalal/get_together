@@ -3,6 +3,7 @@ import { ADD_GROUP } from "./groups";
 
 export const ADD_EVENT = 'events/ADD_EVENT';
 export const DELETE_EVENT = 'events/DELETE_EVENT';
+export const ADD_SEARCHED_EVENTS = 'events/ADD_SEARCHED_EVENTS';
 
 export const addEvent = (payload) => ({
     type: ADD_EVENT,
@@ -13,6 +14,11 @@ export const deleteEvent = (eventId) => ({
     type: DELETE_EVENT,
     eventId
 });
+
+export const addSearchedEvents = (payload) => ({
+    type: ADD_SEARCHED_EVENTS,
+    payload
+})
 
 export const getanEvent = (eventId) => (state) => {
     if(!state.events) return null;
@@ -31,6 +37,23 @@ export const createEvent = (event) => async (dispatch) => {
     dispatch(addEvent(data));
 
     return { response, data };
+}
+
+export const searchEvents = (query) => async dispatch => {
+
+    const response = await csrfFetch('/api/events/search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify(query)
+    });
+    const data = await response.json();
+
+    dispatch(addSearchedEvents(data));
+
+    return { response, data};
 }
 
 export const removeEvent = (eventId) => async (dispatch) => {
@@ -118,6 +141,11 @@ const eventsReducer = (state = {}, action) => {
             for(let eid in action.payload.events) {
                 newState[eid] ||= action.payload.events[eid];
                 // this won't update an event if it changed on the backend
+            }
+            return newState;
+        case ADD_SEARCHED_EVENTS:
+            for(let eid in action.payload.events) {
+                newState[eid] ||= action.payload.events[eid];
             }
             return newState;
         default:

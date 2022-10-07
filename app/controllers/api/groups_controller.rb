@@ -41,14 +41,14 @@ class Api::GroupsController < ApplicationController
     end
 
     def show
-        @group = Group.find_by(id: params[:id])
+        @group = Group.includes(events: :signups).find_by(id: params[:id])
 
         if(@group)
             @g_keywords = @group.group_keywords
             @owner = @group.owner
             @memberships = @group.memberships
             @is_member = !!current_user && !!current_user.memberships.find_by(group_id: @group.id)
-            @count = @group.memberships.count
+            @count = @group.memberships.size
             @events = @group.events
             render :show
         else # will this work? not found.
@@ -57,7 +57,7 @@ class Api::GroupsController < ApplicationController
     end
     
     def update
-        @group = Group.find_by(id: params[:id])
+        @group = Group.includes(events: :signups).find_by(id: params[:id])
         @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
             # if( @group.update(group_params))
@@ -66,7 +66,7 @@ class Api::GroupsController < ApplicationController
                 @g_keywords = @group.group_keywords
                 @owner = @group.owner
                 @events = @group.events
-                @count = @group.memberships.count
+                @count = @group.memberships.size
                 render :show
             elsif(@group.update(group_params))
                 # debugger
@@ -84,7 +84,7 @@ class Api::GroupsController < ApplicationController
                 @g_keywords = GroupKeyword.where(group_id: @group.id)
                 @owner = @group.owner
                 @events = @group.events
-                @count = @group.memberships.count
+                @count = @group.memberships.size
                 render :show
             else
                 @group.errors.add("params", " are invalid") if(@group.errors.full_messages.length == 0)

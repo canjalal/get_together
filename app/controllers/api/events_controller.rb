@@ -84,7 +84,7 @@ class Api::EventsController < ApplicationController
     end
 
     def search
-                @events = Event.where("title ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
+                @events = Event.where("title ILIKE ?", "%" + Event.sanitize_sql_like(params[:query]) + "%").order(:date_time).includes(:group, :signups)
                 render :search
     end
 

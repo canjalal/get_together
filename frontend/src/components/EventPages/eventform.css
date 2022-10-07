@@ -25,6 +25,16 @@
     background-color: white;
 }
 
+.event-group {
+    color:rgb(33, 33, 33);
+
+    margin: 5px 0px 5px 0px;
+}
+
+.attendee-count {
+    margin-top: 25px;
+}
+
 #is-online-checkbox {
     margin: 1.5rem 0.5rem 1.5rem 0.5rem;
 }
