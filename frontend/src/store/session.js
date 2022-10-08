@@ -15,7 +15,12 @@ export const getGroupData = (state) => ({
 
 export const getSearchedGroupData = (state) => Object.values(state.session.searchedGroups);
 
-export const getSearchedEventData = (state) => Object.values(state.session.searchedEvents);
+export const getSearchedEventData = (state) => {
+    if(!state.session?.searchedEvents) return [];
+    const sortedEvents = Object.values(state.session.searchedEvents);
+    sortedEvents.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+    return sortedEvents;
+}
 
 
 const setSessionUser = (user) => {

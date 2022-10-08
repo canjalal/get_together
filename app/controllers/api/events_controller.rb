@@ -84,8 +84,14 @@ class Api::EventsController < ApplicationController
     end
 
     def search
-                @events = Event.where("title ILIKE ?", "%" + Event.sanitize_sql_like(params[:query]) + "%").order(:date_time).includes(:group, :signups)
+                @events = Event.where("title ILIKE ?", "%" + Event.sanitize_sql_like(params[:query]) + "%").includes(:group, :signups)
                 render :search
+    end
+
+    def weekly
+        @nextweek = Date.parse(params[:fecha]) + 1.week
+        @events = Event.where("date_time >= ?", params[:fecha]).where("date_time <= ?", @nextweek).includes(:group, :signups)
+        render :search
     end
 
     private

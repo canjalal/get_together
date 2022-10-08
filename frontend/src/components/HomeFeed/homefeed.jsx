@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchGroups, getGroup } from '../../store/groups';
 import { getCurrentUser, getGroupData } from '../../store/session';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import EventCalendar from './EventCalendar';
 
 const HomeFeed = () => {
 
@@ -13,6 +16,8 @@ const HomeFeed = () => {
 
     const dispatch = useDispatch();
 
+    const [fecha, setFecha] = useState(new Date());
+
     const groups = useSelector((state) => state.groups);
 
     const { joinedGroups, ownedGroups, otherGroups } = useSelector(getGroupData);
@@ -21,7 +26,6 @@ const HomeFeed = () => {
     window.joinedGroups = joinedGroups;
     window.ownedGroups = ownedGroups;
     window.otherGroups = otherGroups;
-
 
 
     useEffect(() => {
@@ -44,6 +48,12 @@ const HomeFeed = () => {
         {/* </div> */}
         
         </>}
+
+        <div className="event-calendar">
+            <Calendar onChange={setFecha} value={fecha} />
+            <EventCalendar startDate={fecha} />
+        </div>
+
         
         {joinedGroups.length > 0 && <>
             <h1>Groups you are a member of</h1>

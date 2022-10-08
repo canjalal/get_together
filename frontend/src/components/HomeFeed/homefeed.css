@@ -28,6 +28,10 @@
     
 }
 
+.event-calendar {
+    display: flex;
+}
+
 .organized-groups, .member-of-groups, .other-groups {
     display: flex;
     flex-wrap: wrap;

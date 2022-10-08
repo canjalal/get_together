@@ -56,6 +56,23 @@ export const searchEvents = (query) => async dispatch => {
     return { response, data};
 }
 
+export const fetchWeeksEvents = (startDate) => async dispatch => {
+
+    const response = await csrfFetch('/api/events/weekly', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({fecha: startDate})
+    });
+    const data = await response.json();
+
+    dispatch(addSearchedEvents(data));
+
+    return { response, data};
+}
+
 export const removeEvent = (eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}`, {
         method: 'DELETE'

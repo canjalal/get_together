@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resources :signups, only: [:create]
       collection do
         post 'search'
+        post 'weekly'
       end
     end
     resources :signups, only: [:update]
