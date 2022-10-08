@@ -3,6 +3,10 @@
     flex-direction: row;
 }
 
+.search-results {
+    padding-left: max(calc((100vw - 1080px) / 6), 20px);
+}
+
 #search-field {
     border-radius: 8px 0px 0px 8px;
     height: 24px;

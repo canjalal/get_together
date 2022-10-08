@@ -135,7 +135,7 @@ const EventShow = ({event, groupId}) => {
                         {owner.name}
                     </p>
                 </div>
-                {owner.id === sessionUser.id && <p><Link to={`group/${group.id}/edit`} id="edit-event-button" className="small-button">Edit Page</Link></p>}
+                {owner.id === sessionUser?.id && <p><Link to={`group/${group.id}/edit`} id="edit-event-button" className="small-button">Edit Page</Link></p>}
             </div>
         </div>
         <div className="event-show-body">
@@ -163,7 +163,7 @@ const EventShow = ({event, groupId}) => {
                 </div>
             </div>
             <div className="event-show-left">
-                {owner.id === sessionUser.id && <><div className="organizer-tools" onClick={(e)=> { setShowMenu((prev) => !prev);
+                {owner.id === sessionUser?.id && <><div className="organizer-tools" onClick={(e)=> { setShowMenu((prev) => !prev);
     e.stopPropagation();}}>Organizer tools { }
     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
     </div>
@@ -198,15 +198,11 @@ const EventShow = ({event, groupId}) => {
                 </div>
             </div>
             { /* only show RSVP info if the event is in the future. If you havne't RSVP'd here's a signup button */ }
-            { new Date(event.dateTime) > new Date() ? <>{!isRSVPed && !isOwner ? <button className="standard-button" onClick={(e) => dispatch(joinEvent(eventId))}>Attend</button>
+            { sessionUser && new Date(event.dateTime) > new Date() && <>{!isRSVPed && !isOwner ? <button className="standard-button" onClick={(e) => dispatch(joinEvent(eventId))}>Attend</button>
                             : <div className="rsvp-info">  {/* Otherwise here's some RSVP options */}
                                 <div>You're { isRSVPed === "not" ? "not going" : "going"}! </div>
                                 {!isOwner ? <div onClick={toggleRSVP} className="green-link">Change RSVP</div> : <div>You're the host</div>}
                                 </div>}</> /* If you're the owner, you're forced to go and can't change your RSVP */
-                                : <><div className="rsvp-info">
-                                    <div>This event passed</div>
-                                    
-                                  </div></>
             }
             
 

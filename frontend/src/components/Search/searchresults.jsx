@@ -26,7 +26,7 @@ const SearchResults = () => {
     if(!searchedGroups || !searchedEvents) return null;
 
   return (
-    <div>
+    <div className="search-results">
         <h1>Search Results</h1>
         <div className="group-results">
         <h1>Groups</h1>
@@ -41,7 +41,7 @@ const SearchResults = () => {
             <h1>Events</h1>
             
             {searchedEvents.length > 0 ?
-                searchedEvents.map((ev) => <Link to={`/events/${ev.id}`}><EventPanel data={ev} key={ev.id} /> </Link>) :
+                searchedEvents.map((ev) => <Link to={`/events/${ev.id}`} key={ev.id}><EventPanel data={ev} /> </Link>) :
                 <h1>No events found</h1>
             }
         </div>
