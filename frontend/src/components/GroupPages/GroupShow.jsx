@@ -9,7 +9,7 @@ import NotFoundPage from '../NotFoundPage/notfoundpage';
 import { IoPeopleOutline } from 'react-icons/io5';
 import './showpage.css';
 import { BiUser } from 'react-icons/bi';
-import { getUser, getUsers, getUsersfromGrp, sustainCurrentUser } from '../../store/users';
+import { getUser, getUsersfromGrp, sustainCurrentUser } from '../../store/users';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { GrImage } from 'react-icons/gr';
 import AttachNewPhoto from './AttachNewPhoto';
@@ -94,15 +94,22 @@ const GroupShow = (props) => {
             </div>
             <div id="group-info">
                 <h1>{group.name}</h1>
-                <ul>
-                    <li id="grp-location-bullet"><GoLocation />
+                <ul id="group-info-grid">
+                    <li><GoLocation />
+                    </li>
+                    <li>
                         {group.location}
                     </li>
                     <li>
-                    <IoPeopleOutline /> {users.length + 1} {group.memberLabel || "members"}
+                    <IoPeopleOutline />
                     </li>
                     <li>
-                        <BiUser /> Organized by {!!group && owner.name}
+                        {users.length + 1} {group.memberLabel || "members"}
+                    </li>
+                    <li>
+                        <BiUser />
+                    </li>
+                    <li> Organized by {!!group && owner.name}
                     </li>
                 </ul>
                 {isOwner && <div id="edit-page">

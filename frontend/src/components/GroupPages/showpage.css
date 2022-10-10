@@ -26,6 +26,12 @@
     width: 40%;
 }
 
+#group-info-grid {
+    display: grid;
+    grid-template-columns: 20px 100%;
+    grid-gap: 10px;
+}
+
 .main-content {
     display: flex;
 }
