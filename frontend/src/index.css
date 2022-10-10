@@ -9,6 +9,7 @@
 :root {
     --main-red:  #f65858;
     --main-green: rgb(0, 130, 148);
+    --main-gray: rgb(117, 117, 117);
 }
 
 h1 {

@@ -30,10 +30,35 @@
 
 }
 
-.event-results {
+#search-heading {
+    font-family: "Graphik Medium";
+    margin-bottom: 20px;
+}
+
+#search-heading *:last-child {
+    margin-left: 40px;
+}
+
+.selected-header {
+    border-bottom: 4px solid var(--main-green);
+    color: var(--main-green);
+}
+
+.unselected-header {
+    border-bottom: 4px solid var(--main-gray);
+    color: var(--main-gray);
+}
+
+#event-results {
     display: flex;
     flex-direction: column;
 }
+
+#group-results {
+    display: none;
+    flex-direction: column;
+}
+
 
 @media screen and (max-width > 770px) {
     .search-bar {
