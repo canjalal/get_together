@@ -1,0 +1,47 @@
+.group-panel-container {
+    border-top: 1px solid rgba(46, 62, 72, 0.12);
+    border-bottom: 1px solid rgba(46, 62, 72, 0.12);
+    display: flex;
+    padding: 20px;
+    /* align-items: center; */
+}
+.group-panel-name {
+    color: rgb(33, 33, 33);
+    font-size: 20px;
+    line-height: 24px;
+    font-family: 'Graphik Bold';
+}
+
+.group-panel-location {
+    color: rgb(135, 116, 87);
+    text-transform: uppercase;
+    font-family: "Graphik Medium";   
+}
+
+.group-panel-description {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: rgb(33, 33, 33);
+    font-size: 14px;
+    line-height: 20px;
+
+}
+.group-panel {
+    margin-bottom: 30px;
+    background: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    justify-content: baseline;
+
+}
+.group-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 178px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+}

@@ -22,7 +22,6 @@ const EventCalendar = ({startDate}) => {
 
   return (
     <div className="event-results">
-    <h1>Events</h1>
     
     {searchedEvents.length > 0 ?
         searchedEvents.map((ev) => <Link to={`/events/${ev.id}`} key={ev.id}><EventPanel data={ev} /> </Link>) :

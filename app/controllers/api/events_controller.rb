@@ -27,7 +27,7 @@ class Api::EventsController < ApplicationController
         if(@event)
             @attendees = @event.attendees
             @group = @event.group
-            @count = @event.signups.select {|su| su.rsvp_status == "going"}.size
+            @count = @event.signups.select {|su| su.rsvp_status == "going"}.size + 1
             @signups = @event.signups
             render :show
         else

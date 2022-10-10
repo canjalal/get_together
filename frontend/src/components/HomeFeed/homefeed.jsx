@@ -5,8 +5,9 @@ import { fetchGroups, getGroup } from '../../store/groups';
 import { getCurrentUser, getGroupData } from '../../store/session';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import './calendar.css';
 import EventCalendar from './EventCalendar';
+import GroupPanel from '../GroupForm/GroupPanel';
 
 const HomeFeed = () => {
 
@@ -42,7 +43,7 @@ const HomeFeed = () => {
         {/* <div className="organizer-of-groups"> */}
             
             <div className="organized-groups">
-                { ownedGroups.map((gid) => <GroupLargeIcon group={groups[gid]} key={gid} /> )}
+                { ownedGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
             </div>
 
         {/* </div> */}
@@ -50,7 +51,14 @@ const HomeFeed = () => {
         </>}
 
         <div className="event-calendar">
-            <Calendar onChange={setFecha} value={fecha} />
+        <h1>Upcoming Events</h1>
+        </div>
+
+        <div className="event-calendar">
+            <div id="calendar-container">
+                <Calendar onChange={setFecha} value={fecha} />
+            </div>
+            
             <EventCalendar startDate={fecha} />
         </div>
 
@@ -59,14 +67,14 @@ const HomeFeed = () => {
             <h1>Groups you are a member of</h1>
             <div className="member-of-groups">
                 
-                { joinedGroups.map((gid) => <GroupLargeIcon group={groups[gid]} key={gid} /> )}
+                { joinedGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
             </div>        
         </>}
 
         <h1>{(ownedGroups.length === 0 && joinedGroups.length === 0 ) ? "All" : "Other" } groups</h1>
         <div className="other-groups">
             
-            { otherGroups.map((gid) => <GroupLargeIcon group={groups[gid]} key={gid} /> )}
+            { otherGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
         </div>
     </div>
     )
