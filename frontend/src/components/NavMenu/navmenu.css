@@ -41,3 +41,7 @@
 .logos {
     height: 24pt;
   }
+
+#self-promo {
+    display: flex;
+}
