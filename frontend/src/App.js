@@ -33,19 +33,19 @@ function App() {
     <Routes>
       <Route path="/" element={<LoggedOutHome />} />
       <Route path="/home" element={<HomeFeed />} />
-    <Route path="/login" element={<LogInForm />} />
-    <Route path="/signup" element={<SignUpForm />} />
-    <Route path="/searchresults" element={<SearchResults />} />
-    <Route path="/groups/:groupId" element={<GroupShow />} />
-    <Route path="/groups/:groupId/edit" element={<GroupEditPage />} />
-    <Route path="/groups/new" element={<GroupFormProvider>
-                                      <GroupFormIntro />
-                                      </GroupFormProvider>} />
-    <Route path="/groups/:groupId/events/new" element={<EventNewForm />} />
-    <Route path="/events/:eventId/*" element={<EventHome />} />
-    {/* Tried making a nested Routes but it wasn't matching correctly, trying to grab a groupId */}
-    {/* <Route path="/events/:eventId/edit" element={<EventNewForm />} /> */}
-    <Route path="*" element={<NotFoundPage />} />
+      <Route path="/login" element={<LogInForm />} />
+      <Route path="/signup" element={<SignUpForm />} />
+      <Route path="/searchresults" element={<SearchResults />} />
+      <Route path="/groups/:groupId" element={<GroupShow />} />
+      <Route path="/groups/:groupId/edit" element={<GroupEditPage />} />
+      <Route path="/groups/new" element={<GroupFormProvider>
+                                        <GroupFormIntro />
+                                        </GroupFormProvider>} />
+      <Route path="/groups/:groupId/events/new" element={<EventNewForm />} />
+      <Route path="/events/:eventId/*" element={<EventHome />} />
+      {/* Tried making a nested Routes but it wasn't matching correctly, trying to grab a groupId */}
+      {/* <Route path="/events/:eventId/edit" element={<EventNewForm />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
     </>
   );

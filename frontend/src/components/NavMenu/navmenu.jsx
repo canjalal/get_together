@@ -27,6 +27,7 @@ const NavMenu = (props) => {
                 {sessionUser ? <Link to="/home">GetTogether</Link> : <Link to="/">GetTogether</Link>}
             </div>
             <div>
+                {/* Move the following to the footer or something  */}
             <div id="self-promo">
                 <a href="https://www.linkedin.com/in/vincentshuali/"><img src={linkedinlogo} alt="LinkedIn-link" className="logos" /></a>
                 <a href="https://github.com/canjalal"><img src={githublogo} alt="GitHub-link" className="logos" /></a>

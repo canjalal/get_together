@@ -57,6 +57,7 @@ const HomeFeed = () => {
         <div className="event-calendar">
             <div id="calendar-container">
                 <Calendar onChange={setFecha} value={fecha} />
+                <div></div>
             </div>
             
             <EventCalendar startDate={fecha} />
