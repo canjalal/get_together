@@ -135,7 +135,7 @@ const EventShow = ({event, groupId}) => {
                         {owner.name}
                     </p>
                 </div>
-                {owner.id === sessionUser?.id && <p><Link to={`group/${group.id}/edit`} id="edit-event-button" className="small-button">Edit Page</Link></p>}
+
             </div>
         </div>
         <div className="event-show-body">

@@ -63,7 +63,7 @@ const GroupFormIntro = (props) => {
                 pickElement(pageNum)
             }
         <BottomBar />
-        </div>
+    </div>
     </>
 
   )

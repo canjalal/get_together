@@ -21,13 +21,17 @@ const EventCalendar = ({startDate}) => {
     if(!startDate) return null;
 
   return (
-    <div className="event-results">
+    <ul className="event-results">
     
     {searchedEvents.length > 0 ?
-        searchedEvents.map((ev) => <Link to={`/events/${ev.id}`} key={ev.id}><EventPanel data={ev} /> </Link>) :
+        searchedEvents.map((ev) => <li key={ev.id}>
+                                    <Link to={`/events/${ev.id}`} >
+                                        <EventPanel data={ev} />
+                                    </Link>
+                                </li>) :
         <h1>No events found</h1>
     }
-</div>
+</ul>
   )
 }
 

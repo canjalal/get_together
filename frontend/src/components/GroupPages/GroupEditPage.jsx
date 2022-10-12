@@ -183,7 +183,7 @@ const GroupEditPage = () => {
                 <div className="group-form-body" style={{gap: "0px"}}>
                     <h2>Topics</h2>
                     <label>
-                    {/* <p className="capt">Why are topics important?</p> */}
+                Why are topics important?
                     <p className="sub-labels">Topics describe what your Meetup group is about in a word or two. Pick up to 15 topics for your Meetup group. Well-picked topics help the right members find your Meetup group.</p>
                     {Object.values(keywordList).map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
 {kw.keyword}

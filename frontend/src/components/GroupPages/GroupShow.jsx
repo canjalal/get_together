@@ -120,9 +120,10 @@ const GroupShow = (props) => {
         <div className="main-content">
             <div className="left-content">
                 <div className="group-menu">
-                    <span>About</span>
+                    {/* <span>About</span>
                     <span>Events</span>
-                    <span>Members</span>
+                    <span>Members</span> */}
+                    <span></span>
                 </div>
                 <div className="left-main-content">
                     <div className="group-description">
@@ -164,7 +165,7 @@ const GroupShow = (props) => {
                     </>} {/* If you're the owner, this appears as
                                         "Manage Group" with different options instead */}
                     {sessionUser && sessionUser.id !== owner.id && <>
-                        <button className="small-button">Donate</button>
+                        <button className="small-button" style={{visibility: "hidden"}}>Donate</button>
                         <button className="secondary-button" onClick={toggleMembership}>{isMember ? "Leave" : "Join"} Group</button>
                     </>}
                 </div>

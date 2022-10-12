@@ -32,6 +32,12 @@
     display: flex;
 }
 
+.event-results {
+    width: 100%;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
 .organized-groups, .member-of-groups, .other-groups {
     display: flex;
     flex-direction: column;

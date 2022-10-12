@@ -51,7 +51,7 @@ const HomeFeed = () => {
         </>}
 
         <div className="event-calendar">
-        <h1>Upcoming Events</h1>
+        <h1>Upcoming week's events</h1>
         </div>
 
         <div className="event-calendar">
