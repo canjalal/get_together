@@ -58,5 +58,10 @@
 @media screen and (max-width: 950px) {
     #calendar-container {
         display: none;
-    }    
+    }
+    
+    .home-feed {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
