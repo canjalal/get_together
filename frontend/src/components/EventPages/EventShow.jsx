@@ -144,7 +144,7 @@ const EventShow = ({event, groupId}) => {
                 <div className="event-info-container">
                     <div className="event-info-section">
                         <div className="event-icons">
-<BiTimeFive />
+                        <BiTimeFive />
                         </div>
                         <div className="event-info">
                         {getDateAndTimeString(new Date(event.dateTime))} to 
@@ -164,19 +164,19 @@ const EventShow = ({event, groupId}) => {
             </div>
             <div className="event-show-left">
                 {owner.id === sessionUser?.id && <><div className="organizer-tools" onClick={(e)=> { setShowMenu((prev) => !prev);
-    e.stopPropagation();}}>Organizer tools { }
-    { showMenu ? <IoChevronUp /> : <IoChevronDown />}
-    </div>
-        {/* placeholder for dropdown menu with logout */}
-    <div className="organizer-dropdown">
-        <div>
-            <ul>
-                <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>
-                <li id="copy-event-link"><BiCopy />  <span className="dropdown-text">Copy event</span></li>
-                <li id="delete-event-link"><AiOutlineDelete />  <span className="dropdown-text">Delete event</span></li>
-            </ul>
-        </div>
-    </div></> }
+                                                    e.stopPropagation();}}>Organizer tools { }
+                                                    { showMenu ? <IoChevronUp /> : <IoChevronDown />}
+                                                    </div>
+                                                        {/* placeholder for dropdown menu with logout */}
+                                                    <div className="organizer-dropdown">
+                                                        <div>
+                                                            <ul>
+                                                                <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>
+                                                                <li id="copy-event-link"><BiCopy />  <span className="dropdown-text">Copy event</span></li>
+                                                                <li id="delete-event-link"><AiOutlineDelete />  <span className="dropdown-text">Delete event</span></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div></> }
                 <h1>Details</h1>
                 <p>{event.description}</p>
 
