@@ -50,6 +50,10 @@
     color: var(--main-gray);
 }
 
+.search-header {
+    cursor: pointer;
+}
+
 #event-results {
     display: flex;
     flex-direction: column;
