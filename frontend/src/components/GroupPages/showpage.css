@@ -286,12 +286,9 @@ textarea {
         flex-direction: column;
     }
 
-    .show-page-header > * {
-        height: 25vh;
-    }
-    
     #group-cover {
         width: 100%;
+        height: 25vh;
     }
     
     #group-info {
