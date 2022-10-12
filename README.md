@@ -25,4 +25,4 @@ From any page, you can search for groups in the search bar above.
 
 ## Technologies Used
 
-The website uses a Rails backend connected to a postgreSQL database. Images are stored on AWS S3, referenced in Rails ActiveRecord. The frontend is served by React 18 and React Router v6.
+The website uses a Rails backend connected to a postgreSQL database. Images are stored on AWS S3, referenced in Rails ActiveRecord. The frontend is served by React 18 and React Router v6. State is managed by Redux, which fetches data 

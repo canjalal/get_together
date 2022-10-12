@@ -75,11 +75,13 @@ const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
             <div className="close-modal" onClick={(e)=> {setErrors([]);
             e.stopPropagation();}}><IoMdClose /></div>
             </div>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="modal-confirmation">
                 <h1>Are you sure?</h1>
-                <input type="submit" id="submit-group-photo-button" value="Delete my Group" />
-                <div className="secondary-button" style={{display: "inline-block", width: "fit-content", margin: "20px"}} onClick={(e)=> setDeleteGroupModal(false)}>Take Me Back</div>
-
+                <p className="sub-labels">This action cannot be undone.</p>
+                <div>
+                    <input type="submit" id="submit-group-photo-button" value="Delete my Group" />
+                    <div className="secondary-button" style={{display: "inline-block", width: "fit-content", margin: "10px"}} onClick={(e)=> setDeleteGroupModal(false)}>Take me Back</div>
+                </div>
             </form>
         </div>
     </div>

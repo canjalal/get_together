@@ -86,12 +86,20 @@ const GroupEditPage = () => {
     }, [group]);
 
     const toggleItem = (id) => (e) => {
+        let keywordErrorCapt = document.querySelector("#keyword-error");
         if (e.target.classList.contains("kw-unchecked")) {
             setCheckedKeywords([...checkedKeywords, Number(id)]);
             e.target.classList.add("kw-checked");
             e.target.classList.remove("kw-unchecked")
+            document.querySelector("#save-group-info-button").disabled = false;
+            keywordErrorCapt.style.display = "none";
             // console.log("checked! " + e.target.value);
         } else {
+            if(checkedKeywords.length === 1) {
+                keywordErrorCapt.style.display = "block";
+                document.querySelector("#save-group-info-button").disabled = true;
+            }
+            
             setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
             e.target.classList.remove("kw-checked");
             e.target.classList.add("kw-unchecked");
@@ -174,11 +182,14 @@ const GroupEditPage = () => {
                 </div>
                 <div className="group-form-body" style={{gap: "0px"}}>
                     <h2>Topics</h2>
+                    <label>
                     {/* <p className="capt">Why are topics important?</p> */}
                     <p className="sub-labels">Topics describe what your Meetup group is about in a word or two. Pick up to 15 topics for your Meetup group. Well-picked topics help the right members find your Meetup group.</p>
                     {Object.values(keywordList).map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
 {kw.keyword}
                 </p>)}
+                </label>
+                <p id="keyword-error" className="capt invalid">You must select at least one keyword for your group!</p>
                 </div>
                 <div className="submit-edit-group">
                 {errors.length > 0 && <div className="error-console">
