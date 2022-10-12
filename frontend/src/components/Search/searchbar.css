@@ -1,7 +1,6 @@
 .search-bar {
     display: flex;
     flex-direction: row;
-    margin-top: 32px;
 }
 
 .search-results {
@@ -63,10 +62,13 @@
     display: none;
     flex-direction: column;
 }
+.big-search-bar {
+    margin-top: 32px;
+}
 
 
 @media screen and (max-width: 770px) {
-    .search-bar {
+    .big-search-bar {
         display: none;
     }
 }

@@ -33,7 +33,7 @@ const SearchBar = () => {
     }
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-        <input type="text" id="search-field" value={searchQuery} placeholder="Search for groups" onChange={changeQuery} />
+        <input type="text" id="search-field" value={searchQuery} placeholder="Search for groups and events" onChange={changeQuery} />
         <div id="search-button" onClick={handleSubmit}><IoMdSearch color="#fff" /></div>
     </form>
   )

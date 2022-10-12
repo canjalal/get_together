@@ -28,3 +28,14 @@ hr {
 .dropdown li:first-of-type {
     margin-top: 0px;
 }
+
+#new-group-link {
+    display: inline;
+}
+
+
+@media screen and (max-width: 520px) {
+    #new-group-link {
+        display: none;
+    }
+}

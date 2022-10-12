@@ -45,3 +45,54 @@
 #self-promo {
     display: flex;
 }
+
+.mini-search {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.mobilized {
+    display: block;
+    height: 64px;
+    transition-property: height;
+    transition-duration: 2s;
+    transition-timing-function: ease-in;  
+
+}
+
+.demobilized {
+    display: none;
+    height: 0px;
+    transition-property: height;
+    transition-duration: 2s;
+    transition-timing-function: ease-in;  
+}
+
+.menu-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-search-bar {
+    overflow-y: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2px 20px 20px 20px;
+
+}
+
+@media screen and (max-width: 770px) {
+    .mini-search {
+        display: inline;
+    }
+
+}
+
+@media (min-width: 770px) {
+    .mini-search-bar {
+        display: none;
+        height: 0px;
+    }
+
+}

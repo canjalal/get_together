@@ -13,7 +13,6 @@
 
 .show-page-header > * {
     padding: 20px;
-    height: 378px;
 }
 
 #group-cover {
@@ -273,4 +272,36 @@ textarea {
 .member-list {
     display: flex;
     flex-wrap: wrap;
+}
+
+@media screen and (max-width : 770px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .left-content, .right-content {
+        width: 100%;
+    }
+
+    .show-page-header {
+        flex-direction: column;
+    }
+
+    .show-page-header > * {
+        height: 25vh;
+    }
+    
+    #group-cover {
+        width: 100%;
+    }
+    
+    #group-info {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 770px) {
+    .show-page-header > * {
+        height: 378px;
+    }
 }

@@ -40,7 +40,7 @@ const LoggedInMenu = () => {
     
   return (
     <>
-    {location.pathname !== '/groups/new' && <div><Link to="/groups/new" className="green-link">Start a new group</Link></div>}
+    {location.pathname !== '/groups/new' && <div id="new-group-link"><Link to="/groups/new" className="green-link">Start a new group</Link></div>}
     {/* <div>Notifications</div> */}
     <div className="profile-link" onClick={(e)=> { setShowMenu((prev) => !prev);
     e.stopPropagation();}}>{sessionUser.name}'s Profile
