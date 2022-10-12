@@ -1,0 +1,11 @@
+.not-found {
+    display: block;
+    background-color: #FBE1E3;
+    padding: 20px;
+    
+}
+
+.not-found > h1 {
+    color: #C00;
+    padding-bottom: 10px;
+}

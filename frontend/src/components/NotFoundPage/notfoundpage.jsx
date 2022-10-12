@@ -1,10 +1,12 @@
 import React from 'react'
+import './notfound.css';
 
 const NotFoundPage = () => {
   return (
-    <div>Error Four Oh-Four
+    <div className="not-found">
+        <h1>Sorry, the group you're looking for doesn't exist.</h1>     
         <p>
-            P&aacute;gina no encontrada 
+            Try searching for a group or event
         </p>
     </div>
   )
