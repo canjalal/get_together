@@ -277,6 +277,7 @@ textarea {
 @media screen and (max-width : 770px) {
     .main-content {
         flex-direction: column;
+        padding: 20px;
     }
     .left-content, .right-content {
         width: 100%;
@@ -294,6 +295,9 @@ textarea {
     #group-info {
         width: 100%;
         box-sizing: border-box;
+    }
+    .left-main-content {
+        padding-right: 0px;
     }
 }
 
