@@ -48,9 +48,8 @@ html {
 
 .error-console {
     position: fixed;
-    width: 33%;
+    width: 484px;
     top: 64px;
-    left: 50vh;
     background-color: rgb(200, 0, 0);
     color: white;
     border-radius: 4px;
@@ -119,6 +118,10 @@ label {
     line-height: 24px;
     text-size-adjust: 100%;
     width: 100%;
+}
+
+.error-bullets {
+    margin: 8px;
 }
 
 form > div {
@@ -226,7 +229,7 @@ input[type="checkbox"] {
 }
 
 @media screen and (max-width: 484px) {
-    .modal {
+    .modal, .error-console {
         width: 100vw;
 
     }

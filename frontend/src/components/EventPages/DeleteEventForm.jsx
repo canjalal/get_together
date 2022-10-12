@@ -71,7 +71,7 @@ window.groupId = groupId;
                                         
             <BiErrorCircle />
                     <ul>
-            {errors.map(error => <li key={error}>{error}</li>)}
+            {errors.map(error => <li className="error-bullets" key={error}>{error}</li>)}
             </ul>
             <div className="close-modal" onClick={(e)=> {setErrors([]);
             e.stopPropagation();}}><IoMdClose /></div>

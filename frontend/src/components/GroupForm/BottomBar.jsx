@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { BiErrorCircle } from 'react-icons/bi';
+import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createGroup } from '../../store/groups';
@@ -56,11 +58,22 @@ const BottomBar = (props) => {
               setPageisDone(false);
             }
           )}>Agree & Continue</button>}
-        {errors.length > 0 && <ul>
+
+{errors.length > 0 && <div className="error-console">
+            
+            <BiErrorCircle />
+                    <ul>
+            {errors.map(error => <li key={error} className="error-bullets">{error}</li>)}
+            </ul>
+            <div className="close-modal" onClick={(e)=> {setErrors([]);
+            e.stopPropagation();}}><IoMdClose /></div>
+            </div>}
+            
+        {/* {errors.length > 0 && <ul>
             <li>Errors:</li>
             {errors.map((err, i) => <li key={i}>{err}</li>)}
         </ul>
-            }
+            } */}
         </div>
   )
 }
