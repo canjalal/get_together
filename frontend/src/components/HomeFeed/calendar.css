@@ -42,6 +42,7 @@
   .react-calendar__navigation__label__labelText, .react-calendar__navigation__arrow {
     color: var(--main-green);
     font-family: 'Graphik Medium';
+    font-size: 133%;
   }
   .react-calendar__navigation button {
     min-width: 44px;

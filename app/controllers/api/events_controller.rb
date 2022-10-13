@@ -89,7 +89,7 @@ class Api::EventsController < ApplicationController
     end
 
     def weekly
-        @nextweek = Date.parse(params[:fecha]) + 1.week
+        @nextweek = Date.parse(params[:fecha]) + 1.week + 1.day
         @events = Event.where("date_time >= ?", params[:fecha]).where("date_time <= ?", @nextweek).includes(:group, :signups)
         render :search
     end
