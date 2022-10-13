@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchGroups, getGroup } from '../../store/groups';
+import { fetchGroups } from '../../store/groups';
 import { getCurrentUser, getGroupData } from '../../store/session';
-import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import Calendar from 'react-calendar';
 import './calendar.css';
 import EventCalendar from './EventCalendar';

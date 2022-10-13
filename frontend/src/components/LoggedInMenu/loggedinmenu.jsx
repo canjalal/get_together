@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentUser, logout } from '../../store/session';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import './loggedinmenu.css';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const LoggedInMenu = () => {
 

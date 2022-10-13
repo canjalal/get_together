@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom'
 import { getGroupKeywords } from '../../store/groupkeywords';
-import { fetchGroup, getGroup, getGroupOwner } from '../../store/groups';
+import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session';
 import { GoLocation } from 'react-icons/go';
 import NotFoundPage from '../NotFoundPage/notfoundpage';

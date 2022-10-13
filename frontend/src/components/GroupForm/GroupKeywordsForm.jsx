@@ -20,10 +20,6 @@ const GroupKeywordsForm = () => {
         // console.log(`KeywordList is ${keywordList}`)
     }, []);
 
-    const handleChange = (e) => {
-
-    }
-
     const toggleItem = (id) => (e) => {
         if (e.target.classList.contains("kw-unchecked")) {
             setCheckedKeywords([...checkedKeywords, Number(id)]);

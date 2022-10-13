@@ -44,7 +44,7 @@ const EventNewForm = ({oldEvent}) => {
 
     const [errors, setErrors] = useState([]);
 
-    const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
+    // const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
 
     const [title, setTitle] = useState(oldEvent.title);
     const [dateTime, setDateTime] = useState(formatDateString(new Date(oldEvent.dateTime)));

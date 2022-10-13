@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import capitalize from '../../utils/capitalize';
 import { GroupFormContext } from './GroupFormContext';
 import { renderDescriptionError } from './validations';
 

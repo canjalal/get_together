@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Navigate, Redirect, useNavigate } from 'react-router-dom';
-import sessionReducer, { getCurrentUser, login } from '../../store/session';
+import { Link, useNavigate } from 'react-router-dom';
+import  { getCurrentUser, login } from '../../store/session';
 import MiniLogo from '../logo';
 import './loginform.css';
 import * as FrontEndValidations from './validations'

@@ -5,8 +5,8 @@ import { IoLocationOutline } from 'react-icons/io5';
 import { BiTimeFive } from 'react-icons/bi';
 import { GrVideo } from 'react-icons/gr';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { deleteEvent, fetchEvent, getanEvent, removeEvent } from '../../store/events';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchEvent } from '../../store/events';
 import { IoChevronUp, IoChevronDown } from 'react-icons/io5';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { BiCopy } from 'react-icons/bi';

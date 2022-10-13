@@ -4,7 +4,6 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeEvent } from "../../store/events";
-import { removeGroup } from "../../store/groups";
 
 const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
 

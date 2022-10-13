@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import { fetchEvent, getanEvent } from '../../store/events'
 import EventNewForm from './EventNewForm'
 import EventShow from './EventShow'
@@ -8,8 +8,6 @@ import EventShow from './EventShow'
 const EventHome = () => {
 
         const { eventId } = useParams();
-
-        const location = useLocation();
 
         const event = useSelector(getanEvent(eventId));
 

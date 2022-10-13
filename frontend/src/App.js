@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import EventHome from "./components/EventPages/EventHome";
 import EventNewForm from "./components/EventPages/EventNewForm";
 import { GroupFormProvider } from "./components/GroupForm/GroupFormContext";
@@ -18,7 +18,6 @@ import { fetchKeywords } from "./store/keywords";
 
 function App() {
 
-  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
