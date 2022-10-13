@@ -180,19 +180,14 @@ Instead of checkboxes, which are difficult to style, a group organizer chooses k
 ```
     const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds || []); // list of selected keyword IDs
 ...
-
     const toggleItem = (id) => (e) => {
         if (e.target.classList.contains("kw-unchecked")) {
             setCheckedKeywords([...checkedKeywords, Number(id)]);
-            e.target.classList.add("kw-checked");
-            e.target.classList.remove("kw-unchecked")
-            // console.log("checked! " + e.target.value);
         } else {
             setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
-            e.target.classList.remove("kw-checked");
-            e.target.classList.add("kw-unchecked");
-            // console.log("unchecked! " + e.target.value)
-        }        
+        }
+        e.target.classList.toggle("kw-checked");
+        e.target.classList.toggle("kw-unchecked")
     }
 
 ```
