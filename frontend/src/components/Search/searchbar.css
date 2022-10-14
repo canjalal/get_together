@@ -1,7 +1,8 @@
 .search-bar {
     display: flex;
     flex-direction: row;
-}
+    width: 17rem;
+ }
 
 .search-results {
     padding-left: max(calc((100vw - 1080px) / 6), 20px);
@@ -19,7 +20,7 @@
     background-color: var(--main-red);
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    width: 42px;
+    width: 24px;
     padding: 8px;
     display: flex;
     align-items: center;
@@ -65,7 +66,6 @@
 .big-search-bar {
     margin-top: 32px;
 }
-
 
 @media screen and (max-width: 770px) {
     .big-search-bar {
