@@ -27,14 +27,13 @@ const SearchBar = () => {
         await dispatch(searchEvents({
             query: searchQuery
         }));
-        console.log(data);
         navigate("/searchresults");
 
     }
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
-        <input type="text" id="search-field" value={searchQuery} placeholder="Search for groups and events" onChange={changeQuery} />
-        <div id="search-button" onClick={handleSubmit}><IoMdSearch color="#fff" /></div>
+        <input type="text" className="search-field" value={searchQuery} placeholder="Search for groups and events" onChange={changeQuery} />
+        <div className="search-button" onClick={handleSubmit}><IoMdSearch color="#fff" /></div>
     </form>
   )
 }
