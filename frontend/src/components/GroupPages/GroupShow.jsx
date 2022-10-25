@@ -81,7 +81,7 @@ const GroupShow = (props) => {
         }
     }
  
-    if(!group || !groupKeywords || !owner) return <NotFoundPage />;
+    if(!group || !groupKeywords || !owner) return null;
 
   return (
     <div className="show-page-flex">
