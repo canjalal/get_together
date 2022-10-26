@@ -140,8 +140,10 @@
     margin: 20px;
     border-radius: 20px;
     background-color: #fff;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    align-items:baseline;
+    gap: 0.5rem;
 }
 
 .event-info-section {
@@ -150,6 +152,12 @@
     align-items:baseline;
     margin-right: 20px;
     line-height: 1.25rem;
+}
+
+.event-info {
+    height: 2px;
+    overflow: visible;
+    padding-right: 20px;
 }
 
 .event-icons {

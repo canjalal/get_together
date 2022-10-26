@@ -142,7 +142,7 @@ const EventShow = ({event, groupId}) => {
         <div className="event-show-right">
                 <GroupLargeIcon group={group} />
                 <div className="event-info-container">
-                    <div className="event-info-section">
+                    {/* <div className="event-info-section"> */}
                         <div className="event-icons">
                         <BiTimeFive />
                         </div>
@@ -150,15 +150,15 @@ const EventShow = ({event, groupId}) => {
                         {getDateAndTimeString(new Date(event.dateTime))} to 
                     {' ' + getDateAndTimeString(new Date(new Date(event.dateTime).getTime() + event.duration * 60 * 1000))}
                         </div>
-                    </div>
-                    <div className="event-info-section">
+                    {/* </div> */}
+                    {/* <div className="event-info-section"> */}
                         <div className="event-icons">
                         { event.online === "no" ? <IoLocationOutline /> : <GrVideo /> }
                         </div>
                         <div className="event-info">
                         {event.online === "no" ? event.venue : "Online event"}
                         </div>
-                    </div>
+                    {/* </div> */}
 
                 </div>
             </div>
