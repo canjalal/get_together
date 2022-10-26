@@ -9,6 +9,7 @@
     height: var(--height);
     border-radius: 6px;
     border: 2px solid #9b9b9b;
+    text-align: center;
 }
 
 .group-icon-cover {
