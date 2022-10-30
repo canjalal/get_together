@@ -85,7 +85,7 @@
 @media screen and (max-width: 770px) {
     .mini-search {
         display: inline;
-        margin-bottom: -4px;
+        margin-bottom: -2px;
 
     }
 
@@ -94,6 +94,7 @@
     }
     .right-menu > * {
         margin-left: 5px;
+        text-align: center;
     }
     .logo {
         margin-left: -5px;
