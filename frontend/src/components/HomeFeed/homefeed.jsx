@@ -29,7 +29,7 @@ const HomeFeed = () => {
 
 
     useEffect(() => {
-        if (!currentUser) navigate("/");
+        // if (!currentUser) navigate("/"); // use ProtectedRoute instead
 
         const { data } = dispatch(fetchGroups());
 
