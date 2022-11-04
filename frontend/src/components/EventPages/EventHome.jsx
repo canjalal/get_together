@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useParams } from 'react-router-dom'
 import { fetchEvent, getanEvent } from '../../store/events'
+import { getCurrentUser } from '../../store/session'
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
 import EventNewForm from './EventNewForm'
 import EventShow from './EventShow'
 
@@ -10,6 +12,8 @@ const EventHome = () => {
         const { eventId } = useParams();
 
         const event = useSelector(getanEvent(eventId));
+
+        const sessionUser = useSelector(getCurrentUser);
 
         const dispatch = useDispatch();
 
@@ -30,8 +34,16 @@ const EventHome = () => {
     <>
     <Routes>
         <Route path="/" element={<EventShow event={event} groupId={event ? event.groupId : null} />} />
-        <Route path="/group/:groupId/edit" element={<EventNewForm oldEvent={event} />} />
-        <Route path="/group/:groupId/copy" element={<EventNewForm oldEvent={{...event, method: "POST", dateTime: formatDateString(new Date())}} />} />
+        <Route path="/group/:groupId/edit" element={
+          <ProtectedRoute user={sessionUser}>
+            <EventNewForm oldEvent={event} />
+          </ProtectedRoute>
+        } />
+        <Route path="/group/:groupId/copy" element={
+          <ProtectedRoute user={sessionUser}>
+            <EventNewForm oldEvent={{...event, method: "POST", dateTime: formatDateString(new Date())}} />
+        </ProtectedRoute>
+        } />
     </Routes>
     </>
   )
