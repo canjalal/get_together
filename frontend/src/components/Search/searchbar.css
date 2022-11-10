@@ -8,7 +8,7 @@
     padding-left: max(calc((100vw - 1080px) / 6), 20px);
 }
 
-.search-bar .search-field {
+.search-bar input:not([type="submit"]):not([type="checkbox"]).search-field {
     border-radius: 8px 0px 0px 8px;
     height: 24px;
     padding: 8px;
