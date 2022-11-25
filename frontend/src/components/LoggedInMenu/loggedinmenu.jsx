@@ -4,6 +4,7 @@ import { getCurrentUser, logout } from '../../store/session';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import './loggedinmenu.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import DropDownMenu from './dropdownmenu';
 
 const LoggedInMenu = () => {
 
@@ -17,13 +18,13 @@ const LoggedInMenu = () => {
 
     const navigate = useNavigate();
 
-    useEffect(()=> {
-        if(showMenu) {
-            document.querySelector('.dropdown').style.display = "flex";
-        } else {
-        document.querySelector('.dropdown').style.display = "none";
-        }
-    }, [showMenu]);
+    // useEffect(()=> {
+    //     if(showMenu) {
+    //         document.querySelector('.dropdown').style.display = "flex";
+    //     } else {
+    //     document.querySelector('.dropdown').style.display = "none";
+    //     }
+    // }, [showMenu]);
 
     const cancelModal = (e) => {
         if(!document.querySelector('.dropdown').contains(e.target)) {
@@ -47,25 +48,7 @@ const LoggedInMenu = () => {
     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
     </div>
     {/* placeholder for dropdown menu with logout */}
-    <div className="dropdown">
-        {/* <div>
-            <ul>
-                <li>Your events</li>
-                <li>Your groups</li>
-            </ul>
-        </div>
-
-        <hr />
-        <ul>
-            <li>View profile</li>
-            <li>Settings</li>
-            <li>Log out</li>
-        </ul> */}
-        <button className="small-button" onClick={()=> {
-        dispatch(logout());
-        navigate("/");
-    }}>Logout</button>
-    </div>
+    {showMenu && <DropDownMenu />}
     
     </>
   )
