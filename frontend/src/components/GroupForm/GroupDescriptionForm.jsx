@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { GroupFormContext } from './GroupFormContext';
 import { renderDescriptionError } from './validations';
 
@@ -7,6 +7,8 @@ const GroupDescriptionForm = () => {
     const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
 
     const [description, setDescription] = useState(formData.description || '');
+
+    const groupDescriptionEle = useRef(null);
 
     const handleDescriptionChange = (e) => {
 
@@ -17,9 +19,22 @@ const GroupDescriptionForm = () => {
 
         // let desc = document.querySelector("#grp-description");
         // // console.log(desc);
-        if(!isErrors) document.querySelector("#grp-description").style.outline = `2px solid teal`;      
+        if(!isErrors) {
+            groupDescriptionEle.current.classList.add('valid-border');
+            groupDescriptionEle.current.classList.remove('invalid-border');
+        }      
         setDescription(e.target.value);
         setPageisDone(!isErrors);
+    }
+
+    const handleBlur = (e) => {
+        if(!pageisDone) {
+            e.target.classList.add('invalid-border');
+            e.target.classList.remove('valid-border');
+        } else {
+            e.target.classList.remove('invalid-border');
+            e.target.classList.add('valid-border');
+        }
     }
 
     window.formData = formData;
@@ -55,7 +70,7 @@ const GroupDescriptionForm = () => {
         </ol>
 
             <form id="description-form" onSubmit={handleSubmit}>
-                <textarea id="grp-description" value={description} onChange={handleDescriptionChange} onBlur={e => {e.target.style.outline = `2px solid ${!pageisDone ? "red" : "teal"}`}}/>
+                <textarea id="grp-description" value={description} ref={groupDescriptionEle} onChange={handleDescriptionChange} onBlur={handleBlur}/>
                 <p id="description-caption" className="capt"></p>
             </form>
 

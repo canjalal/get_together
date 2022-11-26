@@ -4,7 +4,7 @@ import { GroupFormContext } from './GroupFormContext'
 
 const NewGroupNav = (props) => {
 
-    const { pageNum } = useContext(GroupFormContext);
+    // const { pageNum } = useContext(GroupFormContext);
   return (
     <div className="nav-menu">
         <div className="left-menu">
