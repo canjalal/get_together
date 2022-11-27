@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useRef } from 'react';
 import { GroupFormContext } from './GroupFormContext';
 
 const GroupLocationForm = () => {
@@ -6,6 +7,11 @@ const GroupLocationForm = () => {
     const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
 
     const [grpLoc, setGrpLoc] = useState(formData.location || "San Francisco, CA");
+
+    const locFormRef = useRef(null);
+    const locFieldRef = useRef(null);
+    const [displayLocForm, setDisplayLocForm] = useState(false);
+    const [displayLocField, setDisplayLocField] = useState(true);
 
     const handleLocChange = (e) => {
         setFormData({
@@ -19,12 +25,10 @@ const GroupLocationForm = () => {
 
 
     useEffect(() => {
-        let locationField = document.getElementById("location-field");
-        let locForm = document.getElementById("loc-form");
 
         setPageisDone(true); // default location of SF is fine
-        locForm.style.display = 'none';
-        locationField.style.display = 'block';
+        setDisplayLocForm(false);
+        setDisplayLocField(true);
 
         setFormData({
             ...formData, location: grpLoc
@@ -33,11 +37,8 @@ const GroupLocationForm = () => {
     }, []);
 
     const toggleLocForm = (e) => {
-        let locationField = document.getElementById("location-field");
-        let locForm = document.getElementById("loc-form");
-
-        locForm.style.display = locForm.style.display === 'block' ? 'none' : 'block';
-        locationField.style.display = locationField.style.display === 'block' ? 'none' : 'block';
+        setDisplayLocForm(!displayLocForm);
+        setDisplayLocField(!displayLocField);
     }
 
     const handleSubmit = (e) => {
@@ -51,10 +52,10 @@ const GroupLocationForm = () => {
         <h1>First, set your group's location</h1>
         <p>Meetup groups meet locally, in person and online.
             We'll connect you with people in your area, and more can join you online.</p>
-            <div id="location-field">{grpLoc} <a id="loc-change" className="green-link" onClick={toggleLocForm}>Change location</a></div>
-            <form id="loc-form" onSubmit={handleSubmit}>
+            {displayLocField && <div id="location-field" ref={locFieldRef}>{grpLoc} <a id="loc-change" className="green-link" onClick={toggleLocForm}>Change location</a></div>}
+           {displayLocForm && <form id="loc-form" onSubmit={handleSubmit} ref={locFormRef}>
                 <input type="text" value={grpLoc} onChange={handleLocChange} />
-            </form>
+            </form>}
 
     </div>
   )

@@ -20,9 +20,8 @@ const GroupFormIntro = (props) => {
     const uncompleted = useRef(null);
 
     useEffect(() => {
-        console.log(completed);
-        if(completed.current) completed.current.style.width = `${pageNum * 100 / 5}%`;
-        if(uncompleted.current) uncompleted.current.style.width = `${(5 - pageNum) * 100 / 5}%`;
+        let progressBar = document.getElementById('progress-bar');
+        if(progressBar) progressBar.style.gridTemplateColumns = `${pageNum * 20}% ${(5 - pageNum) * 20 }%`;
     }, [pageNum]);
 // const navigate = useNavigate();
 
