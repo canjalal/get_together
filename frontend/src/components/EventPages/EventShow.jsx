@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
@@ -27,6 +27,8 @@ const EventShow = ({event, groupId}) => {
 
     const [showMenu, setShowMenu] = useState(false);
     const [deleteEventModal, setDeleteEventModal] = useState(false);
+
+    const organizerdd = useRef(null);
 
     const navigate = useNavigate();
 
@@ -97,14 +99,13 @@ const EventShow = ({event, groupId}) => {
        }, [group])
  
 
-    useEffect(()=> {
-        let od = document.querySelector('.organizer-dropdown');
-        if(showMenu) {
-            od.style.display = "flex";
-        } else {
-            if(od) od.style.display = "none";
-        }
-    }, [showMenu]);
+    // useEffect(()=> {
+    //     if(showMenu) {
+    //         od.style.display = "flex";
+    //     } else {
+    //         if(od) od.style.display = "none";
+    //     }
+    // }, [showMenu]);
 
     const cancelModal = (e) => {
         if(!document.querySelector('.organizer-dropdown')?.contains(e.target)) {
@@ -168,7 +169,7 @@ const EventShow = ({event, groupId}) => {
                                                     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
                                                     </div>
                                                         {/* placeholder for dropdown menu with logout */}
-                                                    <div className="organizer-dropdown">
+                                                    {showMenu && <div className="organizer-dropdown" ref={organizerdd}>
                                                         <div>
                                                             <ul>
                                                                 <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>
@@ -176,7 +177,7 @@ const EventShow = ({event, groupId}) => {
                                                                 <li id="delete-event-link"><AiOutlineDelete />  <span className="dropdown-text">Delete event</span></li>
                                                             </ul>
                                                         </div>
-                                                    </div></> }
+                                                    </div>}</> }
                 <h1>Details</h1>
                 <p>{event.description}</p>
 
