@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiErrorCircle } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeEvent } from "../../store/events";
+import useOutsideClickDetected from "../ModalClickWrapper";
 
 const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
 
@@ -13,8 +14,13 @@ const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-window.eventId = eventId;
-window.groupId = groupId;
+// window.eventId = eventId;
+// window.groupId = groupId;
+
+  const modalRef = useRef(null);
+  const closeBtnRef = useRef(null);
+
+  const cancelModal = useOutsideClickDetected(modalRef, closeBtnRef);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,24 +52,29 @@ window.groupId = groupId;
 
     }
 
-    const cancelModal = (e) => {
-        if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-            setDeleteEventModal(false);
-        }
-      }
+    useEffect(() => {
+      setDeleteEventModal(!cancelModal);
 
-      useEffect(()=> {
-        window.addEventListener('click', cancelModal);
-        return () => {
-            window.removeEventListener('click', cancelModal);
-        }
-      }, [])
+    }, [cancelModal])
+
+    // const cancelModal = (e) => {
+    //     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+    //         setDeleteEventModal(false);
+    //     }
+    //   }
+
+    //   useEffect(()=> {
+    //     window.addEventListener('click', cancelModal);
+    //     return () => {
+    //         window.removeEventListener('click', cancelModal);
+    //     }
+    //   }, [])
 
 
   return (
     <div className="modal-container">
-        <div className="modal" id="attach-new-photo">
-            <div className="close-icon" id="attach-new-photo-close"><IoMdClose /></div>
+        <div className="modal" id="attach-new-photo" ref={modalRef}>
+            <div className="close-icon" ref={closeBtnRef} id="attach-new-photo-close"><IoMdClose /></div>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
             {errors.length > 0 && <div className="error-console">

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useRef } from 'react';
 import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import  { getCurrentUser, login } from '../../store/session';
 import MiniLogo from '../logo';
+import useOutsideClickDetected from '../ModalClickWrapper';
 import './loginform.css';
 import * as FrontEndValidations from './validations'
 
@@ -22,6 +24,11 @@ const LogInForm = () => {
 
     const [emailVisited, setEmailVisited] = useState(false); // whether each form has been visited already by user
     const [passwordVisited, setPasswordVisited] = useState(false);
+
+    const modalRef = useRef(null);
+    const closeBtnRef = useRef(null);
+
+    const cancelModal = useOutsideClickDetected(modalRef, closeBtnRef);
 
     const navigate = useNavigate();
     
@@ -44,18 +51,25 @@ const LogInForm = () => {
       });
   }
 
-  const cancelModal = (e) => {
-    if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-        navigate(e.target.className === "green-link" ? "/signup" : "/"); // the re-navigation closes the modal and React thinks it's now outside the modal and re-directs back to "/"
-    }
-  }
+    useEffect(() => {
 
-  useEffect(()=> {
-    window.addEventListener('click', cancelModal);
-    return () => {
-        window.removeEventListener('click', cancelModal);
-    }
-  }, [])
+        if(cancelModal) navigate("/"); // the re-navigation closes the modal and React thinks it's now outside the modal and re-directs back to "/"
+
+    }, [cancelModal]);
+
+
+//   const cancelModal = (e) => {
+//     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+//         navigate(e.target.className === "green-link" ? "/signup" : "/"); // the re-navigation closes the modal and React thinks it's now outside the modal and re-directs back to "/"
+//     }
+//   }
+
+//   useEffect(()=> {
+//     window.addEventListener('click', cancelModal);
+//     return () => {
+//         window.removeEventListener('click', cancelModal);
+//     }
+//   }, [])
 
     useEffect(()=> {
         if(sessionUser) {
@@ -97,10 +111,10 @@ const LogInForm = () => {
 
     }, [passwordVisited]);
 
-  return (
+  return !cancelModal && (
     <div className="modal-container">
-        <div className="modal">
-            <div className="close-icon"><IoMdClose /></div>
+        <div className="modal" ref={modalRef}>
+            <div className="close-icon" ref={closeBtnRef}><IoMdClose /></div>
 
             <MiniLogo />
 

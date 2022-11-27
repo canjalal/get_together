@@ -96,6 +96,7 @@ html {
     right: 11px;
     top: 11px;
     color: #181818;
+    width: fit-content;
 }
 
 input:not([type="checkbox"]), select {

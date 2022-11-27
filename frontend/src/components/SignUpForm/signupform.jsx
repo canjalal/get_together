@@ -6,12 +6,19 @@ import { IoMdClose } from 'react-icons/io';
 import { BiErrorCircle } from 'react-icons/bi';
 import './signupform.css'
 import * as FrontEndValidations from './validations';
+import { useRef } from 'react';
+import useOutsideClickDetected from '../ModalClickWrapper';
 
 const SignUpForm = () => {
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+    const modalRef = useRef(null);
+    const closeBtnRef = useRef(null);
+
+    const cancelModal = useOutsideClickDetected(modalRef, closeBtnRef);
 
     const [user, setUser] = useState({
         name: "",
@@ -24,7 +31,7 @@ const SignUpForm = () => {
 
     const [errors, setErrors] = useState([]);
 
-    window.ageOk = ageOk;
+    // window.ageOk = ageOk;
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -107,18 +114,22 @@ const SignUpForm = () => {
         
   }
 
-  const cancelModal = (e) => {
-    if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-        navigate("/");
-    }
-  }
+  useEffect(() => {
+    if(cancelModal) navigate("/");
+  }, [cancelModal]);
 
-  useEffect(()=> {
-    window.addEventListener('click', cancelModal);
-    return () => {
-        window.removeEventListener('click', cancelModal);
-    }
-  }, [])
+//   const cancelModal = (e) => {
+//     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+//         navigate("/");
+//     }
+//   }
+
+//   useEffect(()=> {
+//     window.addEventListener('click', cancelModal);
+//     return () => {
+//         window.removeEventListener('click', cancelModal);
+//     }
+//   }, [])
 
   useEffect(()=> {
     if(sessionUser) {
@@ -129,10 +140,10 @@ const SignUpForm = () => {
 
     // const makeE
 
-  return (
+  return !cancelModal && (
     <div className="modal-container">
-        <div className="modal">
-            <div className="close-icon"><IoMdClose /></div>
+        <div className="modal" ref={modalRef}>
+            <div className="close-icon" ref={closeBtnRef}><IoMdClose /></div>
             <h1>Finish signing up</h1>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}

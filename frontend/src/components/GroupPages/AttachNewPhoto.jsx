@@ -4,6 +4,8 @@ import { IoMdClose } from 'react-icons/io';
 import { BsCloudUpload } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { patchGroupPhoto } from '../../store/groups';
+import { useRef } from 'react';
+import useOutsideClickDetected from '../ModalClickWrapper';
 
 const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
@@ -14,8 +16,13 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
     const dispatch = useDispatch();
 
-    window.selectedCoverPhoto = selectedCoverPhoto;
-    window.reader = reader;
+    // window.selectedCoverPhoto = selectedCoverPhoto;
+    // window.reader = reader;
+
+    const modalRef = useRef(null);
+    const closeBtnRef = useRef(null);
+
+    const cancelModal = useOutsideClickDetected(modalRef, closeBtnRef);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,18 +59,24 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
     }
 
-    const cancelModal = (e) => {
-        if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-            setDisplayPhotoModal(false);
-        }
-      }
+    useEffect(() => {
+        setDisplayPhotoModal(!cancelModal);
+        
+    }, [cancelModal]);
+    
 
-      useEffect(()=> {
-        window.addEventListener('click', cancelModal);
-        return () => {
-            window.removeEventListener('click', cancelModal);
-        }
-      }, [])
+    // const cancelModal = (e) => {
+    //     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+    //         setDisplayPhotoModal(false);
+    //     }
+    //   }
+
+    //   useEffect(()=> {
+    //     window.addEventListener('click', cancelModal);
+    //     return () => {
+    //         window.removeEventListener('click', cancelModal);
+    //     }
+    //   }, [])
 
       useEffect(()=> {
 
@@ -75,8 +88,8 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
   return (
     <div className="modal-container">
-        <div className="modal" id="attach-new-photo">
-            <div className="close-icon" id="attach-new-photo-close"><IoMdClose /></div>
+        <div className="modal" id="attach-new-photo" ref={modalRef}>
+            <div className="close-icon" id="attach-new-photo-close" ref={closeBtnRef}><IoMdClose /></div>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
             {errors.length > 0 && <div className="error-console">

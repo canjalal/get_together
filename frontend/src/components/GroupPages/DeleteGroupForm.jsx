@@ -1,9 +1,11 @@
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { BiErrorCircle } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeGroup } from "../../store/groups";
+import useOutsideClickDetected from "../ModalClickWrapper";
 
 const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
 
@@ -13,6 +15,11 @@ const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+    const modalRef = useRef(null);
+    const btnCloseRef = useRef(null);
+
+    const cancelModal = useOutsideClickDetected(modalRef, btnCloseRef);
 
 
     const handleSubmit = (e) => {
@@ -46,24 +53,29 @@ const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
 
     }
 
-    const cancelModal = (e) => {
-        if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-            setDeleteGroupModal(false);
-        }
-      }
+    useEffect(() => {
+      setDeleteGroupModal(!cancelModal);
 
-      useEffect(()=> {
-        window.addEventListener('click', cancelModal);
-        return () => {
-            window.removeEventListener('click', cancelModal);
-        }
-      }, [])
+    }, [cancelModal]);
+
+    // const cancelModal = (e) => {
+    //     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
+    //         setDeleteGroupModal(false);
+    //     }
+    //   }
+
+    //   useEffect(()=> {
+    //     window.addEventListener('click', cancelModal);
+    //     return () => {
+    //         window.removeEventListener('click', cancelModal);
+    //     }
+    //   }, [])
 
 
   return (
     <div className="modal-container">
-        <div className="modal" id="attach-new-photo">
-            <div className="close-icon" id="attach-new-photo-close"><IoMdClose /></div>
+        <div className="modal" id="attach-new-photo" ref={modalRef}>
+            <div className="close-icon" id="attach-new-photo-close" ref={btnCloseRef}><IoMdClose /></div>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
             {errors.length > 0 && <div className="error-console">

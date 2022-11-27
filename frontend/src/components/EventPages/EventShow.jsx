@@ -108,7 +108,7 @@ const EventShow = ({event, groupId}) => {
     // }, [showMenu]);
 
     const cancelModal = (e) => {
-        if(!document.querySelector('.organizer-dropdown')?.contains(e.target)) {
+        if(!organizerdd.current?.contains(e.target)) {
             setShowMenu(false);
         } else {
 
