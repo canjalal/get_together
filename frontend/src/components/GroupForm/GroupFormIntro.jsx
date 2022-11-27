@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useRef } from 'react'
 import BottomBar from './BottomBar'
 import GroupDescriptionForm from './GroupDescriptionForm'
 import './groupform.css'
@@ -11,11 +12,17 @@ import NewGroupNav from './NewGroupNav'
 
 const GroupFormIntro = (props) => {
 
+    const [displayNewGrp, setDisplayNewGrp] = useState(false);
+
     const { pageNum } = useContext(GroupFormContext);
 
+    const completed = useRef(null);
+    const uncompleted = useRef(null);
+
     useEffect(() => {
-        document.getElementById("completed-progress").style.width = `${pageNum * 100 / 5}%`;
-        document.getElementById("uncompleted-progress").style.width = `${(5 - pageNum) * 100 / 5}%`;
+        console.log(completed);
+        if(completed.current) completed.current.style.width = `${pageNum * 100 / 5}%`;
+        if(uncompleted.current) uncompleted.current.style.width = `${(5 - pageNum) * 100 / 5}%`;
     }, [pageNum]);
 // const navigate = useNavigate();
 
@@ -47,14 +54,14 @@ const GroupFormIntro = (props) => {
             BECOME AN ORGANIZER
         </p>
         <h1 className="first-step">We'll walk you through a few steps to build your local community</h1>
-        <button className="standard-button" onClick={(e) => {document.querySelector("#new-group").style.display = "flex"}}>Get started</button>
+        <button className="standard-button" onClick={(e) => setDisplayNewGrp(true)}>Get started</button>
 
     </div>
-    <div id="new-group">
+    {displayNewGrp && <div id="new-group">
         <NewGroupNav />
         <div id="progress-bar">
-            <div id="completed-progress"></div>
-            <div id="uncompleted-progress"></div>
+            <div id="completed-progress" ref={completed}></div>
+            <div id="uncompleted-progress" ref={uncompleted}></div>
         </div>
         <div className="verbal-progress">
             STEP {pageNum} OF 5 
@@ -63,7 +70,7 @@ const GroupFormIntro = (props) => {
                 pickElement(pageNum)
             }
         <BottomBar />
-    </div>
+    </div>}
     </>
 
   )
