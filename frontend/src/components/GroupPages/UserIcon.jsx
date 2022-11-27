@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import { FaUserCircle } from 'react-icons/fa';
 import './usericon.css';
 const UserIcon = ({name}) => {
@@ -13,4 +13,4 @@ const UserIcon = ({name}) => {
   )
 }
 
-export default UserIcon;
+export default memo(UserIcon);
