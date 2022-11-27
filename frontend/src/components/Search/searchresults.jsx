@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchGroups } from '../../store/groups';
@@ -14,6 +14,9 @@ const SearchResults = () => {
     const searchedGroups = useSelector(getSearchedGroupData)
 
     const searchedEvents = useSelector(getSearchedEventData);
+
+    const [displayGrps, setDisplayGrps] = useState(false);
+    const [displayEvents, setDisplayEvents] = useState(true);
 
     window.searchedGroups = searchedGroups;
     window.searchedEvents = searchedEvents;
@@ -35,16 +38,9 @@ const SearchResults = () => {
             clickedHeader.classList.add("selected-header");
             otherHeader.classList.remove("selected-header");
             otherHeader.classList.add("unselected-header");
-            
-            if(clickedHeader === searchHeaders[0]) {
-                document.querySelector("#event-results").style.display = "flex";
-                document.querySelector("#group-results").style.display = "none";
 
-            } else {
-                document.querySelector("#event-results").style.display = "none";
-                document.querySelector("#group-results").style.display = "flex";
-
-            }
+            setDisplayEvents(clickedHeader === searchHeaders[0]);
+            setDisplayGrps(clickedHeader !== searchHeaders[0]);
         }
 
     }
@@ -66,21 +62,21 @@ const SearchResults = () => {
             </span>
         </div>
 
-        <div id="group-results">
+        {displayGrps && <div id="group-results">
 
             {searchedGroups.length > 0 ?
                 searchedGroups.map((grp) => <GroupPanel group={grp} key={grp.id} /> ) :
                 <NoResults type="group" />
             }
-        </div>
+        </div>}
 
-        <div id="event-results">
+        {displayEvents && <div id="event-results">
             
             {searchedEvents.length > 0 ?
                 searchedEvents.map((ev) => <Link to={`/events/${ev.id}`} key={ev.id}><EventPanel data={ev} /> </Link>) :
                 <NoResults type="event" />
             }
-        </div>
+        </div>}
 
 
     </div>

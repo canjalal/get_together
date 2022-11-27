@@ -60,7 +60,7 @@
 }
 
 #group-results {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 .big-search-bar {
