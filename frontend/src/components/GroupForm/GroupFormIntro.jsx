@@ -16,9 +16,10 @@ const GroupFormIntro = (props) => {
 
     const { pageNum } = useContext(GroupFormContext);
 
+    const progressBar = useRef(null);
+
     useEffect(() => {
-        let progressBar = document.getElementById('progress-bar');
-        if(progressBar) progressBar.style.gridTemplateColumns = `${pageNum * 20}% ${(5 - pageNum) * 20 }%`;
+        if(progressBar.current) progressBar.current.style.gridTemplateColumns = `${pageNum * 20}% ${(5 - pageNum) * 20 }%`;
     }, [pageNum]);
 // const navigate = useNavigate();
 
@@ -55,7 +56,7 @@ const GroupFormIntro = (props) => {
     </div>
     {displayNewGrp && <div id="new-group">
         <NewGroupNav />
-        <div id="progress-bar">
+        <div id="progress-bar" ref={progressBar}>
             <div id="completed-progress"></div>
             <div id="uncompleted-progress"></div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { GroupFormContext } from './GroupFormContext'
 
@@ -20,4 +20,4 @@ const NewGroupNav = (props) => {
   )
 }
 
-export default NewGroupNav
+export default memo(NewGroupNav)

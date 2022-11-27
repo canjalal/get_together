@@ -24,6 +24,8 @@ const GroupEditPage = () => {
 
     const keywordList = useSelector((state) => state.keywords);
 
+    const [showKeywordError, setShowKeywordError] = useState(false);
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [memberLabel, setMemberLabel] = useState('');
@@ -86,17 +88,16 @@ const GroupEditPage = () => {
     }, [group]);
 
     const toggleItem = (id) => (e) => {
-        let keywordErrorCapt = document.querySelector("#keyword-error");
         if (e.target.classList.contains("kw-unchecked")) {
             setCheckedKeywords([...checkedKeywords, Number(id)]);
             e.target.classList.add("kw-checked");
             e.target.classList.remove("kw-unchecked")
             document.querySelector("#save-group-info-button").disabled = false;
-            keywordErrorCapt.style.display = "none";
+            setShowKeywordError(false);
             // console.log("checked! " + e.target.value);
         } else {
             if(checkedKeywords.length === 1) {
-                keywordErrorCapt.style.display = "block";
+                setShowKeywordError(true);
                 document.querySelector("#save-group-info-button").disabled = true;
             }
             
@@ -189,7 +190,7 @@ const GroupEditPage = () => {
 {kw.keyword}
                 </p>)}
                 </label>
-                <p id="keyword-error" className="capt invalid">You must select at least one keyword for your group!</p>
+                {showKeywordError && <p id="keyword-error" className="capt invalid">You must select at least one keyword for your group!</p>}
                 </div>
                 <div className="submit-edit-group">
                 {errors.length > 0 && <div className="error-console">
