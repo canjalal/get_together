@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import {logout } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useOutsideClickDetected from "../ModalClickWrapper";
+import { useEffect } from "react";
 
-const DropDownMenu = () => {
+const DropDownMenu = ({setShowMenu}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const dropdownRef = useRef(null);
+
+    const cancelModal = useOutsideClickDetected(dropdownRef);
+
+    useEffect(() => {
+        setShowMenu(!cancelModal);
+    }, [cancelModal]);
+
 
     const buttonClickHandler = (e) => {
         dispatch(logout());
@@ -14,7 +25,7 @@ const DropDownMenu = () => {
     }
 
     return (
-        <div className="dropdown">
+        <div className="dropdown" ref={dropdownRef}>
         {/* <div>
             <ul>
                 <li>Your events</li>
@@ -30,7 +41,7 @@ const DropDownMenu = () => {
         </ul> */}
         <button className="small-button"
         onClick={buttonClickHandler}>Logout</button>
-    </div>
+        </div>
     )
 }
 export default DropDownMenu;

@@ -26,18 +26,18 @@ const LoggedInMenu = () => {
     //     }
     // }, [showMenu]);
 
-    const cancelModal = (e) => {
-        if(!document.querySelector('.dropdown').contains(e.target)) {
-            setShowMenu(false);
-        }
-      }
+    // const cancelModal = (e) => {
+    //     if(!document.querySelector('.dropdown').contains(e.target)) {
+    //         setShowMenu(false);
+    //     }
+    //   }
     
-      useEffect(()=> {
-        window.addEventListener('click', cancelModal);
-        return () => {
-            window.removeEventListener('click', cancelModal);
-        }
-      }, [])
+    //   useEffect(()=> {
+    //     window.addEventListener('click', cancelModal);
+    //     return () => {
+    //         window.removeEventListener('click', cancelModal);
+    //     }
+    //   }, [])
     
   return (
     <>
@@ -48,7 +48,7 @@ const LoggedInMenu = () => {
     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
     </div>
     {/* placeholder for dropdown menu with logout */}
-    {showMenu && <DropDownMenu />}
+    {showMenu && <DropDownMenu setShowMenu={setShowMenu} />}
     
     </>
   )
