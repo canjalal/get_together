@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './reset.css';
 import './index.css';
 import App from './App';
@@ -28,12 +29,16 @@ function Root() {
 }
 
 const renderApplication = () => {
-  ReactDOM.render(
+  const container = document.getElementById('root');
+  const root = createRoot(container);
+  // ReactDOM.render(
+  root.render(
     <React.StrictMode>
       <Root />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );  
+    </React.StrictMode>
+  );
+  //  document.getElementById('root')
+  // );  
 }
 
 if (sessionStorage.getItem("X-CSRF-Token") === null || sessionStorage.getItem("currentUser") === null) {

@@ -49,7 +49,7 @@ const GroupShow = (props) => {
 
     const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
 
-    let isMember = useSelector(getMemberStatus(sessionUser ? sessionUser.id : null, groupId));
+    const isMember = useSelector(getMemberStatus(sessionUser ? sessionUser.id : null, groupId));
 
 
     useEffect(() => {

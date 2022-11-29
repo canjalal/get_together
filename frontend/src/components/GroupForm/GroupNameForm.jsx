@@ -21,7 +21,7 @@ const GroupNameForm = () => {
         });
 
 
-        let isErrors = !!renderGrpNameError(e.target.value)
+        const isErrors = !!renderGrpNameError(e.target.value)
 
         setGrpName(e.target.value);
         setCharsLeft(60 - e.target.value.length);
@@ -44,13 +44,6 @@ const GroupNameForm = () => {
 
     }, []);
 
-    // const toggleLocForm = (e) => {
-    //     let locationField = document.getElementById("location-field");
-    //     let locForm = document.getElementById("loc-form");
-
-    //     locForm.style.display = locForm.style.display === 'block' ? 'none' : 'block';
-    //     locationField.style.display = locationField.style.display === 'block' ? 'none' : 'block';
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();

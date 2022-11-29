@@ -1,13 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
 
 // Custom hook:
-
+// rename file and move to its own folder called customHooks or in utils
 const useOutsideClickDetected = (modalRef, closeBtnRef = {current: null}) => {
-    const [clickDetected, setClickDetected] = useState(false);
+    const [clickDetected, setClickDetected] = useState(false); // handle closeButton outside of this hook, use a Link
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            // !document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)
 
             const validRefs = modalRef.current // && closeBtnRef.current;  // there need not be a valid close button
             console.log(`modalRef is ${modalRef.current} and closeBtnRef is ${closeBtnRef.current}`);

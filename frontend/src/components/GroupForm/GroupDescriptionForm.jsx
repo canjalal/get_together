@@ -12,13 +12,11 @@ const GroupDescriptionForm = () => {
 
     const handleDescriptionChange = (e) => {
 
-        let isErrors = !!renderDescriptionError(e.target.value);
+        const isErrors = !!renderDescriptionError(e.target.value);
         setFormData({
             ...formData, description: e.target.value
         });
 
-        // let desc = document.querySelector("#grp-description");
-        // // console.log(desc);
         if(!isErrors) {
             groupDescriptionEle.current.classList.add('valid-border');
             groupDescriptionEle.current.classList.remove('invalid-border');

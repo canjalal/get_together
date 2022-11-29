@@ -54,9 +54,6 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
             }
           );
 
-
-
-
     }
 
     useEffect(() => {
@@ -78,13 +75,10 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
     //     }
     //   }, [])
 
-      useEffect(()=> {
+    //   useEffect(()=> {
 
-        if(selectedCoverPhoto) {
-            document.getElementById("add-photo-box").style.backgroundImage = `url(${URL.createObjectURL(selectedCoverPhoto)})`;
- 
-         } 
-      }, [selectedCoverPhoto]);
+
+    const selectedCoverPhotoURL = selectedCoverPhoto ? `url(${URL.createObjectURL(selectedCoverPhoto)})` : "";
 
   return (
     <div className="modal-container">
@@ -103,7 +97,7 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
             </div>}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="attach-photo">
-                    <div id="add-photo-box">
+                    <div id="add-photo-box" style={{backgroundImage : selectedCoverPhotoURL}}>
                         {!selectedCoverPhoto && <>
                             <div id="upload-icon-container"><BsCloudUpload /></div>
                         <div className="attach-new-photo-title">

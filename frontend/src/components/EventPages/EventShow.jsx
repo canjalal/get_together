@@ -45,7 +45,7 @@ const EventShow = ({event, groupId}) => {
     window.isOwner = isOwner
 
 
-    let isRSVPed = useSelector(getRSVPStatus(sessionUser ? sessionUser.id : null, eventId));
+    const isRSVPed = useSelector(getRSVPStatus(sessionUser ? sessionUser.id : null, eventId));
 
     function getDateAndTimeString(fecha) {
         return `${fecha.toDateString()} at ${fecha.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric'})}`
@@ -80,7 +80,7 @@ const EventShow = ({event, groupId}) => {
         const fetchGroupandEvent = async (gid, eid) => {
             await dispatch(fetchGroup(gid));
 
-            let eventData = await dispatch(fetchEvent(eid));
+            const eventData = await dispatch(fetchEvent(eid));
         }
         // dispatch(fetchEvent(eventId));
         if(groupId) {
@@ -114,7 +114,7 @@ const EventShow = ({event, groupId}) => {
 
             if(document.querySelector('#edit-event-link')?.contains(e.target)) navigate(`group/${group.id}/edit`);
             if(document.querySelector('#copy-event-link')?.contains(e.target)) navigate(`group/${group.id}/copy`);
-            if(document.querySelector('#delete-event-link')?.contains(e.target)) deleteThisEvent();
+            if(document.querySelector('#delete-evdocument.ent-link')?.contains(e.target)) deleteThisEvent();
         }
       }
     
@@ -122,7 +122,7 @@ const EventShow = ({event, groupId}) => {
 
   return (
     <div>
-        <div className="event-show-header">
+        <div className="event-show-header"> {/* Make this its own component */}
             <p>{getDateAndTimeString(new Date(event.dateTime))}</p>
             <h1>{event.title}</h1>
             <div className="organizer-tag">
@@ -169,7 +169,7 @@ const EventShow = ({event, groupId}) => {
                                                     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
                                                     </div>
                                                         {/* placeholder for dropdown menu with logout */}
-                                                    {showMenu && <div className="organizer-dropdown" ref={organizerdd}>
+                                                    {showMenu && <div className="organizer-dropdown" ref={organizerdd}> {/* Make this its own component, control its own state, useNavigate */}
                                                         <div>
                                                             <ul>
                                                                 <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>

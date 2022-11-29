@@ -57,20 +57,6 @@ const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
 
     }, [cancelModal])
 
-    // const cancelModal = (e) => {
-    //     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-    //         setDeleteEventModal(false);
-    //     }
-    //   }
-
-    //   useEffect(()=> {
-    //     window.addEventListener('click', cancelModal);
-    //     return () => {
-    //         window.removeEventListener('click', cancelModal);
-    //     }
-    //   }, [])
-
-
   return (
     <div className="modal-container">
         <div className="modal" id="attach-new-photo" ref={modalRef}>

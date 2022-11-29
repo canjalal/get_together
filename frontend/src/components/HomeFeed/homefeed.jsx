@@ -16,17 +16,16 @@ const HomeFeed = () => {
 
     const dispatch = useDispatch();
 
-    const [fecha, setFecha] = useState(new Date());
+    const [fecha, setFecha] = useState(new Date()); // naming
 
     const groups = useSelector((state) => state.groups);
 
     const { joinedGroups, ownedGroups, otherGroups } = useSelector(getGroupData);
 
-    window.groups = groups;
-    window.joinedGroups = joinedGroups;
-    window.ownedGroups = ownedGroups;
-    window.otherGroups = otherGroups;
-
+    // window.groups = groups;
+    // window.joinedGroups = joinedGroups;
+    // window.ownedGroups = ownedGroups;
+    // window.otherGroups = otherGroups;
 
     useEffect(() => {
         // if (!currentUser) navigate("/"); // use ProtectedRoute instead

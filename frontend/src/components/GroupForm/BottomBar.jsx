@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ const BottomBar = (props) => {
     const { pageNum, setPageNum, pageisDone, formData, setPageisDone } = useContext(GroupFormContext);
 
     const navigate = useNavigate();
+
+    const nextBtnRef = useRef(null);
 
     const [errors, setErrors] = useState([]);
 
@@ -34,15 +36,15 @@ const BottomBar = (props) => {
 
     useEffect(() => {
 
-        document.querySelector("#next-button").disabled = !pageisDone;
+        if(nextBtnRef.current) nextBtnRef.current.disabled = !pageisDone;
 
 
     }, [pageisDone])
   return (
     <div id="bottom-bar">
         <div>{pageNum !== 1 && <button className="back-button" onClick={() => setPageNum((prev) => prev - 1)}>Back</button>}</div>
-        {pageNum < 5 && <button className="standard-button" id="next-button" onClick={()=> setPageNum((prev)=> prev + 1)}>Next</button>}
-        {pageNum === 5 && <button className="standard-button" id="next-button" onClick={(e) => submitGroup(e).catch(
+        {pageNum < 5 && <button className="standard-button" id="next-button" ref={nextBtnRef} onClick={()=> setPageNum((prev)=> prev + 1)}>Next</button>}
+        {pageNum === 5 && <button className="standard-button" id="next-button" ref={nextBtnRef} onClick={(e) => submitGroup(e).catch(
             async (res) => { // not correctly catching error 422, re-renders a blank page (not what we want)
               let data;
               try {
