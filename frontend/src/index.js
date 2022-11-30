@@ -31,14 +31,12 @@ function Root() {
 const renderApplication = () => {
   const container = document.getElementById('root');
   const root = createRoot(container);
-  // ReactDOM.render(
   root.render(
     <React.StrictMode>
       <Root />
     </React.StrictMode>
   );
-  //  document.getElementById('root')
-  // );  
+
 }
 
 if (sessionStorage.getItem("X-CSRF-Token") === null || sessionStorage.getItem("currentUser") === null) {

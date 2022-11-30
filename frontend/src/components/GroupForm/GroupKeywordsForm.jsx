@@ -13,7 +13,7 @@ const GroupKeywordsForm = () => {
     useEffect(() => {
 
         for(let id of checkedKeywords) {
-            let cb = document.getElementById(`kw-${id}`);
+            let cb = document.getElementById(`kw-${id}`); // is there a way to avoid this by creating an array of Refs?
             cb.classList.add("kw-checked");
             cb.classList.remove("kw-unchecked");
         }

@@ -8,15 +8,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchEvent } from '../../store/events';
 import { IoChevronUp, IoChevronDown } from 'react-icons/io5';
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
-import { BiCopy } from 'react-icons/bi';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser, getUsersfromEvent } from '../../store/users';
 import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
 import UserIcon from '../GroupPages/UserIcon';
-import DeleteEventForm from './DeleteEventForm';
 import { changeRSVP, getRSVPStatus, joinEvent } from '../../store/signups';
+import EditEventDropDown from './EditEventDropDown';
+import DeleteEventForm from './DeleteEventForm';
 
 const EventShow = ({event, groupId}) => {
 
@@ -26,9 +25,11 @@ const EventShow = ({event, groupId}) => {
     const [errors, setErrors] = useState([]);
 
     const [showMenu, setShowMenu] = useState(false);
+
+
     const [deleteEventModal, setDeleteEventModal] = useState(false);
 
-    const organizerdd = useRef(null);
+    // const organizerdd = useRef(null);
 
     const navigate = useNavigate();
 
@@ -68,14 +69,13 @@ const EventShow = ({event, groupId}) => {
         dispatch(changeRSVP(eventId));
     }
 
-    const deleteThisEvent = () => {
-        setShowMenu(false);
-        setDeleteEventModal(true);
-    }
+    // const deleteThisEvent = () => {
+    //     setShowMenu(false);
+    //     setDeleteEventModal(true);
+    // }
 
 
     useEffect(() => {
-
 
         const fetchGroupandEvent = async (gid, eid) => {
             await dispatch(fetchGroup(gid));
@@ -88,35 +88,6 @@ const EventShow = ({event, groupId}) => {
         }
 
     }, [groupId])
-
-    useEffect(()=> {
-        if(group) {
-         window.addEventListener('click', cancelModal);
-        }
-         return () => {
-             if(group) window.removeEventListener('click', cancelModal);
-         }
-       }, [group])
- 
-
-    // useEffect(()=> {
-    //     if(showMenu) {
-    //         od.style.display = "flex";
-    //     } else {
-    //         if(od) od.style.display = "none";
-    //     }
-    // }, [showMenu]);
-
-    const cancelModal = (e) => {
-        if(!organizerdd.current?.contains(e.target)) {
-            setShowMenu(false);
-        } else {
-
-            if(document.querySelector('#edit-event-link')?.contains(e.target)) navigate(`group/${group.id}/edit`);
-            if(document.querySelector('#copy-event-link')?.contains(e.target)) navigate(`group/${group.id}/copy`);
-            if(document.querySelector('#delete-evdocument.ent-link')?.contains(e.target)) deleteThisEvent();
-        }
-      }
     
     if(!event || !owner) return null;
 
@@ -145,7 +116,6 @@ const EventShow = ({event, groupId}) => {
                 <div className="event-info-container">
                     {/* <div className="event-info-section"> */}
                         <div className="event-icons">
-                        <BiTimeFive />
                         </div>
                         <div className="event-info">
                         {getDateAndTimeString(new Date(event.dateTime))} to 
@@ -169,15 +139,7 @@ const EventShow = ({event, groupId}) => {
                                                     { showMenu ? <IoChevronUp /> : <IoChevronDown />}
                                                     </div>
                                                         {/* placeholder for dropdown menu with logout */}
-                                                    {showMenu && <div className="organizer-dropdown" ref={organizerdd}> {/* Make this its own component, control its own state, useNavigate */}
-                                                        <div>
-                                                            <ul>
-                                                                <li id="edit-event-link"><AiOutlineEdit />  <span className="dropdown-text">Edit event</span></li>
-                                                                <li id="copy-event-link"><BiCopy />  <span className="dropdown-text">Copy event</span></li>
-                                                                <li id="delete-event-link"><AiOutlineDelete />  <span className="dropdown-text">Delete event</span></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>}</> }
+                                                    {showMenu && <EditEventDropDown setShowMenu={setShowMenu} groupId={groupId} eventId={eventId} setDeleteEventModal={setDeleteEventModal} />}</> }
                 <h1>Details</h1>
                 <p>{event.description}</p>
 
@@ -208,8 +170,8 @@ const EventShow = ({event, groupId}) => {
             
 
         </div>
-        {deleteEventModal && <DeleteEventForm setDeleteEventModal={setDeleteEventModal} groupId={event.groupId} eventId={event.id} />}
         {/* <p><Link to={`/groups/${group.id}`} className="green-link">{group.name}</Link></p> */}
+        {deleteEventModal && <DeleteEventForm setDeleteEventModal={setDeleteEventModal} groupId={groupId} eventId={eventId} />}
     </div>
   )
 }
