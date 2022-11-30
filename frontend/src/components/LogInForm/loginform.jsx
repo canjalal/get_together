@@ -57,20 +57,6 @@ const LogInForm = () => {
 
     }, [cancelModal]);
 
-
-//   const cancelModal = (e) => {
-//     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-//         navigate(e.target.className === "green-link" ? "/signup" : "/"); // the re-navigation closes the modal and React thinks it's now outside the modal and re-directs back to "/"
-//     }
-//   }
-
-//   useEffect(()=> {
-//     window.addEventListener('click', cancelModal);
-//     return () => {
-//         window.removeEventListener('click', cancelModal);
-//     }
-//   }, [])
-
     useEffect(()=> {
         if(sessionUser) {
             // console.log("hi now logged in. Message from loginform.jsx");

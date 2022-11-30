@@ -9,6 +9,7 @@ import { getCurrentUser } from '../../store/session';
 import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import DeleteGroupForm from './DeleteGroupForm';
+import { useRef } from 'react';
 
 const GroupEditPage = () => {
     
@@ -38,13 +39,13 @@ const GroupEditPage = () => {
 
     // const [gkeywords, setGKeywords] = useState([]);
 
-    window.group = group;
+    // window.group = group;
 
-    window.groupId = groupId;
-    window.checkedKeywords = checkedKeywords;
-    window.memberLabel = memberLabel;
+    // window.groupId = groupId;
+    // window.checkedKeywords = checkedKeywords;
+    // window.memberLabel = memberLabel;
 
-
+    const saveGroupInfoButtonRef = useRef(null);
 
     useEffect(() => {
         dispatch(fetchGroup(groupId)).then(()=> {
@@ -92,13 +93,13 @@ const GroupEditPage = () => {
             setCheckedKeywords([...checkedKeywords, Number(id)]);
             e.target.classList.add("kw-checked");
             e.target.classList.remove("kw-unchecked")
-            document.querySelector("#save-group-info-button").disabled = false;
+            saveGroupInfoButtonRef.current.disabled = false;
             setShowKeywordError(false);
             // console.log("checked! " + e.target.value);
         } else {
             if(checkedKeywords.length === 1) {
                 setShowKeywordError(true);
-                document.querySelector("#save-group-info-button").disabled = true;
+                saveGroupInfoButtonRef.current.disabled = true;
             }
             
             setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
@@ -202,7 +203,7 @@ const GroupEditPage = () => {
                                         <div className="close-modal" onClick={(e)=> {setErrors([]);
                                         e.stopPropagation();}}><IoMdClose /></div>
                                         </div>}
-                    <input type="submit" value="Save" id="save-group-info-button" />
+                    <input type="submit" value="Save" id="save-group-info-button" ref={saveGroupInfoButtonRef} />
                     <button className="secondary-button" style={{width: "fit-content"}} onClick={(e) => {
                         e.preventDefault();
                         setDeleteGroupModal(true);

@@ -17,27 +17,6 @@ const LoggedInMenu = () => {
     const location = useLocation();
 
     const navigate = useNavigate();
-
-    // useEffect(()=> {
-    //     if(showMenu) {
-    //         document.querySelector('.dropdown').style.display = "flex";
-    //     } else {
-    //     document.querySelector('.dropdown').style.display = "none";
-    //     }
-    // }, [showMenu]);
-
-    // const cancelModal = (e) => {
-    //     if(!document.querySelector('.dropdown').contains(e.target)) {
-    //         setShowMenu(false);
-    //     }
-    //   }
-    
-    //   useEffect(()=> {
-    //     window.addEventListener('click', cancelModal);
-    //     return () => {
-    //         window.removeEventListener('click', cancelModal);
-    //     }
-    //   }, [])
     
   return (
     <>

@@ -9,28 +9,31 @@ import linkedinlogo from './LI-Bug.svg.original.svg';
 import githublogo from './GitHub-Mark-120px-plus.png';
 import SearchBar from '../Search/SearchBar';
 import { IoMdSearch } from 'react-icons/io';
+import { useRef } from 'react';
 
 const NavMenu = (props) => {
 
     const location = useLocation();
 
+    const miniSearchBarRef = useRef(null);
+    const navMenuRef = useRef(null);
+
     useEffect(() => {
-        if(location.pathname === "/") document.querySelector(".nav-menu").classList.add("home-nav");
+        if(location.pathname === "/") navMenuRef.current.classList.add("home-nav");
         // console.log(location.pathname);
 
     }, []);
 
     const toggleMiniSearch = (e) => {
-        const miniSearchBar = document.querySelector(".mini-search-bar");
 
-        miniSearchBar.classList.toggle("mobilized");
-        miniSearchBar.classList.toggle("demobilized");
+        miniSearchBarRef.current.classList.toggle("mobilized");
+        miniSearchBarRef.current.classList.toggle("demobilized");
     }
 
     const sessionUser = useSelector(getCurrentUser);
   return (
     <div className="menu-wrapper">
-        <div className="nav-menu">
+        <div className="nav-menu" ref={navMenuRef}>
             <div className="left-menu">
                 <div className="logo">
                     {sessionUser ? <Link to="/home">GetTogether</Link> : <Link to="/">GetTogether</Link>}
@@ -53,7 +56,7 @@ const NavMenu = (props) => {
                 {sessionUser ? <LoggedInMenu /> : <LoggedOutMenu />}
             </div>
         </div>
-        <div className="mini-search-bar demobilized">
+        <div className="mini-search-bar demobilized" ref={miniSearchBarRef}>
             <SearchBar />
         </div>
     </div>

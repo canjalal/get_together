@@ -60,23 +60,6 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
         setDisplayPhotoModal(!cancelModal);
         
     }, [cancelModal]);
-    
-
-    // const cancelModal = (e) => {
-    //     if(!document.getElementsByClassName('modal')[0]?.contains(e.target) || document.getElementsByClassName('close-icon')[0]?.contains(e.target)) {
-    //         setDisplayPhotoModal(false);
-    //     }
-    //   }
-
-    //   useEffect(()=> {
-    //     window.addEventListener('click', cancelModal);
-    //     return () => {
-    //         window.removeEventListener('click', cancelModal);
-    //     }
-    //   }, [])
-
-    //   useEffect(()=> {
-
 
     const selectedCoverPhotoURL = selectedCoverPhoto ? `url(${URL.createObjectURL(selectedCoverPhoto)})` : "";
 
