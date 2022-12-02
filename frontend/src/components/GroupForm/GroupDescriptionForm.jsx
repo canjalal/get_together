@@ -35,8 +35,6 @@ const GroupDescriptionForm = () => {
         }
     }
 
-    window.formData = formData;
-
     useEffect(() => {
 
 

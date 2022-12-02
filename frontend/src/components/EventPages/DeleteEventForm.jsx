@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeEvent } from "../../store/events";
-import useOutsideClickDetected from "../ModalClickWrapper";
+import useOutsideClickDetected from "../UseOutsideClickDetected";
 
 const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
 
@@ -14,8 +14,6 @@ const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
-// window.eventId = eventId;
-// window.groupId = groupId;
 
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);

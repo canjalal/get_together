@@ -58,17 +58,6 @@ const EventNewForm = ({oldEvent}) => {
 
     const [venue, setVenue] = useState(oldEvent.venue);
 
-
-    window.group = group;
-    window.owner = owner;
-    window.groupId = groupId;
-
-    window.dateTime = dateTime;
-
-    window.isOnline = isOnline;
-
-    window.formatDateString = formatDateString;
-
     const submitEvent = async (e) => {
         e.preventDefault();
 

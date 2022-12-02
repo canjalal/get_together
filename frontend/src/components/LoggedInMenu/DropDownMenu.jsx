@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import {logout } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useOutsideClickDetected from "../ModalClickWrapper";
+import useOutsideClickDetected from "../UseOutsideClickDetected";
 import { useEffect } from "react";
 
 const DropDownMenu = ({setShowMenu}) => {

@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeGroup } from "../../store/groups";
-import useOutsideClickDetected from "../ModalClickWrapper";
+import useOutsideClickDetected from "../UseOutsideClickDetected";
 
 const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
 

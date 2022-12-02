@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchGroups } from '../../store/groups';
 import { getSearchedEventData, getSearchedGroupData } from '../../store/session';
-import EventPanel from '../EventPages/eventpanel';
+import EventPanel from '../EventPages/EventPanel';
 import GroupPanel from '../GroupForm/GroupPanel'
 import NoResults from './NoResults';
 
@@ -17,10 +17,6 @@ const SearchResults = () => {
 
     const [displayGrps, setDisplayGrps] = useState(false);
     const [displayEvents, setDisplayEvents] = useState(true);
-
-    window.searchedGroups = searchedGroups;
-    window.searchedEvents = searchedEvents;
-
 
     const toggleHeader = (e) => {
 

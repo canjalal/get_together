@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { BiCopy } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import useOutsideClickDetected from '../ModalClickWrapper';
+import useOutsideClickDetected from '../UseOutsideClickDetected';
 
 
 const EditEventDropDown = ({setShowMenu, groupId, setDeleteEventModal}) => {

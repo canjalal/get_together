@@ -37,14 +37,8 @@ const EventShow = ({event, groupId}) => {
 
     const group = useSelector(getGroup(groupId));
 
-
-    window.group = group
-    
     const owner = useSelector(getUser(group ? group.ownerId : null));
     const isOwner = (sessionUser && owner) && (sessionUser.id === owner.id);
-
-    window.isOwner = isOwner
-
 
     const isRSVPed = useSelector(getRSVPStatus(sessionUser ? sessionUser.id : null, eventId));
 
@@ -54,26 +48,11 @@ const EventShow = ({event, groupId}) => {
 
     const users = useSelector(getUsersfromEvent(eventId));
 
-    window.users = users;
-    // useEffect(() => {
-
-    //     dispatch(fetchEvent(eventId));
-    //     // dispatch(fetchGroup(event.groupId));
-
-    // }, [])
-    // console.log(event);
-
     const toggleRSVP = (e) => {
         e.preventDefault();
 
         dispatch(changeRSVP(eventId));
     }
-
-    // const deleteThisEvent = () => {
-    //     setShowMenu(false);
-    //     setDeleteEventModal(true);
-    // }
-
 
     useEffect(() => {
 

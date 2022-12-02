@@ -5,8 +5,8 @@ import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import  { getCurrentUser, login } from '../../store/session';
-import MiniLogo from '../logo';
-import useOutsideClickDetected from '../ModalClickWrapper';
+import MiniLogo from '../Logo';
+import useOutsideClickDetected from '../UseOutsideClickDetected';
 import './loginform.css';
 import * as FrontEndValidations from './validations'
 

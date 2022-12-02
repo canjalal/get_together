@@ -5,7 +5,7 @@ import { BsCloudUpload } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { patchGroupPhoto } from '../../store/groups';
 import { useRef } from 'react';
-import useOutsideClickDetected from '../ModalClickWrapper';
+import useOutsideClickDetected from '../UseOutsideClickDetected';
 
 const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
@@ -15,9 +15,6 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
     const [errors, setErrors] = useState([]);
 
     const dispatch = useDispatch();
-
-    // window.selectedCoverPhoto = selectedCoverPhoto;
-    // window.reader = reader;
 
     const modalRef = useRef(null);
     const closeBtnRef = useRef(null);

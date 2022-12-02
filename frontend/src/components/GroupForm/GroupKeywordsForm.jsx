@@ -45,15 +45,6 @@ const GroupKeywordsForm = () => {
         // console.log(formData);
     }, [checkedKeywords])
 
-    // window.checkedKeywords = checkedKeywords;
-
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     if(pageisDone) toggleLocForm(e);
-    // }
-
   return (
     <div className="group-form-body">
         <h1>Choose a few topics that describe your group's interests</h1>

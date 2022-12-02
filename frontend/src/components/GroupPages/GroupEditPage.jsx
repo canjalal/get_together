@@ -37,14 +37,6 @@ const GroupEditPage = () => {
 
     const sessionUser = useSelector(getCurrentUser);
 
-    // const [gkeywords, setGKeywords] = useState([]);
-
-    // window.group = group;
-
-    // window.groupId = groupId;
-    // window.checkedKeywords = checkedKeywords;
-    // window.memberLabel = memberLabel;
-
     const saveGroupInfoButtonRef = useRef(null);
 
     useEffect(() => {

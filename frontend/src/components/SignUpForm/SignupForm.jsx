@@ -7,7 +7,7 @@ import { BiErrorCircle } from 'react-icons/bi';
 import './signupform.css'
 import * as FrontEndValidations from './validations';
 import { useRef } from 'react';
-import useOutsideClickDetected from '../ModalClickWrapper';
+import useOutsideClickDetected from '../UseOutsideClickDetected';
 
 const SignUpForm = () => {
 
@@ -30,8 +30,6 @@ const SignUpForm = () => {
     const [ageOk, setAgeOk] = useState(false);
 
     const [errors, setErrors] = useState([]);
-
-    // window.ageOk = ageOk;
 
     const sessionUser = useSelector(state => state.session.user);
 

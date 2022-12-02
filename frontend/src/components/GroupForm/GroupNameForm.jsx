@@ -31,8 +31,6 @@ const GroupNameForm = () => {
         grpName.style.outline = `1px solid ${isErrors ? "red" : "teal"}`;   
     }
 
-    window.formData = formData;
-    window.keywordList = keywordList;
 
     useEffect(() => {
 

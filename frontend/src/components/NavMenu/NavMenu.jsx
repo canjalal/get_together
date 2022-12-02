@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, matchPath, useLocation } from 'react-router-dom'
 import { getCurrentUser } from '../../store/session';
-import LoggedInMenu from '../LoggedInMenu/loggedinmenu';
+import LoggedInMenu from '../LoggedInMenu/LoggedInMenu';
 import LoggedOutMenu from '../LoggedOutMenu/loggedoutmenu';
 import './navmenu.css'
 import linkedinlogo from './LI-Bug.svg.original.svg';

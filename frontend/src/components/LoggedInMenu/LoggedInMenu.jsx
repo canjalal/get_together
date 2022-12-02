@@ -4,7 +4,7 @@ import { getCurrentUser, logout } from '../../store/session';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import './loggedinmenu.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import DropDownMenu from './dropdownmenu';
+import DropDownMenu from './DropDownMenu';
 
 const LoggedInMenu = () => {
 

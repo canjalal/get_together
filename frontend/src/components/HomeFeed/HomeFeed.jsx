@@ -22,11 +22,6 @@ const HomeFeed = () => {
 
     const { joinedGroups, ownedGroups, otherGroups } = useSelector(getGroupData);
 
-    // window.groups = groups;
-    // window.joinedGroups = joinedGroups;
-    // window.ownedGroups = ownedGroups;
-    // window.otherGroups = otherGroups;
-
     useEffect(() => {
         // if (!currentUser) navigate("/"); // use ProtectedRoute instead
 

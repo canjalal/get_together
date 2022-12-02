@@ -5,9 +5,6 @@ const GroupGuidelinesForm = () => {
 
     const {formData, setPageisDone } = useContext(GroupFormContext);
 
-
-    window.formData = formData;
-
     useEffect(() => {
         setPageisDone(true); 
     }, []);
