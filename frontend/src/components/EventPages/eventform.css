@@ -120,6 +120,7 @@
     padding-right: 20px;
     padding-top: 20px;
     /* min-width: 400px; */
+    width: 100%;
 }
 
 #edit-event-button {
