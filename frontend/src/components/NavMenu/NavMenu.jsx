@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { Link, matchPath, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { getCurrentUser } from '../../store/session';
-import LoggedInMenu from '../LoggedInMenu/LoggedInMenu';
-import LoggedOutMenu from '../LoggedOutMenu/loggedoutmenu';
+import LoggedInMenu from '../LoggedInMenu';
+import LoggedOutMenu from '../LoggedOutMenu/';
 import './navmenu.css'
 import linkedinlogo from './LI-Bug.svg.original.svg';
 import githublogo from './GitHub-Mark-120px-plus.png';
-import SearchBar from '../Search/SearchBar';
+import SearchBar from '../Search/';
 import { IoMdSearch } from 'react-icons/io';
 import { useRef } from 'react';
 

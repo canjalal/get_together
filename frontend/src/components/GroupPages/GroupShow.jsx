@@ -5,7 +5,6 @@ import { getGroupKeywords } from '../../store/groupkeywords';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session';
 import { GoLocation } from 'react-icons/go';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { IoPeopleOutline } from 'react-icons/io5';
 import './showpage.css';
 import { BiUser } from 'react-icons/bi';
@@ -15,7 +14,7 @@ import { GrImage } from 'react-icons/gr';
 import AttachNewPhoto from './AttachNewPhoto';
 import { getMemberStatus, joinGroup, leaveGroup } from '../../store/memberships';
 import { getEventsfromGrp } from '../../store/events';
-import EventPanel from '../EventPages/EventPanel';
+import EventPanel from '../EventPages/';
 import UserIcon from './UserIcon';
 
 const GroupShow = (props) => {

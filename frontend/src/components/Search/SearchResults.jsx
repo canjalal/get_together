@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchGroups } from '../../store/groups';
 import { getSearchedEventData, getSearchedGroupData } from '../../store/session';
-import EventPanel from '../EventPages/EventPanel';
-import GroupPanel from '../GroupForm/GroupPanel'
+import EventPanel from '../EventPages/';
+import GroupPanel from '../GroupPanel/'
 import NoResults from './NoResults';
 
 const SearchResults = () => {
@@ -40,10 +39,6 @@ const SearchResults = () => {
         }
 
     }
-
-    // useEffect(() => {
-    //     console.log(searchedGroups);
-    // }, [])
 
     if(!searchedGroups || !searchedEvents) return null;
 

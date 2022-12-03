@@ -1,5 +1,5 @@
 import React from 'react'
-import './homefeed.css'
+import './loggedouthome.css';
 
 const LoggedOutHome = () => {
   return (

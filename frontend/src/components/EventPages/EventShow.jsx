@@ -1,21 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import EditEventDropDown from './EditEventDropDown'
+import DeleteEventForm from './DeleteEventForm'
 import { useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BiTimeFive } from 'react-icons/bi';
 import { GrVideo } from 'react-icons/gr';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchEvent } from '../../store/events';
 import { IoChevronUp, IoChevronDown } from 'react-icons/io5';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser, getUsersfromEvent } from '../../store/users';
-import GroupLargeIcon from '../GroupPages/GroupLargeIcon';
+import GroupLargeIcon from '../GroupPages';
 import UserIcon from '../GroupPages/UserIcon';
 import { changeRSVP, getRSVPStatus, joinEvent } from '../../store/signups';
-import EditEventDropDown from './EditEventDropDown';
-import DeleteEventForm from './DeleteEventForm';
 
 const EventShow = ({event, groupId}) => {
 
@@ -28,12 +27,6 @@ const EventShow = ({event, groupId}) => {
 
 
     const [deleteEventModal, setDeleteEventModal] = useState(false);
-
-    // const organizerdd = useRef(null);
-
-    const navigate = useNavigate();
-
-    // const event = useSelector(getanEvent(eventId))    
 
     const group = useSelector(getGroup(groupId));
 
@@ -50,7 +43,7 @@ const EventShow = ({event, groupId}) => {
 
     const toggleRSVP = (e) => {
         e.preventDefault();
-
+        
         dispatch(changeRSVP(eventId));
     }
 

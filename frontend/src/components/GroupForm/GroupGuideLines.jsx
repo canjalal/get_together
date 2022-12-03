@@ -3,7 +3,7 @@ import { GroupFormContext } from './GroupFormContext';
 
 const GroupGuidelinesForm = () => {
 
-    const {formData, setPageisDone } = useContext(GroupFormContext);
+    const { setPageisDone } = useContext(GroupFormContext);
 
     useEffect(() => {
         setPageisDone(true); 

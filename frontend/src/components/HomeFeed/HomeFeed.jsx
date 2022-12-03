@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { fetchGroups } from '../../store/groups';
 import { getCurrentUser, getGroupData } from '../../store/session';
 import Calendar from 'react-calendar';
 import './calendar.css';
+import './homefeed.css';
 import EventCalendar from './EventCalendar';
-import GroupPanel from '../GroupForm/GroupPanel';
+import GroupPanel from '../GroupPanel/';
 
 const HomeFeed = () => {
 
     const currentUser = useSelector(getCurrentUser);
-
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -23,7 +21,7 @@ const HomeFeed = () => {
     const { joinedGroups, ownedGroups, otherGroups } = useSelector(getGroupData);
 
     useEffect(() => {
-        // if (!currentUser) navigate("/"); // use ProtectedRoute instead
+
 
         const { data } = dispatch(fetchGroups());
 

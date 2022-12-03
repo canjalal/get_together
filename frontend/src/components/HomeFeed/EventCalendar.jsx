@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { fetchWeeksEvents } from '../../store/events';
 import { getSearchedEventData } from '../../store/session';
-import EventPanel from '../EventPages/EventPanel';
+import EventPanel from '../EventPages/';
 
 const EventCalendar = ({startDate}) => {
 

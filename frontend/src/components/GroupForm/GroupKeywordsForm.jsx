@@ -4,7 +4,7 @@ import { GroupFormContext } from './GroupFormContext';
 
 const GroupKeywordsForm = () => {
 
-    const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
 
     const keywordList = useSelector((state) => state.keywords);
 

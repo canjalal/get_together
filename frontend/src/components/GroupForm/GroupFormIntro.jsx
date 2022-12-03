@@ -21,11 +21,6 @@ const GroupFormIntro = (props) => {
     useEffect(() => {
         if(progressBar.current) progressBar.current.style.gridTemplateColumns = `${pageNum * 20}% ${(5 - pageNum) * 20 }%`;
     }, [pageNum]);
-// const navigate = useNavigate();
-
-//     if(!sessionUser) {
-//         navigate("/");
-//     }
 
 // Make a modal that covers entire screen
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes, useParams } from 'react-router-dom'
 import { fetchEvent, getanEvent } from '../../store/events'
 import { getCurrentUser } from '../../store/session'
-import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute'
+import  ProtectedRoute  from '../ProtectedRoute/'
 import EventNewForm from './EventNewForm'
 import EventShow from './EventShow'
 

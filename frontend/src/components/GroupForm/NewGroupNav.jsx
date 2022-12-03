@@ -1,10 +1,8 @@
-import React, { useContext, memo } from 'react'
+import React, {  memo } from 'react'
 import { Link } from 'react-router-dom'
-import { GroupFormContext } from './GroupFormContext'
 
 const NewGroupNav = (props) => {
 
-    // const { pageNum } = useContext(GroupFormContext);
   return (
     <div className="nav-menu">
         <div className="left-menu">
