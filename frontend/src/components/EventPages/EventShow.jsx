@@ -25,7 +25,6 @@ const EventShow = ({event, groupId}) => {
 
     const [showMenu, setShowMenu] = useState(false);
 
-
     const [deleteEventModal, setDeleteEventModal] = useState(false);
 
     const group = useSelector(getGroup(groupId));
@@ -54,7 +53,7 @@ const EventShow = ({event, groupId}) => {
 
             const eventData = await dispatch(fetchEvent(eid));
         }
-        // dispatch(fetchEvent(eventId));
+
         if(groupId) {
             fetchGroupandEvent(groupId, eventId)
         }
@@ -79,7 +78,6 @@ const EventShow = ({event, groupId}) => {
                         {owner.name}
                     </p>
                 </div>
-
             </div>
         </div>
         <div className="event-show-body">
@@ -140,9 +138,7 @@ const EventShow = ({event, groupId}) => {
                                 </div>}</> /* If you're the owner, you're forced to go and can't change your RSVP */
             }
             
-
         </div>
-        {/* <p><Link to={`/groups/${group.id}`} className="green-link">{group.name}</Link></p> */}
         {deleteEventModal && <DeleteEventForm setDeleteEventModal={setDeleteEventModal} groupId={groupId} eventId={eventId} />}
     </div>
   )

@@ -7,7 +7,6 @@ const useOutsideClickDetected = (modalRef, closeBtnRef = {current: null}) => {
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            e.stopPropagation();
 
             const validRefs = modalRef.current // && closeBtnRef.current;  // there need not be a valid close button
             console.log(`modalRef is ${modalRef.current} and closeBtnRef is ${closeBtnRef.current}`);
@@ -17,10 +16,10 @@ const useOutsideClickDetected = (modalRef, closeBtnRef = {current: null}) => {
             setClickDetected(validRefs && outsideClicked);
         }
 
-        document.addEventListener("click", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("click", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         }
     }, [modalRef, closeBtnRef]);
 

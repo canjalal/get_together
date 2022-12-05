@@ -2,6 +2,8 @@ import csrfFetch, { storeCSRFToken } from "./csrf";
 
 export const RECEIVE_KEYWORDS = 'keywords/RECEIVE_KEYWORDS';
 
+export const getKeywords = (state) => Object.values(state.keywords);
+
 const receiveKeywords = (keywords) => {
     return {
         type: RECEIVE_KEYWORDS,

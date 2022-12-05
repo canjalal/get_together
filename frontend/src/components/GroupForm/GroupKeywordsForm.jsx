@@ -1,23 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { createRef, useContext, useEffect, useState } from 'react'
+import { useMemo } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { getKeywords } from '../../store/keywords';
 import { GroupFormContext } from './GroupFormContext';
 
 const GroupKeywordsForm = () => {
 
     const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
 
-    const keywordList = useSelector((state) => state.keywords);
+    const keywordList = useSelector(getKeywords);
+    const keywordRefs = useMemo(() => keywordList.map((kw) => createRef()), []);
 
     const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds || []); // list of selected keyword IDs
 
     useEffect(() => {
-
         for(let id of checkedKeywords) {
-            let cb = document.getElementById(`kw-${id}`); // is there a way to avoid this by creating an array of Refs?
+            const cb = keywordRefs[id - 1].current; // keywordList counts from 1 to 14
             cb.classList.add("kw-checked");
             cb.classList.remove("kw-unchecked");
         }
-        // console.log(`KeywordList is ${keywordList}`)
     }, []);
 
     const toggleItem = (id) => (e) => {
@@ -50,7 +52,7 @@ const GroupKeywordsForm = () => {
         <h1>Choose a few topics that describe your group's interests</h1>
         <p>Be specific! This will help us promote your group to the right people. You can choose up to 15 topics.</p>
             <form id="kw-form">
-                {Object.values(keywordList).map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+                {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}>
 {kw.keyword}
                 </p>)}
             </form>
