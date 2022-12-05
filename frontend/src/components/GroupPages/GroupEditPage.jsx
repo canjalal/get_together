@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getGroupKeywords } from '../../store/groupkeywords';
@@ -10,6 +10,8 @@ import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import DeleteGroupForm from './DeleteGroupForm';
 import { useRef } from 'react';
+import { getKeywords } from '../../store/keywords';
+import { useMemo } from 'react';
 
 const GroupEditPage = () => {
     
@@ -23,7 +25,8 @@ const GroupEditPage = () => {
 
     const [errors, setErrors] = useState([]);
 
-    const keywordList = useSelector((state) => state.keywords);
+    const keywordList = useSelector(getKeywords);
+    const keywordRefs = useMemo(() => keywordList.map((kw) => createRef()), []);
 
     const [showKeywordError, setShowKeywordError] = useState(false);
 
@@ -65,11 +68,11 @@ const GroupEditPage = () => {
             setMemberLabel(group.memberLabel || "");
             setLocation(group.location);
 
-            let tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);
+            const tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);
             setCheckedKeywords(tempKeywordIds);
 
             for(let id of tempKeywordIds) {
-                let cb = document.getElementById(`kw-${id}`);
+                let cb = keywordRefs[id - 1].current;
                 if(cb) {
                     cb.classList.add("kw-checked");
                     cb.classList.remove("kw-unchecked");
@@ -179,7 +182,7 @@ const GroupEditPage = () => {
                     <label>
                 Why are topics important?
                     <p className="sub-labels">Topics describe what your Meetup group is about in a word or two. Pick up to 15 topics for your Meetup group. Well-picked topics help the right members find your Meetup group.</p>
-                    {Object.values(keywordList).map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+                    {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} ref={keywordRefs[i]} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
 {kw.keyword}
                 </p>)}
                 </label>

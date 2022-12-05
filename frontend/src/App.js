@@ -63,8 +63,6 @@ function App() {
                                                       </ProtectedRoute>
                                                         } />
       <Route path="/events/:eventId/*" element={<EventHome />} />
-      {/* Tried making a nested Routes but it wasn't matching correctly, trying to grab a groupId */}
-      {/* <Route path="/events/:eventId/edit" element={<EventNewForm />} /> */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
     </>
