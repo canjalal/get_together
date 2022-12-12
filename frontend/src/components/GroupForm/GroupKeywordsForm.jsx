@@ -12,27 +12,46 @@ const GroupKeywordsForm = () => {
 
     const keywordList = useSelector(getKeywords);
 
-    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds || []); // list of selected keyword IDs
+    function setKeywords() {
+        const outputArray = [];
+        for(let i = 1; i <= keywordList.length; i++) {
+            outputArray.push(formData.keywordIds.indexOf(i) !== -1);
+        }
+        return outputArray;
+    }
+
+    function saveKeywords() {
+        const keywordsToSave = [];
+        for(let i = 1; i <= keywordList.length; i++) {
+            if(checkedKeywords[i - 1]) {
+                keywordsToSave.push(i);
+            }
+        }
+        return keywordsToSave;
+    }
+
+    const [checkedKeywords, setCheckedKeywords] = useState(setKeywords()); // list of selected keyword IDs
 
     window.checkedKeywords = checkedKeywords // may be better to just have a fixed length array of booleans of selected, to avoid having to search within array for keywords
 
+
+
     const toggleItem = (id) => (e) => {
 
-        if (e.target.classList.contains("kw-unchecked")) {
-            setCheckedKeywords([...checkedKeywords, Number(id)]);
-        } else {
-            setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
-        }        
+        checkedKeywords[id - 1] = !checkedKeywords[id - 1]
+        setCheckedKeywords([...checkedKeywords]);
     }
 
     useEffect(() => {
 
+        const keywordsToSave = saveKeywords();
+
 
         setFormData({
-            ...formData, keywordIds: checkedKeywords
+            ...formData, keywordIds: keywordsToSave
         });
 
-        setPageisDone(checkedKeywords.length !== 0);
+        setPageisDone(keywordsToSave.length !== 0);
         // console.log(formData);
     }, [checkedKeywords])
 
@@ -44,7 +63,7 @@ const GroupKeywordsForm = () => {
                 {/* {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}> 
 {kw.keyword}
                 </p>)} */}
-                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={checkedKeywords.indexOf(kw.id) !== -1} />)}
+                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={checkedKeywords[kw.id - 1]} />)}
             </form>
 
     </div>
