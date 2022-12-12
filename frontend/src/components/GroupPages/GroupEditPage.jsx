@@ -62,7 +62,9 @@ const GroupEditPage = () => {
     useEffect(()=> {
         if(group && groupKeywords) {
 
-            if(sessionUser.id !== group.ownerId) navigate(`../groups/${groupId}`);
+            if(sessionUser.id !== group.ownerId) {
+                navigate(`../groups/${groupId}`);
+            }
             setName(group.name);
             setDescription(group.description);
             setMemberLabel(group.memberLabel || "");

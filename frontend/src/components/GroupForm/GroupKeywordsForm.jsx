@@ -52,7 +52,7 @@ const GroupKeywordsForm = () => {
         <h1>Choose a few topics that describe your group's interests</h1>
         <p>Be specific! This will help us promote your group to the right people. You can choose up to 15 topics.</p>
             <form id="kw-form">
-                {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}>
+                {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}> 
 {kw.keyword}
                 </p>)}
             </form>

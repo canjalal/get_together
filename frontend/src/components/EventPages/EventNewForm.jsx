@@ -6,6 +6,7 @@ import { createEvent, patchEvent } from '../../store/events';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
+import { EventErrors } from './EventErrors';
 import './eventform.css';
 
 const EventNewForm = ({oldEvent}) => {
@@ -176,10 +177,7 @@ const EventNewForm = ({oldEvent}) => {
                     else setErrors([res.statusText]);
                     }
                 )}>{oldEvent.method ? "Publish" : "Save Changes"}</button>
-                {errors.length > 0 && <ul>
-                <li>Errors:</li>
-                {errors.map((err, i) => <li key={i}>{err}</li>)}
-                </ul>
+                {errors.length > 0 && <EventErrors errors={errors} />
                 }
                 </div>
             </div>
