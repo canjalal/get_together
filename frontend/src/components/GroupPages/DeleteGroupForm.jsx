@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import { useEffect, useState } from "react";
-import { BiErrorCircle } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeGroup } from "../../store/groups";
+import { ErrorsList } from "../ErrorsList";
 import useOutsideClickDetected from "../UseOutsideClickDetected";
 
 const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
@@ -62,17 +62,7 @@ const DeleteGroupForm = ({setDeleteGroupModal, groupId}) => {
     <div className="modal-container">
         <div className="modal" id="attach-new-photo" ref={modalRef}>
             <div className="close-icon" id="attach-new-photo-close" ref={btnCloseRef}><IoMdClose /></div>
-            {/* Temporary placeholder for errors that should render as tooltips upon submission
-                or as modified captions upon loss of focus */}
-            {errors.length > 0 && <div className="error-console">
-                                        
-            <BiErrorCircle />
-                    <ul>
-            {errors.map(error => <li className="error-bullets" key={error}>{error}</li>)}
-            </ul>
-            <div className="close-modal" onClick={(e)=> {setErrors([]);
-            e.stopPropagation();}}><IoMdClose /></div>
-            </div>}
+            {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
             <form onSubmit={handleSubmit} className="modal-confirmation">
                 <h1>Are you sure?</h1>
                 <p className="sub-labels">This action cannot be undone.</p>

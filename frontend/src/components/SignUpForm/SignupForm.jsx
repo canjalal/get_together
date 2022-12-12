@@ -8,6 +8,7 @@ import './signupform.css'
 import * as FrontEndValidations from './validations';
 import { useRef } from 'react';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
+import { ErrorsList } from '../ErrorsList';
 
 const SignUpForm = () => {
 
@@ -132,15 +133,7 @@ const SignUpForm = () => {
             <h1>Finish signing up</h1>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
-            {errors.length > 0 && <div className="error-console">
-                                        
-            <BiErrorCircle />
-                    <ul>
-            {errors.map(error => <li key={error} className="error-bullets">{error}</li>)}
-            </ul>
-            <div className="close-modal" onClick={(e)=> {setErrors([]);
-            e.stopPropagation();}}><IoMdClose /></div>
-            </div>}
+            {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
             <form onSubmit={handleSubmit}>
                 <div>
                 <label htmlFor='name'>Your name

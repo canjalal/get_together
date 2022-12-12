@@ -6,12 +6,11 @@ import { fetchGroup, getGroup, patchGroup } from '../../store/groups';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import './showpage.css';
 import { getCurrentUser } from '../../store/session';
-import { BiErrorCircle } from 'react-icons/bi';
-import { IoMdClose } from 'react-icons/io';
 import DeleteGroupForm from './DeleteGroupForm';
 import { useRef } from 'react';
 import { getKeywords } from '../../store/keywords';
 import { useMemo } from 'react';
+import { ErrorsList } from '../ErrorsList';
 
 const GroupEditPage = () => {
     
@@ -191,15 +190,7 @@ const GroupEditPage = () => {
                 {showKeywordError && <p id="keyword-error" className="capt invalid">You must select at least one keyword for your group!</p>}
                 </div>
                 <div className="submit-edit-group">
-                {errors.length > 0 && <div className="error-console">
-                                        
-                                        <BiErrorCircle />
-                                                <ul>
-                                        {errors.map(error => <li key={error} className="error-bullets">{error}</li>)}
-                                        </ul>
-                                        <div className="close-modal" onClick={(e)=> {setErrors([]);
-                                        e.stopPropagation();}}><IoMdClose /></div>
-                                        </div>}
+                {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
                     <input type="submit" value="Save" id="save-group-info-button" ref={saveGroupInfoButtonRef} />
                     <button className="secondary-button" style={{width: "fit-content"}} onClick={(e) => {
                         e.preventDefault();

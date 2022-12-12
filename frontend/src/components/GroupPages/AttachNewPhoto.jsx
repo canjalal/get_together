@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { BsCloudUpload } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { patchGroupPhoto } from '../../store/groups';
 import { useRef } from 'react';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
+import { ErrorsList } from '../ErrorsList';
 
 const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
@@ -66,15 +66,7 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
             <div className="close-icon" id="attach-new-photo-close" ref={closeBtnRef}><IoMdClose /></div>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
-            {errors.length > 0 && <div className="error-console">
-                                        
-            <BiErrorCircle />
-                    <ul>
-            {errors.map(error => <li key={error} className="error-bullets">{error}</li>)}
-            </ul>
-            <div className="close-modal" onClick={(e)=> {setErrors([]);
-            e.stopPropagation();}}><IoMdClose /></div>
-            </div>}
+            {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="attach-photo">
                     <div id="add-photo-box" style={{backgroundImage : selectedCoverPhotoURL}}>

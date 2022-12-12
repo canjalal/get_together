@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { BiErrorCircle } from "react-icons/bi";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeEvent } from "../../store/events";
+import { ErrorsList } from "../ErrorsList";
 import useOutsideClickDetected from "../UseOutsideClickDetected";
 
 const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
@@ -61,15 +61,7 @@ const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
             <div className="close-icon" ref={closeBtnRef} id="attach-new-photo-close"><IoMdClose /></div>
             {/* Temporary placeholder for errors that should render as tooltips upon submission
                 or as modified captions upon loss of focus */}
-            {errors.length > 0 && <div className="error-console">
-                                        
-            <BiErrorCircle />
-                    <ul>
-            {errors.map(error => <li className="error-bullets" key={error}>{error}</li>)}
-            </ul>
-            <div className="close-modal" onClick={(e)=> {setErrors([]);
-            e.stopPropagation();}}><IoMdClose /></div>
-            </div>}
+            {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
             <form onSubmit={handleSubmit} className="modal-confirmation">
                 <h1>Are you sure?</h1>
                 <p className="sub-labels">This action cannot be undone.</p>

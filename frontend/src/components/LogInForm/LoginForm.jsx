@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
-import { BiErrorCircle } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import  { getCurrentUser, login } from '../../store/session';
+import { ErrorsList } from '../ErrorsList';
 import MiniLogo from '../Logo';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
 import './loginform.css';
@@ -104,15 +104,7 @@ const LogInForm = () => {
 
             <MiniLogo />
 
-            {errors.length > 0 && <div className="error-console">
-            
-            <BiErrorCircle />
-                    <ul>
-            {errors.map(error => <li key={error} className="error-bullets">{error}</li>)}
-            </ul>
-            <div className="close-modal" onClick={(e)=> {setErrors([]);
-            e.stopPropagation();}}><IoMdClose /></div>
-            </div>}
+            {errors.length > 0 && <ErrorsList errors={errors} setErrors={setErrors} />}
             <h1>Log in</h1>
             <p>Not a member yet? <Link to="/signup" className="green-link">Sign up</Link></p>
             <form onSubmit={handleSubmit}>
