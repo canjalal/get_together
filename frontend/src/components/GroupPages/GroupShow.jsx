@@ -4,18 +4,15 @@ import { Link, useParams } from 'react-router-dom'
 import { getGroupKeywords } from '../../store/groupkeywords';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session';
-import { GoLocation } from 'react-icons/go';
-import { IoPeopleOutline } from 'react-icons/io5';
 import './showpage.css';
-import { BiUser } from 'react-icons/bi';
 import { getUser, getUsersfromGrp, sustainCurrentUser } from '../../store/users';
-import { RiEdit2Fill } from 'react-icons/ri';
-import { GrImage } from 'react-icons/gr';
-import AttachNewPhoto from './AttachNewPhoto';
 import { getMemberStatus, joinGroup, leaveGroup } from '../../store/memberships';
 import { getEventsfromGrp } from '../../store/events';
-import EventPanel from '../EventPages/';
 import UserIcon from './UserIcon';
+import { GroupInfoPanel } from './GroupInfoPanel';
+import { GroupCoverPhoto } from './GroupCoverPhoto';
+import { GroupDescriptionandKeywords } from './GroupDescriptionandKeywords';
+import { GroupEvents } from './GroupEvents';
 
 const GroupShow = (props) => {
 
@@ -39,8 +36,6 @@ const GroupShow = (props) => {
     const owner = useSelector(getUser(group ? group.ownerId : null))
 
     const isOwner = (sessionUser && owner) && sessionUser.id === owner.id;
-
-    const [displayPhotoModal, setDisplayPhotoModal] = useState(false);
 
     const isMember = useSelector(getMemberStatus(sessionUser ? sessionUser.id : null, groupId));
 
@@ -79,36 +74,9 @@ const GroupShow = (props) => {
   return (
     <div className="show-page-flex">
         <div className="show-page-header">
-            <div id="group-cover" style={{backgroundImage: `url(${group.photoURL || 'https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/group_fallback_large.png'})`}}>
-                {isOwner && <div id="change-photo-button" onClick={(e) => setDisplayPhotoModal(true)}>
-                {displayPhotoModal && <AttachNewPhoto setDisplayPhotoModal={setDisplayPhotoModal} groupId={groupId} />}
-                <GrImage /> <span>Change photo</span>  
-                            </div>}
-            </div>
-            <div id="group-info">
-                <h1>{group.name}</h1>
-                <ul id="group-info-grid">
-                    <li><GoLocation />
-                    </li>
-                    <li>
-                        {group.location}
-                    </li>
-                    <li>
-                    <IoPeopleOutline />
-                    </li>
-                    <li>
-                        {users.length + 1} {group.memberLabel || "members"}
-                    </li>
-                    <li>
-                        <BiUser />
-                    </li>
-                    <li> Organized by {!!group && owner.name}
-                    </li>
-                </ul>
-                {isOwner && <div id="edit-page">
-                <Link to="edit" className="green-link"><RiEdit2Fill /> Edit Group info</Link>
-                    </div>}
-            </div>
+            {/* GroupCoverPhoto = ({group, isOwner, groupId}) => { */}
+            <GroupCoverPhoto group={group} isOwner={isOwner} groupId={groupId} />
+            <GroupInfoPanel group={group} users={users} owner={owner} isOwner={isOwner} />
         </div>
         <div className="main-content">
             <div className="left-content">
@@ -119,33 +87,9 @@ const GroupShow = (props) => {
                     <span></span>
                 </div>
                 <div className="left-main-content">
-                    <div className="group-description">
-                        <h1>What we're about</h1>
-                        {!!group && group.description}
-                    </div>
-                    <div className="group-keywords">
-                        <h1>Related keywords</h1>
-                        <ul>
-                            {Object.keys(keywordList).length > 0 && Object.values(groupKeywords).map(gk => <li key={gk.id}>{keywordList[gk.keywordId].keyword}</li>)}
-                        </ul>
-                    </div>
-                    <div className="group-events">
-                        {events["upcoming"].length > 0 && <>
-                        <h1>Upcoming Events</h1>
-                        <ul>
-                            {events["upcoming"].length > 0 && events["upcoming"].map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
-                        </ul>
-                        </>}
-
-                        {events["past"].length > 0 && <>
-                            <h1>Past Events</h1>
-                            <ul>
-                                {events["past"].length > 0 && events["past"].map(ev => <li key={ev.id}><Link to={`../events/${ev.id}`}><EventPanel data={ev} /></Link></li>)}
-                            </ul>
-                        </>}
-                    </div>
+                    <GroupDescriptionandKeywords group={group} keywordList={keywordList} groupKeywords={groupKeywords} />
+                    <GroupEvents events={events} />
                 </div>
-
                
             </div>
             <div className="right-content">
@@ -172,9 +116,6 @@ const GroupShow = (props) => {
                 
             </div>
         </div>
-        
-
-
      </div>
   )
 }

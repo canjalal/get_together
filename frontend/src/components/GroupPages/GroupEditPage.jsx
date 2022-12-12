@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import { getKeywords } from '../../store/keywords';
 import { useMemo } from 'react';
 import { ErrorsList } from '../ErrorsList';
+import { GroupEditHeader } from './GroupEditHeader';
 
 const GroupEditPage = () => {
     
@@ -117,13 +118,6 @@ const GroupEditPage = () => {
             keywordIds: checkedKeywords
         };
 
-        // formData.append('name', name);
-        // formData.append('description', description);
-        // formData.append('memberLabel', memberLabel);
-        // formData.append('location', location);
-        // formData.append('ownerId', group.ownerId);
-        // formData.append('keywordIds', checkedKeywords);
-        // console.log
         dispatch(patchGroup(formData, groupId)).then(() => {
             navigate(`../groups/${groupId}`);
         }, async (res) => {
@@ -145,15 +139,7 @@ const GroupEditPage = () => {
 
   return (
     <div>
-        <div id="group-edit-header">
-            <div id="mini-grp-image" style={{backgroundImage: `url(${group.photoURL || 'https://active-storage-get-together-seeds.s3.us-west-1.amazonaws.com/group_fallback_large.png'})`}}>
-            </div>
-            <div>
-                <Link to={`../groups/${groupId}`} className="green-link">
-                <AiOutlineArrowLeft /> Back to group page</Link>
-            <h1 className="mid-title">{group.name}</h1>
-            </div>
-        </div>
+        <GroupEditHeader group={group} groupId={groupId} />
         <div>
             <form className="edit-form-body" onSubmit={handleSubmit}>
                 <div className="group-form-body">
