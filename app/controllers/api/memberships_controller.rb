@@ -13,8 +13,9 @@ class Api::MembershipsController < ApplicationController
 
     def destroy
         # debugger
-        @group = Group.find_by(id: params[:id])
-        @mb = @group.memberships.find_by(member_id: current_user.id)
+        # @group = Group.find_by(id: params[:id])
+        # @mb = @group.memberships.find_by(member_id: current_user.id)
+        @mb = Membership.find_by_member_and_group(current_user.id, params[:id])
         if(@mb.destroy)
             render :show
         else
