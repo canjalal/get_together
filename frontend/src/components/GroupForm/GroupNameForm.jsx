@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import capitalize from '../../utils/capitalize';
-import { GroupFormContext } from './GroupFormContext';
 import { renderGrpNameError } from './validations';
 
-const GroupNameForm = () => {
+const GroupNameForm = (props) => {
 
-    const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone } = props;
 
     const keywordList = useSelector(state => state.keywords);
 

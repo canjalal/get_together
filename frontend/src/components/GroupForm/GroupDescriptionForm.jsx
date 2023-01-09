@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { GroupFormContext } from './GroupFormContext';
 import { renderDescriptionError } from './validations';
 
-const GroupDescriptionForm = () => {
+const GroupDescriptionForm = (props) => {
 
-    const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone, pageisDone } = props;
 
     const [description, setDescription] = useState(formData.description || '');
 

@@ -1,14 +1,13 @@
-import React, { createRef, useContext, useEffect, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getKeywords } from '../../store/keywords';
-import { GroupFormContext } from './GroupFormContext';
 import { GroupKeyword } from './GroupKeyword';
 
-const GroupKeywordsForm = () => {
+const GroupKeywordsForm = (props) => {
 
-    const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone } = props;
 
     const keywordList = useSelector(getKeywords);
 
@@ -33,8 +32,6 @@ const GroupKeywordsForm = () => {
     const [checkedKeywords, setCheckedKeywords] = useState(setKeywords()); // list of selected keyword IDs
 
     window.checkedKeywords = checkedKeywords // may be better to just have a fixed length array of booleans of selected, to avoid having to search within array for keywords
-
-
 
     const toggleItem = (id) => (e) => {
 

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import BottomBar from './BottomBar'
 import GroupDescriptionForm from './GroupDescriptionForm'
 import './groupform.css'
-import { GroupFormContext } from './GroupFormContext'
 import GroupGuidelinesForm from './GroupGuideLines'
 import GroupKeywordsForm from './GroupKeywordsForm'
 import GroupLocationForm from './GroupLocationForm'
@@ -14,7 +13,16 @@ const GroupFormIntro = (props) => {
 
     const [displayNewGrp, setDisplayNewGrp] = useState(false);
 
-    const { pageNum } = useContext(GroupFormContext);
+    const [formData, setFormData] = useState({
+        location: "",
+        keywordIds: "",
+        name: "",
+        description: ""
+    });
+
+    const [pageNum, setPageNum] = useState(1);
+
+    const [pageisDone, setPageisDone] = useState(false);
 
     const progressBar = useRef(null);
 
@@ -27,15 +35,20 @@ const GroupFormIntro = (props) => {
     const pickElement = (page) => {
         switch(page) {
             case 1:
-                return <GroupLocationForm />
+                return <GroupLocationForm
+                        formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} pageisDone={pageisDone} />
             case 2:
-                return <GroupKeywordsForm />
+                return <GroupKeywordsForm
+                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} />
             case 3:
-                return <GroupNameForm />
+                return <GroupNameForm
+                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} />
             case 4:
-                return <GroupDescriptionForm />
+                return <GroupDescriptionForm
+                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} pageisDone={pageisDone} />
             default:
-                 return <GroupGuidelinesForm />
+                 return <GroupGuidelinesForm
+                    setPageisDone={setPageisDone} />
         }
     }
 
@@ -47,7 +60,6 @@ const GroupFormIntro = (props) => {
         </p>
         <h1 className="first-step">We'll walk you through a few steps to build your local community</h1>
         <button className="standard-button" onClick={(e) => setDisplayNewGrp(true)}>Get started</button>
-
     </div>
     {displayNewGrp && <div id="new-group">
         <NewGroupNav />
@@ -61,7 +73,7 @@ const GroupFormIntro = (props) => {
             {
                 pickElement(pageNum)
             }
-        <BottomBar />
+        <BottomBar pageNum={pageNum} setPageNum={setPageNum} pageisDone={pageisDone} formData={formData} setPageisDone={setPageisDone} />
     </div>}
     </>
 

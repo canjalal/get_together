@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { createGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session';
 import { ErrorsList } from '../ErrorsList';
-import { GroupFormContext } from './GroupFormContext'
 
 const BottomBar = (props) => {
 
-    const { pageNum, setPageNum, pageisDone, formData, setPageisDone } = useContext(GroupFormContext);
+    const { pageNum, setPageNum, pageisDone, formData, setPageisDone } = props;
 
     const navigate = useNavigate();
 
@@ -21,7 +20,6 @@ const BottomBar = (props) => {
     const currentUser = useSelector(getCurrentUser);
 
     const submitGroup = async () => {
-
 
         const { response, data } = await dispatch(createGroup({...formData, ownerId: currentUser.id}))
 
