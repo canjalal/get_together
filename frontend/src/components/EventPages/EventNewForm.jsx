@@ -7,6 +7,7 @@ import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
 import './eventform.css';
+import { EventFormLocale } from './EventFormLocale';
 import { EventSubmitBar } from './EventSubmitBar';
 
 const EventNewForm = ({oldEvent}) => {
@@ -147,15 +148,7 @@ const EventNewForm = ({oldEvent}) => {
                     <p className="sub-labels">Let your attendees know what to expect, including the agenda, what they need to bring, and how to find the group.</p>
                     <textarea value={description} onChange={(e)=> setDescription(e.target.value)} />
                 </label>
-                <label>
-                    Location
-                    <br />
-                    <input type="checkbox" id="is-online-checkbox" value={isOnline} onChange={(e) => setIsOnline(e.target.checked ? true : false)} /> Make this an online event
-                </label>
-                <label>
-                    Add venue
-                    <input type="text" className="high-inputs" placeholder="Add a location" value={venue} onChange={(e) => setVenue(e.target.value)} />
-                </label>
+                <EventFormLocale isOnline={isOnline} setIsOnline={setIsOnline} venue={venue} setVenue={setVenue} />
             </div>
             <EventSubmitBar submitEvent={submitEvent} groupId={groupId} oldEvent={oldEvent} />
         </form>
