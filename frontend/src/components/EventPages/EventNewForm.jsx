@@ -8,18 +8,28 @@ import { getCurrentUser } from '../../store/session'
 import { getUser } from '../../store/users';
 import './eventform.css';
 import { EventFormLocale } from './EventFormLocale';
+import { EventFormTime } from './EventFormTime';
 import { EventSubmitBar } from './EventSubmitBar';
 
 const EventNewForm = ({oldEvent}) => {
 
-    const formatDateString = (fecha) => {
+    const formatDateString = (dt) => {
         // let hours = (fecha.getHours() + fecha.getTimezoneOffset()/60 + 24) % 24
-        let hours = fecha.getHours();
-        return `${fecha.getFullYear()}-${fecha.getMonth() + 1 < 10 ? "0" + (fecha.getMonth() + 1) : fecha.getMonth() + 1 }-${fecha.getDate() < 10 ? "0" + fecha.getDate() : fecha.getDate()}T${hours < 10 ? "0" + hours : hours}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
+        let hours = dt.getHours();
+        return `${
+            dt.getFullYear()
+            }-${
+                dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : dt.getMonth() + 1
+            }-${
+                dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate()
+            }T${
+                hours < 10 ? "0" + hours : hours
+            }:${
+                dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes()
+            }`;
     }
 
     let defaultDate = new Date();
-
 
     defaultDate.setDate(defaultDate.getDate() + 5);
 
@@ -33,8 +43,6 @@ const EventNewForm = ({oldEvent}) => {
         method: 'POST'
     }
 
-    // console.log(oldEvent.dateTime);
-
     const sessionUser = useSelector(getCurrentUser);
     const navigate = useNavigate();
 
@@ -46,12 +54,9 @@ const EventNewForm = ({oldEvent}) => {
 
     const [errors, setErrors] = useState([]);
 
-    // const isOwner = (sessionUser && owner) && sessionUser.id === owner.id
-
     const [title, setTitle] = useState(oldEvent.title);
     const [dateTime, setDateTime] = useState(formatDateString(new Date(oldEvent.dateTime)));
-    // cutt of last 8 characters of date string
-
+    
     const [duration, setDuration] = useState(oldEvent.duration);
 
     const [description, setDescription] = useState(oldEvent.description);
@@ -66,8 +71,7 @@ const EventNewForm = ({oldEvent}) => {
         setErrors([]);
 
         let saveDate = new Date(dateTime);
-        // saveDate.setTime(saveDate.getTime() + saveDate.getTimezoneOffset()*60*1000);
-
+    
         const formData = {
             groupId: groupId,
             title: title,
@@ -85,10 +89,7 @@ const EventNewForm = ({oldEvent}) => {
             formData["id"] = oldEvent.id;
             const {response, data} = await dispatch(patchEvent(formData));
             navigate(`/events/${oldEvent.id}`)
-
         }
-
-
     }
 
     useEffect(() => {
@@ -115,9 +116,7 @@ const EventNewForm = ({oldEvent}) => {
 
     }, [group])
     
-
     if(!group) return null;
-
 
   return (
     <div>
@@ -129,20 +128,7 @@ const EventNewForm = ({oldEvent}) => {
                     Title (required)
                     <input type="text" className="high-inputs" value={title} onChange={(e)=> setTitle(e.target.value)} />
                 </label>
-                <label>
-                    Date and time
-                    <input type="datetime-local" className="high-inputs" value={dateTime} onChange={(e) => setDateTime(e.target.value)} />
-                </label>
-                <label>
-                    Duration
-                    <select value={duration} className="high-inputs" onChange={(e)=> setDuration(e.target.value)}>
-                        <option value="30">0.5 hours</option>
-                        <option value="60">1 hour</option>
-                        <option value="90">1.5 hours</option>
-                        <option value="120">2 hours</option>
-                        <option value="180">3 hours</option>
-                    </select>
-                </label>
+                <EventFormTime dateTime={dateTime} setDateTime={setDateTime} duration={duration} setDuration={setDuration} />
                 <label>
                     Description
                     <p className="sub-labels">Let your attendees know what to expect, including the agenda, what they need to bring, and how to find the group.</p>
