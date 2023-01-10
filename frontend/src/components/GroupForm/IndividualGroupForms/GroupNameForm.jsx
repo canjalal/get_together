@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import capitalize from '../../../utils/capitalize';
-import { GroupFormContext } from '../GroupFormContext';
 import { renderGrpNameError } from '../validations';
 
-const GroupNameForm = () => {
+const GroupNameForm = (props) => {
 
-    const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone } = props;
 
     const keywordList = useSelector(state => state.keywords);
 
     const [grpName, setGrpName] = useState(formData.name ||
-        `${formData.location.match(/^(.*),/) ? formData.location.match(/^(.*),/)[1] : formData.location } ${capitalize(keywordList[formData.keywordIds[0]].keyword)} Group`);
+        `${formData.location.match(/^(.*),/) ? formData.location.match(/^(.*),/)[1] : formData.location } ${capitalize(keywordList[Object.keys(formData.keywordIds)[0]].keyword)} Group`);
 
     const [charsLeft, setCharsLeft] = useState(60 - grpName.length);
 

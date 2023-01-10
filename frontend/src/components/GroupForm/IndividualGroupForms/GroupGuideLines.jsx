@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react'
-import { GroupFormContext } from '../GroupFormContext';
+import React, { useEffect } from 'react'
 
-const GroupGuidelinesForm = () => {
+const GroupGuidelinesForm = (props) => {
 
-    const { setPageisDone } = useContext(GroupFormContext);
+    const { setPageisDone } = props;
 
     useEffect(() => {
         setPageisDone(true); 

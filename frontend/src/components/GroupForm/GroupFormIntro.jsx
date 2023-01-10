@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import BottomBar from './BottomBar'
-import GroupDescriptionForm from './GroupDescriptionForm'
+import GroupDescriptionForm from './IndividualGroupForms/GroupDescriptionForm'
 import './groupform.css'
-import GroupGuidelinesForm from './GroupGuideLines'
-import GroupKeywordsForm from './GroupKeywordsForm'
-import GroupLocationForm from './GroupLocationForm'
-import GroupNameForm from './GroupNameForm'
+import GroupGuidelinesForm from './IndividualGroupForms/GroupGuideLines'
+import GroupKeywordsForm from './IndividualGroupForms/GroupKeywordsForm'
+import GroupLocationForm from './IndividualGroupForms/GroupLocationForm'
+import GroupNameForm from './IndividualGroupForms/GroupNameForm'
 import NewGroupNav from './NewGroupNav'
 
 const GroupFormIntro = (props) => {
