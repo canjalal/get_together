@@ -25,7 +25,7 @@ class Api::GroupsController < ApplicationController
         # @group_keywords = GroupKeyword.new(group_id: @group.id,)
         if(@group.save)
             @g_keywords = []
-            params[:keyword_ids].each do |kwi|
+            params[:keyword_ids].each do |kwi, val|
                         
                 @g_keywords << GroupKeyword.create!(keyword_id: kwi, group_id: @group.id)
                 # tweak this to error out and delete group if group keyword saves are unsuccesfful
@@ -71,9 +71,9 @@ class Api::GroupsController < ApplicationController
             elsif(@group.update(group_params))
                 # debugger
                 @group.group_keywords.each do |gk|
-                    gk.destroy unless params[:keyword_ids].include?(gk.keyword_id) 
+                    gk.destroy unless params[:keyword_ids][gk.keyword_id] 
                 end
-                params[:keyword_ids].each do |kwi|
+                params[:keyword_ids].each do |kwi, val|
                     # debugger
                     if !@group.group_keywords.map(&:keyword_id).include?(kwi)
                         gk = GroupKeyword.new(keyword_id: kwi, group_id: @group.id)

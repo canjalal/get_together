@@ -26,7 +26,7 @@ const GroupEditPage = () => {
     const [errors, setErrors] = useState([]);
 
     const keywordList = useSelector(getKeywords);
-    const keywordRefs = useMemo(() => keywordList.map((kw) => createRef()), []);
+    const keywordRefs = useMemo(() => keywordList.map((kw) => createRef()));
 
     const [showKeywordError, setShowKeywordError] = useState(false);
 
@@ -34,7 +34,7 @@ const GroupEditPage = () => {
     const [description, setDescription] = useState('');
     const [memberLabel, setMemberLabel] = useState('');
     const [location, setLocation] = useState('');
-    const [checkedKeywords, setCheckedKeywords] = useState([]);
+    const [checkedKeywords, setCheckedKeywords] = useState({});
     const [deleteGroupModal, setDeleteGroupModal] = useState(false);
     const navigate = useNavigate();
 
@@ -70,11 +70,15 @@ const GroupEditPage = () => {
             setMemberLabel(group.memberLabel || "");
             setLocation(group.location);
 
-            const tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);
+            // const tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);
+            const tempKeywordIds = {};
+            for(let gkId in groupKeywords) {
+                tempKeywordIds[groupKeywords[gkId].keywordId] = true;
+            }
             setCheckedKeywords(tempKeywordIds);
 
-            for(let id of tempKeywordIds) {
-                let cb = keywordRefs[id - 1].current;
+            for(let id in tempKeywordIds) {
+                let cb = keywordRefs[Number(id) - 1]?.current;
                 if(cb) {
                     cb.classList.add("kw-checked");
                     cb.classList.remove("kw-unchecked");
@@ -86,20 +90,24 @@ const GroupEditPage = () => {
     }, [group]);
 
     const toggleItem = (id) => (e) => {
+        const tempKeywordIds = {...checkedKeywords};
         if (e.target.classList.contains("kw-unchecked")) {
-            setCheckedKeywords([...checkedKeywords, Number(id)]);
+            tempKeywordIds[id] = true;
+            setCheckedKeywords({...tempKeywordIds});
             e.target.classList.add("kw-checked");
             e.target.classList.remove("kw-unchecked")
             saveGroupInfoButtonRef.current.disabled = false;
             setShowKeywordError(false);
             // console.log("checked! " + e.target.value);
         } else {
-            if(checkedKeywords.length === 1) {
+            if(Object.keys(checkedKeywords).length === 1) {
                 setShowKeywordError(true);
                 saveGroupInfoButtonRef.current.disabled = true;
             }
+
+            delete tempKeywordIds[id];
             
-            setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
+            setCheckedKeywords({...tempKeywordIds});
             e.target.classList.remove("kw-checked");
             e.target.classList.add("kw-unchecked");
             // console.log("unchecked! " + e.target.value)

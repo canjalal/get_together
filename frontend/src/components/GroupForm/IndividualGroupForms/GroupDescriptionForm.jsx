@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { GroupFormContext } from '../GroupFormContext';
+import React, { useEffect, useRef, useState } from 'react'
 import { renderDescriptionError } from '../validations';
 
-const GroupDescriptionForm = () => {
+const GroupDescriptionForm = (props) => {
 
-    const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone, pageisDone } = props;
 
     const [description, setDescription] = useState(formData.description || '');
 
@@ -26,7 +25,7 @@ const GroupDescriptionForm = () => {
     }
 
     const handleBlur = (e) => {
-        if(!pageisDone) { // redo this with a separate component or pass in a style
+        if(!pageisDone) {
             e.target.classList.add('invalid-border');
             e.target.classList.remove('valid-border');
         } else {

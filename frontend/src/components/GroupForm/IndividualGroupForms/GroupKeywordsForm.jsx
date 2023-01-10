@@ -1,45 +1,36 @@
-import React, { createRef, useContext, useEffect, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getKeywords } from '../../../store/keywords';
-import { GroupFormContext } from '../GroupFormContext';
-import { GroupKeyword } from '../GroupKeyword';
-import { setKeywords, saveKeywords } from './GroupKeywordsForm.utils';
+import { GroupKeyword } from './GroupKeyword';
 
+const GroupKeywordsForm = (props) => {
 
-const GroupKeywordsForm = () => {
-
-    const {formData, setFormData, setPageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone } = props;
 
     const keywordList = useSelector(getKeywords);
 
-    const [checkedKeywords, setCheckedKeywords] = useState(setKeywords(keywordList, formData.keywordIds)); // list of selected keyword IDs
-    // have these be Objects:
-    // keys: keywordIDs
-    // value: boolean
-    // this will allow for O(1) lookup time
-
-    // window.checkedKeywords = checkedKeywords // may be better to just have a fixed length array of booleans of selected, to avoid having to search within array for keywords
-
-
+    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds);
 
     const toggleItem = (id) => (e) => {
-
-        checkedKeywords[id - 1] = !checkedKeywords[id - 1]
-        setCheckedKeywords([...checkedKeywords]);
+        const tempKeywordIds = {...checkedKeywords}
+        if(tempKeywordIds[id]) {
+            delete tempKeywordIds[id];
+        } else {
+            tempKeywordIds[id] = true;
+        }
+        setCheckedKeywords({...tempKeywordIds});
     }
 
     useEffect(() => {
 
-        const keywordsToSave = saveKeywords(keywordList, checkedKeywords);
-
 
         setFormData({
-            ...formData, keywordIds: keywordsToSave
+            ...formData, keywordIds: {...checkedKeywords}
         });
 
-        setPageisDone(keywordsToSave.length !== 0);
+        setPageisDone(Object.keys(checkedKeywords).length !== 0);
         // console.log(formData);
     }, [checkedKeywords])
 
@@ -51,7 +42,10 @@ const GroupKeywordsForm = () => {
                 {/* {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}> 
 {kw.keyword}
                 </p>)} */}
-                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={checkedKeywords[kw.id - 1]} />)}
+                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={!!checkedKeywords[kw.id]} />)}
+                {/* { keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} ref={keywordRefs[i]} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+{kw.keyword}
+                </p>)} */}
             </form>
 
     </div>

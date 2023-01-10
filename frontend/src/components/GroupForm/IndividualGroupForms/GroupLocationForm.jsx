@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRef } from 'react';
-import { GroupFormContext } from '../GroupFormContext';
 
-const GroupLocationForm = () => {
+const GroupLocationForm = (props) => {
 
-    const {formData, setFormData, setPageisDone, pageisDone } = useContext(GroupFormContext);
+    const {formData, setFormData, setPageisDone, pageisDone } = props;
 
     const [grpLoc, setGrpLoc] = useState(formData.location || "San Francisco, CA");
 
