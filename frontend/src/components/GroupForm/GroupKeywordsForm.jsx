@@ -11,13 +11,13 @@ const GroupKeywordsForm = (props) => {
 
     const keywordList = useSelector(getKeywords);
 
-    function setKeywords() {
-        const outputArray = [];
-        for(let i = 1; i <= keywordList.length; i++) {
-            outputArray.push(formData.keywordIds.indexOf(i) !== -1);
-        }
-        return outputArray;
-    }
+    // function setKeywords() {
+    //     const outputArray = [];
+    //     for(let i = 1; i <= keywordList.length; i++) {
+    //         outputArray.push(formData.keywordIds.indexOf(i) !== -1);
+    //     }
+    //     return outputArray;
+    // }
 
     function saveKeywords() {
         const keywordsToSave = [];
@@ -29,26 +29,26 @@ const GroupKeywordsForm = (props) => {
         return keywordsToSave;
     }
 
-    const [checkedKeywords, setCheckedKeywords] = useState(setKeywords()); // list of selected keyword IDs
-
-    window.checkedKeywords = checkedKeywords // may be better to just have a fixed length array of booleans of selected, to avoid having to search within array for keywords
+    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds);
 
     const toggleItem = (id) => (e) => {
-
-        checkedKeywords[id - 1] = !checkedKeywords[id - 1]
-        setCheckedKeywords([...checkedKeywords]);
+        const tempKeywordIds = {...checkedKeywords}
+        if(tempKeywordIds[id]) {
+            delete tempKeywordIds[id];
+        } else {
+            tempKeywordIds[id] = true;
+        }
+        setCheckedKeywords({...tempKeywordIds});
     }
 
     useEffect(() => {
 
-        const keywordsToSave = saveKeywords();
-
 
         setFormData({
-            ...formData, keywordIds: keywordsToSave
+            ...formData, keywordIds: {...checkedKeywords}
         });
 
-        setPageisDone(keywordsToSave.length !== 0);
+        setPageisDone(Object.keys(checkedKeywords).length !== 0);
         // console.log(formData);
     }, [checkedKeywords])
 
@@ -60,7 +60,10 @@ const GroupKeywordsForm = (props) => {
                 {/* {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}> 
 {kw.keyword}
                 </p>)} */}
-                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={checkedKeywords[kw.id - 1]} />)}
+                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={!!checkedKeywords[kw.id]} />)}
+                {/* { keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} ref={keywordRefs[i]} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+{kw.keyword}
+                </p>)} */}
             </form>
 
     </div>
