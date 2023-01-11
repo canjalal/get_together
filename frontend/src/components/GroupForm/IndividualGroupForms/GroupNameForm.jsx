@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import capitalize from '../../../utils/capitalize';
-import { renderGrpNameError } from '../validations';
+import { renderError } from '../../../utils/renderError';
+import { renderGrpNameError, validateGrpName } from '../validations';
 
 const GroupNameForm = (props) => {
 
@@ -14,20 +15,24 @@ const GroupNameForm = (props) => {
 
     const [charsLeft, setCharsLeft] = useState(60 - grpName.length);
 
+    const [nameError, setNameError] = useState("");
+
+    const [grpNameStyle, setgrpNameStyle] = useState({});
+
     const handleNameChange = (e) => {
         setFormData({
             ...formData, name: e.target.value
         });
 
 
-        const isErrors = !!renderGrpNameError(e.target.value)
+        // const isErrors = !!renderGrpNameError(e.target.value)
+        const isErrors = renderError(e.target.value, validateGrpName, setNameError);
 
         setGrpName(e.target.value);
         setCharsLeft(60 - e.target.value.length);
         setPageisDone(!isErrors);
-        let grpName = document.querySelector("#grpName");
-        // console.log(desc);
-        grpName.style.outline = `1px solid ${isErrors ? "red" : "teal"}`;   
+        
+        setgrpNameStyle({outline: `1px solid ${isErrors ? "red" : "teal"}`});
     }
 
 
@@ -53,9 +58,9 @@ const GroupNameForm = (props) => {
         <p>Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</p>
             <form id="name-form" onSubmit={handleSubmit}>
                 <div className="charsLeft-container">
-                <input type="text" id="grpName" value={grpName} onChange={handleNameChange} />
+                <input type="text" id="grpName" style={grpNameStyle} value={grpName} onChange={handleNameChange} />
                 <p className="charsLeft">{charsLeft}</p>
-                <p id="grpName-caption" className="capt"></p>
+                <p id="grpName-caption" className={`capt ${nameError === '' ? 'invalid' : 'valid'}`}>{nameError}</p>
                 </div>
             </form>
 

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import EventHome from "./components/EventPages/EventHome";
 import EventNewForm from "./components/EventPages/EventNewForm";
-import { GroupFormProvider } from "./components/GroupForm/GroupFormContext";
 import GroupFormIntro from "./components/GroupForm/";
 import GroupEditPage from "./components/GroupPages/GroupEditPage";
 import GroupShow from "./components/GroupPages/GroupShow";
@@ -52,9 +51,7 @@ function App() {
                                                     } />
       <Route path="/groups/new" element={
                                       <ProtectedRoute user={sessionUser}>
-                                        <GroupFormProvider>
                                         <GroupFormIntro />
-                                        </GroupFormProvider>
                                       </ProtectedRoute>
                                         } />
       <Route path="/groups/:groupId/events/new" element={
