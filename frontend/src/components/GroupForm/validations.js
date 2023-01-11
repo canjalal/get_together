@@ -14,37 +14,3 @@ export function validateDescription(description) {
         return "Please write at least 50 characters"
     }
 }
-
-export function renderGrpNameError(name) {
-    let field = document.getElementById("grpName");
-    let caption = document.getElementById("grpName-caption");
-
-    let error = validateGrpName(name);
-    
-    if(!error) {
-        caption.classList.remove("invalid");
-        caption.innerHTML = ``;
-    } else {
-        caption.classList.add("invalid");
-        caption.innerHTML = `${error}`
-    }
-
-    return !!error;
-}
-
-export function renderDescriptionError(description) {
-    let field = document.getElementById("grp-description");
-    let caption = document.getElementById("description-caption");
-
-    let error = validateDescription(description);
-    
-    if(!error) {
-        caption.classList.remove("invalid");
-        caption.innerHTML = ``;
-    } else {
-        caption.classList.add("invalid");
-        caption.innerHTML = `${error}`
-    }
-
-    return !!error;
-}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { renderDescriptionError } from '../validations';
+import { renderError } from '../../../utils/renderError';
+import { validateDescription } from '../validations';
 
 const GroupDescriptionForm = (props) => {
 
@@ -7,37 +8,30 @@ const GroupDescriptionForm = (props) => {
 
     const [description, setDescription] = useState(formData.description || '');
 
-    const groupDescriptionEle = useRef(null);
+    const [descriptionError, setDescriptionError] = useState("");
+    const [descriptionStyle, setDescriptionStyle] = useState({});
 
     const handleDescriptionChange = (e) => {
 
-        const isErrors = !!renderDescriptionError(e.target.value);
+        const isErrors = renderError(e.target.value, validateDescription, setDescriptionError);
         setFormData({
             ...formData, description: e.target.value
         });
 
-        if(!isErrors) {
-            groupDescriptionEle.current.classList.add('valid-border');
-            groupDescriptionEle.current.classList.remove('invalid-border');
-        }      
+        setDescriptionStyle(isErrors ? descriptionStyle : 'valid-border');
+
         setDescription(e.target.value);
         setPageisDone(!isErrors);
     }
 
     const handleBlur = (e) => {
-        if(!pageisDone) {
-            e.target.classList.add('invalid-border');
-            e.target.classList.remove('valid-border');
-        } else {
-            e.target.classList.remove('invalid-border');
-            e.target.classList.add('valid-border');
-        }
+        setDescriptionStyle(pageisDone ? 'valid-border' : 'invalid-border');
     }
 
     useEffect(() => {
 
 
-        setPageisDone(!renderDescriptionError(description)); 
+        setPageisDone(!renderError(description, validateDescription, setDescriptionError)); 
 
 
     }, []);
@@ -65,8 +59,8 @@ const GroupDescriptionForm = (props) => {
         </ol>
 
             <form id="description-form" onSubmit={handleSubmit}>
-                <textarea id="grp-description" value={description} ref={groupDescriptionEle} onChange={handleDescriptionChange} onBlur={handleBlur}/>
-                <p id="description-caption" className="capt"></p>
+                <textarea id="grp-description" value={description} className={descriptionStyle}  onChange={handleDescriptionChange} onBlur={handleBlur}/>
+                <p id="description-caption" className={`capt ${descriptionError ? 'invalid' : ''}`}>{descriptionError}</p>
             </form>
 
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import capitalize from '../../../utils/capitalize';
 import { renderError } from '../../../utils/renderError';
-import { renderGrpNameError, validateGrpName } from '../validations';
+import { validateGrpName } from '../validations';
 
 const GroupNameForm = (props) => {
 
