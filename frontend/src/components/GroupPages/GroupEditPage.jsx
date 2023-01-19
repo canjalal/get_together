@@ -1,9 +1,8 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getGroupKeywords } from '../../store/groupkeywords';
 import { fetchGroup, getGroup, patchGroup } from '../../store/groups';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
 import './showpage.css';
 import { getCurrentUser } from '../../store/session';
 import DeleteGroupForm from './DeleteGroupForm';
@@ -26,7 +25,6 @@ const GroupEditPage = () => {
     const [errors, setErrors] = useState([]);
 
     const keywordList = useSelector(getKeywords);
-    const keywordRefs = useMemo(() => keywordList.map((kw) => createRef()));
 
     const [showKeywordError, setShowKeywordError] = useState(false);
 
@@ -77,25 +75,14 @@ const GroupEditPage = () => {
             }
             setCheckedKeywords(tempKeywordIds);
 
-            for(let id in tempKeywordIds) {
-                let cb = keywordRefs[Number(id) - 1]?.current;
-                if(cb) {
-                    cb.classList.add("kw-checked");
-                    cb.classList.remove("kw-unchecked");
-                }
-            
-            }
-
         }
     }, [group]);
 
-    const toggleItem = (id) => (e) => {
+    const toggleItem = (id) => {
         const tempKeywordIds = {...checkedKeywords};
-        if (e.target.classList.contains("kw-unchecked")) {
+        if (!(id in tempKeywordIds)) {
             tempKeywordIds[id] = true;
             setCheckedKeywords({...tempKeywordIds});
-            e.target.classList.add("kw-checked");
-            e.target.classList.remove("kw-unchecked")
             saveGroupInfoButtonRef.current.disabled = false;
             setShowKeywordError(false);
             // console.log("checked! " + e.target.value);
@@ -108,8 +95,6 @@ const GroupEditPage = () => {
             delete tempKeywordIds[id];
             
             setCheckedKeywords({...tempKeywordIds});
-            e.target.classList.remove("kw-checked");
-            e.target.classList.add("kw-unchecked");
             // console.log("unchecked! " + e.target.value)
         }        
     }
@@ -177,7 +162,7 @@ const GroupEditPage = () => {
                     <label>
                 Why are topics important?
                     <p className="sub-labels">Topics describe what your Meetup group is about in a word or two. Pick up to 15 topics for your Meetup group. Well-picked topics help the right members find your Meetup group.</p>
-                    {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} ref={keywordRefs[i]} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
+                    {keywordList.map((kw) => <p key={kw.id} id={`kw-${kw.id}`} className={`kw-checkbox ${kw.id in checkedKeywords ? "kw-checked" : "kw-unchecked"}`} onClick={() => toggleItem(kw.id)}>
 {kw.keyword}
                 </p>)}
                 </label>
