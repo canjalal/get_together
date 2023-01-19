@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
 import { getCurrentUser } from '../../store/session';
@@ -15,25 +15,17 @@ const NavMenu = (props) => {
 
     const location = useLocation();
 
-    const miniSearchBarRef = useRef(null);
-    const navMenuRef = useRef(null);
+    const [miniSearchMobilized, setMiniSearchMobilized] = useState(false);
 
-    useEffect(() => {
-        if(location.pathname === "/") navMenuRef.current.classList.add("home-nav");
-        // console.log(location.pathname);
+    const toggleMiniSearch = () => {
 
-    }, []);
-
-    const toggleMiniSearch = (e) => {
-
-        miniSearchBarRef.current.classList.toggle("mobilized");
-        miniSearchBarRef.current.classList.toggle("demobilized");
+        setMiniSearchMobilized(!miniSearchMobilized);
     }
 
     const sessionUser = useSelector(getCurrentUser);
   return (
     <div className="menu-wrapper">
-        <div className="nav-menu" ref={navMenuRef}>
+        <div className="nav-menu">
             <div className="left-menu">
                 <div className="logo">
                     {sessionUser ? <Link to="/home">GetTogether</Link> : <Link to="/">GetTogether</Link>}
@@ -56,7 +48,7 @@ const NavMenu = (props) => {
                 {sessionUser ? <LoggedInMenu /> : <LoggedOutMenu />}
             </div>
         </div>
-        <div className="mini-search-bar demobilized" ref={miniSearchBarRef}>
+        <div className={`mini-search-bar ${miniSearchMobilized ? 'mobilized' : 'demobilized'}`}>
             <SearchBar />
         </div>
     </div>
