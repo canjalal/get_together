@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getSearchedEventData, getSearchedGroupData } from '../../store/session';
@@ -17,27 +17,9 @@ const SearchResults = () => {
     const [displayGrps, setDisplayGrps] = useState(false);
     const [displayEvents, setDisplayEvents] = useState(true);
 
-    const toggleHeader = (e) => {
-
-
-        const searchHeaders = document.getElementsByClassName("search-header");
-
-        const clickedHeader = e.target === searchHeaders[0] ? searchHeaders[0] : searchHeaders[1];
-
-
-        const otherHeader = e.target === searchHeaders[0] ? searchHeaders[1] : searchHeaders[0];
-
-
-        if(clickedHeader.classList.contains("unselected-header")) {
-            clickedHeader.classList.remove("unselected-header");
-            clickedHeader.classList.add("selected-header");
-            otherHeader.classList.remove("selected-header");
-            otherHeader.classList.add("unselected-header");
-
-            setDisplayEvents(clickedHeader === searchHeaders[0]);
-            setDisplayGrps(clickedHeader !== searchHeaders[0]);
-        }
-
+    const toggleHeader = (header) => {
+        setDisplayEvents(header === "events")
+        setDisplayGrps(header === "groups")
     }
 
     if(!searchedGroups || !searchedEvents) return null;
@@ -45,10 +27,10 @@ const SearchResults = () => {
   return (
     <div className="search-results">
         <div id="search-heading">
-            <span className="search-header selected-header" onClick={toggleHeader}>
+            <span className={`search-header ${displayEvents ? 'selected-header' : 'unselected-header'}`} onClick={() => toggleHeader("events")}>
                 Events
             </span>
-            <span className="search-header unselected-header" onClick={toggleHeader}>
+            <span className={`search-header ${displayGrps ? 'selected-header' : 'unselected-header'}`} onClick={() => toggleHeader("groups")}>
                 Groups
             </span>
         </div>
