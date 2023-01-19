@@ -1,3 +1,17 @@
+/*
+
+export function renderError(field, validateFn, setErrorMsg, defaultMsg = '') {
+
+    const error = validateFn(field);
+
+    setErrorMsg(!error ? defaultMsg : error);
+
+    return !!error;
+
+}
+
+*/
+
 function validateEmail(email) {
     if(!email) {
         return "Email is required";

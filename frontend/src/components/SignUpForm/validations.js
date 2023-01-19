@@ -1,4 +1,18 @@
-function validateEmail(email) {
+/*
+
+export function renderError(field, validateFn, setErrorMsg, defaultMsg = '') {
+
+    const error = validateFn(field);
+
+    setErrorMsg(!error ? defaultMsg : error);
+
+    return !!error;
+
+}
+
+*/
+
+export function validateEmail(email) {
     if(!email) {
         return "Email is required";
     } else if(!/^[A-Za-z]+[A-Za-z0-9._\-]*@[a-z][a-z0-9.-]*\.[a-z]{2,}$/.test(email)) {
@@ -24,7 +38,7 @@ export function renderEmailError(email) {
 }
 
 
-function validateName(name) {
+export function validateName(name) {
     if(!name) {
         return "Name is required"
     } else if(name.length < 3) {
@@ -34,23 +48,8 @@ function validateName(name) {
     }
 }
 
-export function renderNameError(name) {
-    let field = document.getElementById("name");
-    let caption = document.getElementById("name-caption");
 
-    let error = validateName(name);
-    
-    if(!error) {
-        caption.classList.remove("invalid");
-        caption.innerHTML = `Your name will be public on your meetup profile`;
-    } else {
-        caption.classList.add("invalid");
-        caption.innerHTML = `${error}`
-    }
-}
-
-
-function validatePassword(password) {
+export function validatePassword(password) {
     if(!password) {
         return "Password is required";
     } else if(password.length < 6) {

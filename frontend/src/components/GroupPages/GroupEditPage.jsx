@@ -68,7 +68,6 @@ const GroupEditPage = () => {
             setMemberLabel(group.memberLabel || "");
             setLocation(group.location);
 
-            // const tempKeywordIds = Object.values(groupKeywords).map(gk => gk.keywordId);
             const tempKeywordIds = {};
             for(let gkId in groupKeywords) {
                 tempKeywordIds[groupKeywords[gkId].keywordId] = true;
@@ -85,7 +84,7 @@ const GroupEditPage = () => {
             setCheckedKeywords({...tempKeywordIds});
             saveGroupInfoButtonRef.current.disabled = false;
             setShowKeywordError(false);
-            // console.log("checked! " + e.target.value);
+    
         } else {
             if(Object.keys(checkedKeywords).length === 1) {
                 setShowKeywordError(true);
@@ -95,7 +94,6 @@ const GroupEditPage = () => {
             delete tempKeywordIds[id];
             
             setCheckedKeywords({...tempKeywordIds});
-            // console.log("unchecked! " + e.target.value)
         }        
     }
 

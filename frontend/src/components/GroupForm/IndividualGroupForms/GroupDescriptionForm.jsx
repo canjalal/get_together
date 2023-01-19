@@ -30,9 +30,7 @@ const GroupDescriptionForm = (props) => {
 
     useEffect(() => {
 
-
         setPageisDone(!renderError(description, validateDescription, setDescriptionError)); 
-
 
     }, []);
 

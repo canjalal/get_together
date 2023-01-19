@@ -9,7 +9,6 @@ const useOutsideClickDetected = (modalRef, closeBtnRef = {current: null}) => {
         const handleClickOutside = (e) => {
 
             const validRefs = modalRef.current // && closeBtnRef.current;  // there need not be a valid close button
-            console.log(`modalRef is ${modalRef.current} and closeBtnRef is ${closeBtnRef.current}`);
 
             const outsideClicked = (!modalRef.current.contains(e.target) || closeBtnRef.current?.contains(e.target))
 

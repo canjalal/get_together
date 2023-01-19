@@ -9,6 +9,7 @@ import * as FrontEndValidations from './validations';
 import { useRef } from 'react';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
 import { ErrorsList } from '../ErrorsList';
+import { renderError } from '../../utils/renderError';
 
 const SignUpForm = () => {
 
@@ -35,8 +36,26 @@ const SignUpForm = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     const [nameVisited, setNameVisited] = useState(false); // whether each form has been visited already by user
+    const [nameError, setNameError] = useState('Your name will be public on your meetup profile');
+    const [isValidName, setIsValidName] = useState(true);
+
     const [emailVisited, setEmailVisited] = useState(false); // whether each form has been visited already by user
+    const [emailError, setEmailError] = useState("We'll use your email address to send you updates");
+    const [isValidEmail, setIsValidEmail] = useState(true);
+
     const [passwordVisited, setPasswordVisited] = useState(false); // whether each form has been visited already by user
+    const [passwordError, setPasswordError] = useState('');
+
+    const handleNameValidation = (e) => {
+        const name = e ? e.target.value : user.name
+
+        setUser({...user, name: name})
+        
+        if(nameVisited) {
+            setIsValidName(!renderError(name, FrontEndValidations.validateName, setNameError, 'Your name will be public on your meetup profile'));
+        }
+
+    }
 
     useEffect(()=> {
         if(emailVisited) {
@@ -54,21 +73,7 @@ const SignUpForm = () => {
 
     }, [emailVisited]);
 
-    useEffect(()=> {
-        if(nameVisited) {
-
-            let field = document.getElementById("name");
-
-            FrontEndValidations.renderNameError(field.value);
-            
-            field.addEventListener('input', (e) => {
-                FrontEndValidations.renderNameError(e.target.value);
-            });
-            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
-
-        }
-
-    }, [nameVisited]);
+    useEffect(handleNameValidation, [nameVisited]);
 
     useEffect(()=> {
         if(passwordVisited) {
@@ -139,9 +144,10 @@ const SignUpForm = () => {
                 <label htmlFor='name'>Your name
                 </label>
                     <input type="text" id="name" value={user.name}
-                    onChange={(e) => setUser({...user, name: e.target.value})}
-                    onBlur={() => setNameVisited(true)} />
-                <p id="name-caption" className="capt">Your name will be public on your meetup profile</p>
+                    onChange={handleNameValidation}
+                    onBlur={() => setNameVisited(true)}
+                    onInput={handleNameValidation} />
+                <p id="name-caption" className={`capt ${isValidName ? '' : 'invalid'}`}>{nameError}</p>
                 </div>
                 <div>
                 <label htmlFor="email">

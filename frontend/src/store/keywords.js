@@ -26,7 +26,6 @@ const keywordReducer = (state = {}, action) => {
 
     switch(action.type) {
         case RECEIVE_KEYWORDS:
-            // console.log(action.type);
             return { ...state, ...action.payload };
         default:
             return state;
