@@ -60,7 +60,7 @@ const GroupNameForm = (props) => {
                 <div className="charsLeft-container">
                 <input type="text" id="grpName" style={grpNameStyle} value={grpName} onChange={handleNameChange} />
                 <p className="charsLeft">{charsLeft}</p>
-                <p id="grpName-caption" className={`capt ${nameError === '' ? 'valid' : 'invalid'}`}>{nameError}</p>
+                {!!nameError && <p id="grpName-caption" className={`capt invalid`}>{nameError}</p>}
                 </div>
             </form>
 
