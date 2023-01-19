@@ -13,7 +13,7 @@ const GroupKeywordsForm = (props) => {
 
     const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds);
 
-    const toggleItem = (id) => (e) => {
+    const toggleItem = (id) => () => {
         const tempKeywordIds = {...checkedKeywords}
         if(tempKeywordIds[id]) {
             delete tempKeywordIds[id];
@@ -31,7 +31,7 @@ const GroupKeywordsForm = (props) => {
         });
 
         setPageisDone(Object.keys(checkedKeywords).length !== 0);
-        // console.log(formData);
+
     }, [checkedKeywords])
 
   return (
@@ -39,13 +39,8 @@ const GroupKeywordsForm = (props) => {
         <h1>Choose a few topics that describe your group's interests</h1>
         <p>Be specific! This will help us promote your group to the right people. You can choose up to 15 topics.</p>
             <form id="kw-form">
-                {/* {keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} className="kw-checkbox kw-unchecked" ref={keywordRefs[i]} onClick={toggleItem(kw.id)}> 
-{kw.keyword}
-                </p>)} */}
                 { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={!!checkedKeywords[kw.id]} />)}
-                {/* { keywordList.map((kw, i) => <p key={kw.id} id={`kw-${kw.id}`} ref={keywordRefs[i]} className="kw-checkbox kw-unchecked" onClick={toggleItem(kw.id)}>
-{kw.keyword}
-                </p>)} */}
+
             </form>
 
     </div>

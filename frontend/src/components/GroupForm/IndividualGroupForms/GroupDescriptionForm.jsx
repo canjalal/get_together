@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { renderError } from '../../../utils/renderError';
 import { validateDescription } from '../validations';
 
@@ -58,10 +58,10 @@ const GroupDescriptionForm = (props) => {
             </li>
         </ol>
 
-            <form id="description-form" onSubmit={handleSubmit}>
-                <textarea id="grp-description" value={description} className={descriptionStyle}  onChange={handleDescriptionChange} onBlur={handleBlur}/>
-                <p id="description-caption" className={`capt ${descriptionError ? 'invalid' : ''}`}>{descriptionError}</p>
-            </form>
+        <form id="description-form" onSubmit={handleSubmit}>
+            <textarea id="grp-description" value={description} className={descriptionStyle}  onChange={handleDescriptionChange} onBlur={handleBlur} />
+            {!!descriptionError && <p className={`capt invalid`}>{descriptionError}</p>} 
+        </form>
 
     </div>
   )
