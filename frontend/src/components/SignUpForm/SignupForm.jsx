@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../store/session';
 import { IoMdClose } from 'react-icons/io';
-import { BiErrorCircle } from 'react-icons/bi';
 import './signupform.css'
 import * as FrontEndValidations from './validations';
 import { useRef } from 'react';

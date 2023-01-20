@@ -1,6 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react'
-import { useMemo } from 'react';
-import { useRef } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { getKeywords } from '../../../store/keywords';
 import { GroupKeyword } from './GroupKeyword';

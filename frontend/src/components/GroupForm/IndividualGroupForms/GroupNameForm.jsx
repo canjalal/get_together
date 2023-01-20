@@ -24,8 +24,6 @@ const GroupNameForm = (props) => {
             ...formData, name: e.target.value
         });
 
-
-        // const isErrors = !!renderGrpNameError(e.target.value)
         const isErrors = renderError(e.target.value, validateGrpName, setNameError);
 
         setGrpName(e.target.value);

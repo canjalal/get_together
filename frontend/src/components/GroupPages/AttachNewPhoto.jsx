@@ -26,7 +26,6 @@ const AttachNewPhoto = ({setDisplayPhotoModal, groupId, eventId}) => {
 
         const formData = new FormData();
 
-        // formData.append("id", groupId);
         formData.append("coverPhoto", selectedCoverPhoto);
         
         dispatch(patchGroupPhoto(formData, groupId)).then(
