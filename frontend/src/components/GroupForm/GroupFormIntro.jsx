@@ -24,12 +24,6 @@ const GroupFormIntro = (props) => {
 
     const [pageisDone, setPageisDone] = useState(false);
 
-    const progressBar = useRef(null);
-
-    useEffect(() => {
-        if(progressBar.current) progressBar.current.style.gridTemplateColumns = `${pageNum * 20}% ${(5 - pageNum) * 20 }%`;
-    }, [pageNum]);
-
 // Make a modal that covers entire screen
 
     const pickElement = (page) => {
@@ -63,7 +57,7 @@ const GroupFormIntro = (props) => {
     </div>
     {displayNewGrp && <div id="new-group">
         <NewGroupNav />
-        <div id="progress-bar" ref={progressBar}>
+        <div id="progress-bar" style={{gridTemplateColumns: `${pageNum * 20}% ${(5 - pageNum) * 20 }%`}}>
             <div id="completed-progress"></div>
             <div id="uncompleted-progress"></div>
         </div>
