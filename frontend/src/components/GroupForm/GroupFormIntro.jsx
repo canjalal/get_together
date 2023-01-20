@@ -24,8 +24,6 @@ const GroupFormIntro = (props) => {
 
     const [pageisDone, setPageisDone] = useState(false);
 
-// Make a modal that covers entire screen
-
     const pickElement = (page) => {
         switch(page) {
             case 1:
