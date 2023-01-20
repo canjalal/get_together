@@ -54,43 +54,33 @@ const SignUpForm = () => {
         if(nameVisited) {
             setIsValidName(!renderError(name, FrontEndValidations.validateName, setNameError, 'Your name will be public on your meetup profile'));
         }
-
     }
 
-    useEffect(()=> {
+    const handleEmailValidation = (e) => {
+        const email = e ? e.target.value : user.email
+
+        setUser({...user, email: email})
+        
         if(emailVisited) {
-
-            let field = document.getElementById("email");
-
-            FrontEndValidations.renderEmailError(field.value);
-            
-            field.addEventListener('input', (e) => {
-                FrontEndValidations.renderEmailError(e.target.value);
-            });
-            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
-
+            setIsValidEmail(!renderError(email, FrontEndValidations.validateEmail, setEmailError, "We'll use your email address to send you updates"));
         }
+    }
 
-    }, [emailVisited]);
+    const handlePasswordValidation = (e) => {
+        const password = e ? e.target.value : user.password
+        
+        setUser({...user, password: password});
+
+        if(passwordVisited) {
+            renderError(password, FrontEndValidations.validatePassword, setPasswordError);
+        }
+    }
+
+    useEffect(handleEmailValidation, [emailVisited]);
 
     useEffect(handleNameValidation, [nameVisited]);
 
-    useEffect(()=> {
-        if(passwordVisited) {
-
-            let field = document.getElementById("password");
-
-            FrontEndValidations.renderPasswordError(field.value);
-            
-            field.addEventListener('input', (e) => {
-                FrontEndValidations.renderPasswordError(e.target.value);
-            });
-            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
-
-        }
-
-    }, [passwordVisited]);
-
+    useEffect(handlePasswordValidation, [passwordVisited]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -154,9 +144,10 @@ const SignUpForm = () => {
                     Email address
                 </label>
                 <input type="text" id="email" value={user.email} placeholder="example@email.com"
-                    onChange={(e) => setUser({...user, email: e.target.value})}
-                    onBlur={()=> setEmailVisited(true)} />
-                <p id="email-caption" className="capt">We'll use your email address to send you updates</p>
+                    onChange={handleEmailValidation}
+                    onBlur={()=> setEmailVisited(true)}
+                    onInput={handleEmailValidation}  />
+                <p id="email-caption" className={`capt ${isValidEmail ? '' : 'invalid'}`}>{emailError}</p>
                 </div>
 
                 <div>
@@ -164,9 +155,10 @@ const SignUpForm = () => {
                     Password
                 </label>
                     <input type="password" id="password" value={user.password}
-                    onChange={(e) => setUser({...user, password: e.target.value})}
-                    onBlur={()=> setPasswordVisited(true)} />
-                    <p id="password-caption" className="capt"></p>
+                    onChange={handlePasswordValidation}
+                    onBlur={()=> setPasswordVisited(true)}
+                    onInput={handlePasswordValidation} />
+                    <p id="password-caption" className={`capt ${passwordError === '' ? '' : 'invalid'}`}>{passwordError}</p>
                 </div>
 
                 <div>

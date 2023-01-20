@@ -22,22 +22,6 @@ export function validateEmail(email) {
     }
 }
 
-export function renderEmailError(email) {
-    let field = document.getElementById("email");
-    let caption = document.getElementById("email-caption");
-
-    let error = validateEmail(email);
-    
-    if(!error) {
-        caption.classList.remove("invalid");
-        caption.innerHTML = `We'll use your email address to send you updates`
-    } else {
-        caption.classList.add("invalid");
-        caption.innerHTML = `${error}`
-    }
-}
-
-
 export function validateName(name) {
     if(!name) {
         return "Name is required"
