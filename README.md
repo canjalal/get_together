@@ -141,13 +141,8 @@ This decision was made due to these data being specific to either the current us
 
 ## New Group Form
 
-Like in the actual Meetup.com form, this is a multi-page form with different design elements (header, styling, footer) than the main site. To keep track of its data across the multiple pages, and to avoid creating global variables or a new Redux slice of state, a React Context Provider was created:
+Like in the actual Meetup.com form, this is a multi-page form with different design elements (header, styling, footer) than the main site. The pages are components toggled through a switch case statement. To keep track of its data across the multiple pages, a formData prop is passed between the pages: 
 ```
-import { createContext, useContext, useState } from "react";
-
-export const GroupFormContext = createContext();
-
-export const GroupFormProvider = (props) => {
     const [formData, setFormData] = useState({
         location: "",
         keywordIds: "",
@@ -157,42 +152,91 @@ export const GroupFormProvider = (props) => {
 
     const [pageNum, setPageNum] = useState(1);
 
-    const [pageisDone, setPageisDone] = useState(false)
+    const [pageisDone, setPageisDone] = useState(false); // whether Next button is enabled
 
-    return (
-        <GroupFormContext.Provider value={{ formData, setFormData,
-            pageNum, setPageNum,
-            pageisDone, setPageisDone}}>
-                {props.children}
-            </GroupFormContext.Provider>
-    );
-}
+    const pickElement = (page) => { // pass in the page number
+        switch(page) {
+            case 1:
+                return <GroupLocationForm
+                        formData={formData} setFormData={setFormData}
+                        setPageisDone={setPageisDone} pageisDone={pageisDone} />
+            case 2:
+                return <GroupKeywordsForm
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} />
+            case 3:
+                return <GroupNameForm
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} />
+            case 4:
+                return <GroupDescriptionForm
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} pageisDone={pageisDone} />
+            default:
+                 return <GroupGuidelinesForm
+                    setPageisDone={setPageisDone} />
+        }
+    }
 ```
-The GroupFormContext provides a formData React state, the current page number in the form, and whether the current form page is "done", i.e. the user may proceed to the next page. When this `pageisDone` state is set to true, the user may click Next to change the page number, which triggers a switch case to choose the next React component corresponding to the appropriate form page.
+Users may only move to the next page if they complete the page's form, i.e. whether the current form page is "done". When this `pageisDone` state is set to true, the user may click Next to change the page number, which triggers a switch case to choose the next React component corresponding to the appropriate form page.
 
 ### Choosing Group Keywords
 
 ![Group Keyword Choosing](./ScreenshotGroupKeywords.png "Choosing Group Keywords")
 
 
-Instead of checkboxes, which are difficult to style, a group organizer chooses keywords by clicking on various p tags whose `click` handler toggles their `checked` / `unchecked` CSS class:
+Instead of checkboxes, which are difficult to style, a group organizer chooses keywords by clicking on various `GroupKeyword` components which are elements whose `click` handler toggles their `checked` / `unchecked` CSS class:
 
 ```
-    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds || []); // list of selected keyword IDs
+            <form id="kw-form">
+                { keywordList.map((kw) => <GroupKeyword key={kw.id} kw={kw} toggleItem={toggleItem} isChecked={!!checkedKeywords[kw.id]} />)}
+            </form>
 ...
-    const toggleItem = (id) => (e) => {
-        if (e.target.classList.contains("kw-unchecked")) {
-            setCheckedKeywords([...checkedKeywords, Number(id)]);
+export const GroupKeyword = ({kw, isChecked, toggleItem}) => {
+
+    const [keywordClass, setKeywordClass] = useState("");
+
+    useEffect(()=>{
+        if(isChecked) {
+            setKeywordClass("kw-checkbox kw-checked");
         } else {
-            setCheckedKeywords(checkedKeywords.filter((x) => x !== Number(id)));
+            setKeywordClass("kw-checkbox kw-unchecked");
         }
-        e.target.classList.toggle("kw-checked");
-        e.target.classList.toggle("kw-unchecked")
+    }, [isChecked]);
+  return (
+    <p id={`kw-${kw.id}`} className={keywordClass} onClick={toggleItem(kw.id)}> 
+{kw.keyword}
+    </p>
+  )
+}
+
+```
+
+The click event handler, `toggleItem`, also updates the `checkedKeywords` object, a React state that stores which keywords are to be registered with the group. This object is saved to the `formData`:
+
+```
+    const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds);
+
+    const toggleItem = (id) => () => {
+        const tempKeywordIds = {...checkedKeywords}
+        if(tempKeywordIds[id]) {
+            delete tempKeywordIds[id]; // remove unselected keyword
+        } else {
+            tempKeywordIds[id] = true; // add new selected keyword
+        }
+        setCheckedKeywords({...tempKeywordIds}); // save keywords
     }
 
-```
+    useEffect(() => { // save to formData prop
 
-Doing so also updates the checkedKeywords array, a React state that stores which keywords are to be registered with the group. This array is saved to the formData in the GroupFormContext described above.
+        setFormData({
+            ...formData, keywordIds: {...checkedKeywords}
+        });
+
+        setPageisDone(Object.keys(checkedKeywords).length !== 0); // Ensure user selects at least one keyword
+
+    }, [checkedKeywords])
+```
 
 In this way, the entire form is notified immediately of the user's choices, allowing validation (there must be at least one keyword selected).
 
