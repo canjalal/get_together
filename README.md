@@ -158,16 +158,20 @@ Like in the actual Meetup.com form, this is a multi-page form with different des
         switch(page) {
             case 1:
                 return <GroupLocationForm
-                        formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} pageisDone={pageisDone} />
+                        formData={formData} setFormData={setFormData}
+                        setPageisDone={setPageisDone} pageisDone={pageisDone} />
             case 2:
                 return <GroupKeywordsForm
-                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} />
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} />
             case 3:
                 return <GroupNameForm
-                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} />
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} />
             case 4:
                 return <GroupDescriptionForm
-                    formData={formData} setFormData={setFormData} setPageisDone={setPageisDone} pageisDone={pageisDone} />
+                    formData={formData} setFormData={setFormData}
+                    setPageisDone={setPageisDone} pageisDone={pageisDone} />
             default:
                  return <GroupGuidelinesForm
                     setPageisDone={setPageisDone} />
@@ -181,7 +185,7 @@ Users may only move to the next page if they complete the page's form, i.e. whet
 ![Group Keyword Choosing](./ScreenshotGroupKeywords.png "Choosing Group Keywords")
 
 
-Instead of checkboxes, which are difficult to style, a group organizer chooses keywords by clicking on various GroupKeyword components which are elements whose `click` handler toggles their `checked` / `unchecked` CSS class:
+Instead of checkboxes, which are difficult to style, a group organizer chooses keywords by clicking on various `GroupKeyword` components which are elements whose `click` handler toggles their `checked` / `unchecked` CSS class:
 
 ```
             <form id="kw-form">
@@ -208,7 +212,7 @@ export const GroupKeyword = ({kw, isChecked, toggleItem}) => {
 
 ```
 
-Doing so also updates the checkedKeywords object, a React state that stores which keywords are to be registered with the group. This object is saved to the formData:
+The click event handler, `toggleItem`, also updates the `checkedKeywords` object, a React state that stores which keywords are to be registered with the group. This object is saved to the `formData`:
 
 ```
     const [checkedKeywords, setCheckedKeywords] = useState(formData.keywordIds);
@@ -216,21 +220,20 @@ Doing so also updates the checkedKeywords object, a React state that stores whic
     const toggleItem = (id) => () => {
         const tempKeywordIds = {...checkedKeywords}
         if(tempKeywordIds[id]) {
-            delete tempKeywordIds[id];
+            delete tempKeywordIds[id]; // remove unselected keyword
         } else {
-            tempKeywordIds[id] = true;
+            tempKeywordIds[id] = true; // add new selected keyword
         }
-        setCheckedKeywords({...tempKeywordIds});
+        setCheckedKeywords({...tempKeywordIds}); // save keywords
     }
 
-    useEffect(() => {
-
+    useEffect(() => { // save to formData prop
 
         setFormData({
             ...formData, keywordIds: {...checkedKeywords}
         });
 
-        setPageisDone(Object.keys(checkedKeywords).length !== 0);
+        setPageisDone(Object.keys(checkedKeywords).length !== 0); // Ensure user selects at least one keyword
 
     }, [checkedKeywords])
 ```
