@@ -4,6 +4,7 @@ import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import  { getCurrentUser, login } from '../../store/session';
+import { renderError } from '../../utils/renderError';
 import { ErrorsList } from '../ErrorsList';
 import MiniLogo from '../Logo';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
@@ -17,7 +18,10 @@ const LogInForm = () => {
     const sessionUser = useSelector(getCurrentUser)
 
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+
     const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     // const [keepSignedIn, setKeepSignedIn] = useState(false);
 
     const [errors, setErrors] = useState([]);
@@ -31,6 +35,26 @@ const LogInForm = () => {
     const cancelModal = useOutsideClickDetected(modalRef, closeBtnRef);
 
     const navigate = useNavigate();
+
+    const handlePasswordValidation = (e) => {
+        const pw = e ? e.target.value : password;
+
+        setPassword(pw);
+
+        if(passwordVisited) {
+            renderError(pw, FrontEndValidations.validatePassword, setPasswordError);
+        }
+    }
+
+    const handleEmailValidation = (e) => {
+        const emailAddress = e ? e.target.value : email;
+
+        setEmail(emailAddress);
+
+        if(emailVisited) {
+            renderError(emailAddress, FrontEndValidations.validateEmail, setEmailError);
+        }
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -65,37 +89,9 @@ const LogInForm = () => {
 
     }, [sessionUser]);
 
-    useEffect(()=> {
-        if(emailVisited) {
+    useEffect(handleEmailValidation, [emailVisited]);
 
-            let field = document.getElementById("email");
-
-            FrontEndValidations.renderEmailError(field.value);
-            
-            field.addEventListener('input', (e) => {
-                FrontEndValidations.renderEmailError(e.target.value);
-            });
-            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
-
-        }
-
-    }, [emailVisited]);
-
-    useEffect(()=> {
-        if(passwordVisited) {
-
-            let field = document.getElementById("password");
-
-            FrontEndValidations.renderPasswordError(field.value);
-            
-            field.addEventListener('input', (e) => {
-                FrontEndValidations.renderPasswordError(e.target.value);
-            });
-            // if(FrontEndvalidateName(e.target.value) || "We'll use your email address to send you updates")});
-
-        }
-
-    }, [passwordVisited]);
+    useEffect(handlePasswordValidation, [passwordVisited]);
 
   return !cancelModal && (
     <div className="modal-container">
@@ -109,12 +105,16 @@ const LogInForm = () => {
             <p>Not a member yet? <Link to="/signup" className="green-link">Sign up</Link></p>
             <form onSubmit={handleSubmit}>
                 <label>Email
-                    <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={()=> setEmailVisited(true)} />
-                    <p id="email-caption" className="capt"></p>
+                    <input type="text" id="email" value={email}
+                    onChange={handleEmailValidation} onBlur={()=> setEmailVisited(true)}
+                    onInput={handleEmailValidation} />
+                    <p className={`capt ${emailError ? 'invalid' : ''}`}>{emailError}</p>
                 </label>
                 <label>Password
-                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={()=> setPasswordVisited(true)} />
-                    <p id="password-caption" className="capt"></p>
+                    <input type="password" id="password" value={password}
+                    onChange={handlePasswordValidation} onBlur={()=> setPasswordVisited(true)}
+                    onInput={handlePasswordValidation} />
+                    <p className={`capt ${passwordError ? 'invalid' : ''}`}>{passwordError}</p>
                 </label>
                 
                     {/* <input type="checkbox" id="keepSignedIn" value={keepSignedIn} onChange={(e) => setKeepSignedIn(e.target.value ? true : false)} />

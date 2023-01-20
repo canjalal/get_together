@@ -137,7 +137,7 @@ const SignUpForm = () => {
                     onChange={handleNameValidation}
                     onBlur={() => setNameVisited(true)}
                     onInput={handleNameValidation} />
-                <p id="name-caption" className={`capt ${isValidName ? '' : 'invalid'}`}>{nameError}</p>
+                <p className={`capt ${isValidName ? '' : 'invalid'}`}>{nameError}</p>
                 </div>
                 <div>
                 <label htmlFor="email">
@@ -147,7 +147,7 @@ const SignUpForm = () => {
                     onChange={handleEmailValidation}
                     onBlur={()=> setEmailVisited(true)}
                     onInput={handleEmailValidation}  />
-                <p id="email-caption" className={`capt ${isValidEmail ? '' : 'invalid'}`}>{emailError}</p>
+                <p className={`capt ${isValidEmail ? '' : 'invalid'}`}>{emailError}</p>
                 </div>
 
                 <div>
@@ -158,7 +158,7 @@ const SignUpForm = () => {
                     onChange={handlePasswordValidation}
                     onBlur={()=> setPasswordVisited(true)}
                     onInput={handlePasswordValidation} />
-                    <p id="password-caption" className={`capt ${passwordError === '' ? '' : 'invalid'}`}>{passwordError}</p>
+                    <p className={`capt ${passwordError === '' ? '' : 'invalid'}`}>{passwordError}</p>
                 </div>
 
                 <div>
@@ -167,14 +167,14 @@ const SignUpForm = () => {
                 </label>
                     <input type="text" id="location" value={user.location} placeholder="City"
                     onChange={(e) => setUser({...user, location: e.target.value})} />
-                <p id="location-caption" className="capt">We'll use your location to show Meetup events near you.</p>
+                <p className="capt">We'll use your location to show Meetup events near you.</p>
                 </div>
                 <div>
                     <label htmlFor="ageOK">Age
                     </label>
                     <input type="checkbox" id="ageOk" value={ageOk} onChange={(e) => setAgeOk(e.target.checked ? true : false)} />
                     I am 18 years of age or older.
-                    <p id="age-caption" className="capt"></p>
+                    <p className="capt"></p>
                 </div>
                 <input type="submit" value="Sign up" className="font-title" />
             </form>

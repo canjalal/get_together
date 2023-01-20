@@ -1,17 +1,3 @@
-/*
-
-export function renderError(field, validateFn, setErrorMsg, defaultMsg = '') {
-
-    const error = validateFn(field);
-
-    setErrorMsg(!error ? defaultMsg : error);
-
-    return !!error;
-
-}
-
-*/
-
 export function validateEmail(email) {
     if(!email) {
         return "Email is required";
@@ -40,21 +26,6 @@ export function validatePassword(password) {
         return "Password has to be at least 6 characters";
     } else {
         return null;
-    }
-}
-
-export function renderPasswordError(password) {
-    let field = document.getElementById("password");
-    let caption = document.getElementById("password-caption");
-
-    let error = validatePassword(password);
-    
-    if(!error) {
-        caption.classList.remove("invalid");
-        caption.innerHTML = ``;
-    } else {
-        caption.classList.add("invalid");
-        caption.innerHTML = `${error}`
     }
 }
 
