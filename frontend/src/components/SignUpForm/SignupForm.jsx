@@ -86,7 +86,6 @@ const SignUpForm = () => {
         e.preventDefault();
         setErrors([]);
 
-        // console.log( {"email": email, "password": password });
         if(ageOk) {
             return dispatch(signup(user))
       .catch(async (res) => {
@@ -118,8 +117,6 @@ const SignUpForm = () => {
     }
 
 }, [sessionUser]);
-
-    // const makeE
 
   return !cancelModal && (
     <div className="modal-container">
