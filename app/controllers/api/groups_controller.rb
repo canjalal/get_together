@@ -115,6 +115,28 @@ class Api::GroupsController < ApplicationController
         render :search
     end
 
+    def remove_member
+        #Admin Removal of a Member
+
+        # Example frontend test call:
+        # res = await csrfFetch("/api/groups/7/remove_member", {method: "DELETE", body: JSON.stringify({memberId: 8})})
+
+        @group = Group.find(params[:id])
+
+        if @group.owner.id == current_user.id
+            @mb = Membership.find_by_member_and_group(params[:member_id], params[:id])
+            if @mb && @mb.destroy
+                deleted_user = @mb.member
+                render json: { message: "Deleted #{deleted_user.name} (#{deleted_user.email})"}
+            else
+                render json: { errors: ["Member not found"]},
+                status: 404
+            end
+        else
+            render json: { errors: ["You must be the group owner to remove a member!"] }, status: 401
+        end
+    end
+
     private
 
     def group_params # group here is NOT bananable, it searches for controller

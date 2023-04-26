@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     resources :keywords, only: [:index]
     resources :groups, only: [:create, :show, :update, :index, :destroy] do
       resources :memberships, only: [:create]
+      member do
+        delete 'remove_member'
+      end
       collection do
         post 'search'
       end
