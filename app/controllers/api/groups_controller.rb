@@ -109,10 +109,6 @@ class Api::GroupsController < ApplicationController
         end
     end
 
-    def eventslist
-        @group = Group.find_by(id: params[:id])
-    end
-
     def search
         # debugger
         @groups = Group.where("name ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
