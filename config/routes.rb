@@ -11,15 +11,12 @@ Rails.application.routes.draw do
     resources :keywords, only: [:index]
     resources :groups, only: [:create, :show, :update, :index, :destroy] do
       resources :memberships, only: [:create]
-      member do
-        get 'eventslist'
-      end
       collection do
         post 'search'
       end
     end
     resources :memberships, only: [:destroy]
-    resources :events, only: [:create, :show, :update, :index, :destroy] do
+    resources :events, only: [:create, :show, :update, :destroy] do
       resources :signups, only: [:create]
       collection do
         post 'search'

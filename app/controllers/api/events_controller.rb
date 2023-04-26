@@ -78,11 +78,6 @@ class Api::EventsController < ApplicationController
         end
     end
 
-    def index
-        @events = current_user.events # show only user's attending events
-        render :index
-    end
-
     def search
                 @events = Event.where("title ILIKE ?", "%" + Event.sanitize_sql_like(params[:query]) + "%").includes(:group, :signups)
                 render :search
