@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       end
     end
     resources :memberships, only: [:destroy]
-    resources :events, only: [:create, :show, :update, :destroy] do
+    resources :events, only: [:create, :show, :update, :index, :destroy] do
       resources :signups, only: [:create]
       collection do
         post 'search'

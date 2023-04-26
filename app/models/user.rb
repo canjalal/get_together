@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
     has_many :events_attending,
     through: :signups,
-    source: :attendee
+    source: :event
 
     has_one_attached :profile_pic
 
