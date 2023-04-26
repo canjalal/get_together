@@ -1,6 +1,10 @@
 class Api::EventsController < ApplicationController
     wrap_parameters include: Event.attribute_names + ['dateTime', 'groupId']
 
+    def index
+        @events = current_user.events_attending
+    end
+
     def create
         # debugger
         @event = Event.new(event_params)
