@@ -20,9 +20,7 @@ class Api::GroupsController < ApplicationController
     end
 
     def create
-        # debugger
         @group = Group.new(group_params)
-        # @group_keywords = GroupKeyword.new(group_id: @group.id,)
         if(@group.save)
             @g_keywords = []
             params[:keyword_ids].each do |kwi, val|
@@ -51,7 +49,7 @@ class Api::GroupsController < ApplicationController
             @count = @group.memberships.size
             @events = @group.events
             render :show
-        else # will this work? not found.
+        else
             render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
         end
     end
@@ -60,7 +58,6 @@ class Api::GroupsController < ApplicationController
         @group = Group.includes(events: :signups).find_by(id: params[:id])
         @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
-            # if( @group.update(group_params))
             if(params[:cover_photo])
                 @group.cover_photo.attach(params[:cover_photo])
                 @g_keywords = @group.group_keywords
@@ -69,17 +66,13 @@ class Api::GroupsController < ApplicationController
                 @count = @group.memberships.size
                 render :show
             elsif(@group.update(group_params))
-                # debugger
+
                 @group.group_keywords.each do |gk|
                     gk.destroy unless params[:keyword_ids][gk.keyword_id] 
                 end
-                params[:keyword_ids].each do |kwi, val|
-                    # debugger
-                    if !@group.group_keywords.map(&:keyword_id).include?(kwi)
-                        gk = GroupKeyword.new(keyword_id: kwi, group_id: @group.id)
-                        gk.save!
-                    end
-                end
+
+                keyword_creator = Api::GroupKeywords::KeywordCreator.new(@group)
+                keyword_creator.create_group_keywords(params[:keyword_ids])
 
                 @g_keywords = GroupKeyword.where(group_id: @group.id)
                 @owner = @group.owner
