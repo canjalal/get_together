@@ -45,6 +45,9 @@ Rails routes are defined as follows:
     resources :keywords, only: [:index]
     resources :groups, only: [:create, :show, :update, :index, :destroy] do
       resources :memberships, only: [:create]
+      member do
+        delete 'remove_member'
+      end
       collection do
         post 'search'
       end
@@ -58,14 +61,12 @@ Rails routes are defined as follows:
       end
     end
     resources :signups, only: [:update]
-  end
-end
 
 ```
 
 Of note are the nestings of memberships and signups creation routes under groups and events respectively. This is for easy access to the group / event under which the record is being created, from the URL, rather than as an additional passed parameter.
 
-There are custom routes for searching (`search`) groups, events, and finding events for a given week (`weekly`)
+There are custom routes for searching (`search`) groups, events, and finding events for a given week (`weekly`). There is also a custom route for administrators to remove a member from their group (`remove_member`).
 
 To allow the organizer to keep track of how many people signed up for an event but later changed their RSVP to "no", there is no backend route to "delete" a signup, only to update a signup's `rsvp_status` flag from "going" to "not" (going):
 

@@ -20,9 +20,7 @@ class Api::GroupsController < ApplicationController
     end
 
     def create
-        # debugger
         @group = Group.new(group_params)
-        # @group_keywords = GroupKeyword.new(group_id: @group.id,)
         if(@group.save)
             @g_keywords = []
             params[:keyword_ids].each do |kwi, val|
@@ -51,7 +49,7 @@ class Api::GroupsController < ApplicationController
             @count = @group.memberships.size
             @events = @group.events
             render :show
-        else # will this work? not found.
+        else
             render json: { errors: ["Group ##{params[:id]} does not exist"] }, status: 404
         end
     end
@@ -60,7 +58,6 @@ class Api::GroupsController < ApplicationController
         @group = Group.includes(events: :signups).find_by(id: params[:id])
         @memberships = @group.memberships
         if(@group.owner_id == current_user.id)
-            # if( @group.update(group_params))
             if(params[:cover_photo])
                 @group.cover_photo.attach(params[:cover_photo])
                 @g_keywords = @group.group_keywords
@@ -69,17 +66,13 @@ class Api::GroupsController < ApplicationController
                 @count = @group.memberships.size
                 render :show
             elsif(@group.update(group_params))
-                # debugger
+
                 @group.group_keywords.each do |gk|
                     gk.destroy unless params[:keyword_ids][gk.keyword_id] 
                 end
-                params[:keyword_ids].each do |kwi, val|
-                    # debugger
-                    if !@group.group_keywords.map(&:keyword_id).include?(kwi)
-                        gk = GroupKeyword.new(keyword_id: kwi, group_id: @group.id)
-                        gk.save!
-                    end
-                end
+
+                keyword_creator = Api::GroupKeywords::KeywordCreator.new(@group)
+                keyword_creator.create_group_keywords(params[:keyword_ids])
 
                 @g_keywords = GroupKeyword.where(group_id: @group.id)
                 @owner = @group.owner
@@ -113,6 +106,28 @@ class Api::GroupsController < ApplicationController
         # debugger
         @groups = Group.where("name ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
         render :search
+    end
+
+    def remove_member
+        #Admin Removal of a Member
+
+        # Example frontend test call:
+        # res = await csrfFetch("/api/groups/7/remove_member", {method: "DELETE", body: JSON.stringify({memberId: 8})})
+
+        @group = Group.find(params[:id])
+
+        if @group.owner.id == current_user.id
+            @mb = Membership.find_by_member_and_group(params[:member_id], params[:id])
+            if @mb && @mb.destroy
+                deleted_user = @mb.member
+                render json: { message: "Deleted #{deleted_user.name} (#{deleted_user.email})"}
+            else
+                render json: { errors: ["Member not found"]},
+                status: 404
+            end
+        else
+            render json: { errors: ["You must be the group owner to remove a member!"] }, status: 401
+        end
     end
 
     private
