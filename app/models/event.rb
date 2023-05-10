@@ -42,4 +42,8 @@ class Event < ApplicationRecord
 
     end
 
+    def going_signups
+      signups.where(rsvp_status: "going")
+    end
+
 end
