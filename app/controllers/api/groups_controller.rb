@@ -24,7 +24,7 @@ class Api::GroupsController < ApplicationController
         if(@group.save)
             @g_keywords = []
             params[:keyword_ids].each do |kwi, val|
-                        
+
                 @g_keywords << GroupKeyword.create!(keyword_id: kwi, group_id: @group.id)
                 # tweak this to error out and delete group if group keyword saves are unsuccesfful
             end
@@ -90,7 +90,7 @@ class Api::GroupsController < ApplicationController
     end
 
     def destroy
-        # debugger
+
         @group = Group.find_by(id: params[:id])
         @g_keywords = @group.group_keywords
         @events = @group.events
@@ -103,7 +103,7 @@ class Api::GroupsController < ApplicationController
     end
 
     def search
-        # debugger
+        # may move to separate EventSearch controller for RESTful architecture, or look for a params[:search] in GET request for index route
         @groups = Group.where("name ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
         render :search
     end

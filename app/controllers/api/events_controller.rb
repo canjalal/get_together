@@ -83,6 +83,7 @@ class Api::EventsController < ApplicationController
     end
 
     def search
+        # may move to separate EventSearch controller for RESTful architecture, or look for a params[:search] in GET request for index route
                 @events = Event.where("title ILIKE ?", "%" + Event.sanitize_sql_like(params[:query]) + "%").includes(:group, :signups)
                 render :search
     end
