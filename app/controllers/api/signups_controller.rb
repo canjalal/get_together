@@ -15,7 +15,7 @@ class Api::SignupsController < ApplicationController
         @event = Event.find_by(id: params[:id])
         @su = @event.signups.find_by(attendee_id: current_user.id)
         if(@su)
-            # debugger
+  
             @su.rsvp_status = @su.rsvp_status == "going" ? "not" : "going"
             @su.save!
             render :show
