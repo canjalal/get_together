@@ -6,7 +6,6 @@ class Api::EventsController < ApplicationController
     end
 
     def create
-        # debugger
         @event = Event.new(event_params)
         @group = Group.find_by(id: params[:group_id])
         @attendees = []

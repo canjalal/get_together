@@ -125,7 +125,6 @@ export const patchGroup = (fdata, groupId) => async (dispatch) => {
 }
 
 export const fetchGroup = (groupId) => async (dispatch) => {
-    // debugger
     const response = await csrfFetch(`/api/groups/${groupId}`);
 
     const data = await response.json();

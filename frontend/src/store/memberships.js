@@ -24,7 +24,6 @@ export const joinGroup = (groupId) => async (dispatch) => {
     });
 
     const data = await response.json();
-    // debugger
 
         dispatch(addMembership(data));
 }
@@ -39,13 +38,10 @@ export const leaveGroup = (groupId) => async (dispatch) => {
     });
 
     const data = await response.json();
-    // debugger
-
         dispatch(removeMembership(data.id));
 }
 
 export const getMemberStatus = (memberId, groupId) => (state) => {
-    // debugger
     let grpMemberships = Object.values(state.memberships).filter((mb) => mb.groupId === Number(groupId));
     return !!grpMemberships.find((ele) => ele.memberId === Number(memberId));
 }

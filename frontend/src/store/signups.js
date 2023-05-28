@@ -26,8 +26,6 @@ export const joinEvent = (eventId) => async (dispatch) => {
     });
 
     const data = await response.json();
-    // debugger
-
         dispatch(addSignup(data));
 }
 

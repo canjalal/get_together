@@ -90,7 +90,6 @@ class Api::GroupsController < ApplicationController
     end
 
     def destroy
-        # debugger
         @group = Group.find_by(id: params[:id])
         @g_keywords = @group.group_keywords
         @events = @group.events
@@ -103,7 +102,6 @@ class Api::GroupsController < ApplicationController
     end
 
     def search
-        # debugger
         @groups = Group.where("name ILIKE ?", "%" + Group.sanitize_sql_like(params[:query]) + "%")
         render :search
     end

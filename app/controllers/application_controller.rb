@@ -25,7 +25,6 @@ class ApplicationController < ActionController::API
     end
 
     def require_logged_in
-        # debugger, upon restarting Rails server then it loses sesion info but frontend thinks it's still logged in
         unless current_user
             render json: { message: 'Unauthorized' }, status: :unauthorized
         end

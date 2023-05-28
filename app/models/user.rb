@@ -27,7 +27,7 @@ class User < ApplicationRecord
     has_many :owned_groups,
     foreign_key: :owner_id,
     class_name: :Group,
-    dependent: :destroy; # should I need this?
+    dependent: :destroy; # in future, can allow owner to be deleted for a month, then delete their group
 
     has_many :memberships,
     foreign_key: :member_id,
