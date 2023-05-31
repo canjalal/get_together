@@ -7,6 +7,7 @@ import './calendar.css';
 import './homefeed.css';
 import EventCalendar from './EventCalendar';
 import GroupPanel from '../GroupPanel/';
+import { HomeFeedPaginator } from './HomeFeedPaginator';
 
 const HomeFeed = () => {
 
@@ -34,7 +35,7 @@ const HomeFeed = () => {
         {/* <div className="organizer-of-groups"> */}
             
             <div className="organized-groups">
-                { ownedGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
+            <HomeFeedPaginator groupData={groups} selectedGroups={ownedGroups} />
             </div>
 
         {/* </div> */}
@@ -58,15 +59,14 @@ const HomeFeed = () => {
         {joinedGroups.length > 0 && <>
             <h1>Groups you are a member of</h1>
             <div className="member-of-groups">
-                
-                { joinedGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
+            <HomeFeedPaginator groupData={groups} selectedGroups={joinedGroups} />
             </div>        
         </>}
 
         <h1>{(ownedGroups.length === 0 && joinedGroups.length === 0 ) ? "All" : "Other" } groups</h1>
         <div className="other-groups">
-            
-            { otherGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )}
+            <HomeFeedPaginator groupData={groups} selectedGroups={otherGroups} />
+            {/* { otherGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )} */}
         </div>
     </div>
     )
