@@ -53,5 +53,6 @@ gem "annotate"
 gem "pry-rails"
 gem "better_errors"
 gem "binding_of_caller"
+gem "seed_dump"
 end
 
