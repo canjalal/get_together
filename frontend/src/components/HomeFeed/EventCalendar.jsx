@@ -27,7 +27,7 @@ const EventCalendar = ({startDate}) => {
                                         <EventPanel data={ev} />
                                     </Link>
                                 </li>) :
-        <h1>No events found</h1>
+        <h2 className="font-title">No events found</h2>
     }
 </ul>
   )
