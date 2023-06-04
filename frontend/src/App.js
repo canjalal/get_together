@@ -31,8 +31,7 @@ function App() {
   return (
     <>
     <NavMenu />
-    
-    {/* <Route path="/login" element={<LogInForm />} /> */}
+
     <Routes>
       <Route path="/" element={<LoggedOutHome />} />
       <Route path="/home" element={
