@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { renderError } from '../../../utils/renderError';
+import { renderError } from '../../../utils/renderError.ts';
 import { validateDescription } from '../validations';
 
 const GroupDescriptionForm = (props) => {

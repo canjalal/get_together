@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../store/session';
@@ -8,7 +8,7 @@ import * as FrontEndValidations from './validations';
 import { useRef } from 'react';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
 import { ErrorsList } from '../ErrorsList';
-import { renderError } from '../../utils/renderError';
+import { renderError } from '../../utils/renderError.ts';
 
 const SignUpForm = () => {
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import capitalize from '../../../utils/capitalize';
-import { renderError } from '../../../utils/renderError';
+import capitalize from '../../../utils/capitalize.ts';
+import { renderError } from '../../../utils/renderError.ts';
 import { validateGrpName } from '../validations';
 
 const GroupNameForm = (props) => {

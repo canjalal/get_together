@@ -4,7 +4,7 @@ import { IoMdClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import  { getCurrentUser, login } from '../../store/session';
-import { renderError } from '../../utils/renderError';
+import { renderError } from '../../utils/renderError.ts';
 import { ErrorsList } from '../ErrorsList';
 import MiniLogo from '../Logo';
 import useOutsideClickDetected from '../UseOutsideClickDetected';
