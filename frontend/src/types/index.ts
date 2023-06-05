@@ -5,10 +5,23 @@ export interface EventData {
     count: number,
     dateTime: string,
     duration: number,
+    description: string,
     groupId: number,
+    groupName?: string,
     id: number,
     online: "no" | "yes",
     title: string,
+    venue: string
+}
+
+export interface EventFormData {
+    id?: string, // only present when patching from old event
+    groupId: string | undefined,
+    title: string
+    dateTime: Date,
+    duration: number,
+    description: string,
+    online: "yes" | "no",
     venue: string
 }
 
