@@ -91,7 +91,7 @@ export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`, { 
         method: 'PATCH',
         headers: {
-            'Content-Type': false
+            'Content-Type': null
             // 'Accept': 'image/*',
             // 'Process-Data': false
         },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import EditEventDropDown from './EditEventDropDown'
 import DeleteEventForm from './DeleteEventForm'
 import { useEffect } from 'react';

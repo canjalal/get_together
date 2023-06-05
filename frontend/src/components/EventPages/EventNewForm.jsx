@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createEvent, patchEvent } from '../../store/events';
 import { fetchGroup, getGroup } from '../../store/groups';
 import { getCurrentUser } from '../../store/session'
-import { getUser } from '../../store/users';
 import './eventform.css';
 import { EventFormLocale } from './EventFormLocale';
 import { EventFormTime } from './EventFormTime';
@@ -50,7 +49,6 @@ const EventNewForm = ({oldEvent}) => {
 
     const { groupId } = useParams();
     const group = useSelector(getGroup(groupId));
-    const owner = useSelector(getUser(group ? group.ownerId : null));
 
     const [errors, setErrors] = useState([]);
 

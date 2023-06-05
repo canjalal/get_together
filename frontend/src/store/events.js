@@ -1,6 +1,7 @@
 import csrfFetch from "./csrf";
 import { ADD_GROUP } from "./groups";
 
+
 export const ADD_EVENT = 'events/ADD_EVENT';
 export const DELETE_EVENT = 'events/DELETE_EVENT';
 export const ADD_SEARCHED_EVENTS = 'events/ADD_SEARCHED_EVENTS';
@@ -97,7 +98,7 @@ export const patchEventPhoto = (photo, eventId) => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${eventId}`, { 
         method: 'PATCH',
         headers: {
-            'Content-Type': false
+            'Content-Type': null
 
         },
         body: photo

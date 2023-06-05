@@ -1,10 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeEvent } from "../../store/events";
 import { ErrorsList } from "../ErrorsList";
 import useOutsideClickDetected from "../UseOutsideClickDetected";
+
+// interface DeleteEventFormProps {
+//   setDeleteEventModal: Dispatch<boolean>,
+//   eventId: string,
+//   groupId: string
+// }
 
 const DeleteEventForm = ({setDeleteEventModal, eventId, groupId}) => {
 

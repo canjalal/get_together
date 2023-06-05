@@ -1,15 +1,25 @@
+type FetchOptions = {
+    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE',
+    body?: string,
+    headers?: {
+        'Content-Type'?: string | null,
+        'Accept'?: string,
+        'X-CSRF-Token'?: string | null
+    }
+}
+
 export const restoreCSRF = async () => {
     const res = await csrfFetch('/api/session');
     storeCSRFToken(res);
     return res;
 } 
 
-export const storeCSRFToken = (response) => {
+export const storeCSRFToken = (response: Response) => {
     const csrfToken = response.headers.get("X-CSRF-Token");
     if(csrfToken) sessionStorage.setItem('X-CSRF-Token', csrfToken);
 }
 
-const csrfFetch = async (url, options = {}) => {
+const csrfFetch = async (url:string, options: FetchOptions = {}):Promise<Response> => {
     options.method ||= 'GET';
     options.headers ||= {};
     
@@ -22,7 +32,7 @@ const csrfFetch = async (url, options = {}) => {
         options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token');
     }
 
-    const res = await fetch(url, options);
+    const res = await fetch(url, options as RequestInit);
 
     if(res.status >= 400) throw res;
 
