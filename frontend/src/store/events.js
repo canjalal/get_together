@@ -1,4 +1,4 @@
-/*
+
 import csrfFetch from "./csrf";
 import { ADD_GROUP } from "./groups";
 
@@ -174,8 +174,9 @@ const eventsReducer = (state = {}, action) => {
     }
 }
 export default eventsReducer;
-*/
-import { AppState, EventData, EventFormData, GroupData } from "../types";
+
+/*
+import { Action, AppState, EventData, EventFormData, GroupData } from "../types";
 import csrfFetch from "./csrf";
 import { ADD_GROUP } from "./groups";
 import { Dispatch, AnyAction } from "redux";
@@ -185,21 +186,6 @@ type SortedEvents = {
     upcoming: EventData[],
     past: EventData[]
 }
-
-export enum EventActionTypes {
-    ADD_EVENT = 'events/ADD_EVENT',
-    DELETE_EVENT = 'events/DELETE_EVENT',
-    ADD_SEARCHED_EVENTS = 'events/ADD_SEARCHED_EVENTS';
-}
-// export type  ADD_EVENT = 'events/ADD_EVENT';
-// export const ADD_EVENT:ADD_EVENT = 'events/ADD_EVENT';
-
-// export type  DELETE_EVENT = 'events/DELETE_EVENT';
-// export const DELETE_EVENT:DELETE_EVENT = 'events/DELETE_EVENT';
-
-// export type  ADD_SEARCHED_EVENTS = 'events/ADD_SEARCHED_EVENTS';
-// export const ADD_SEARCHED_EVENTS:ADD_SEARCHED_EVENTS = 'events/ADD_SEARCHED_EVENTS';
-
 
 export interface EventPayload {
     event: EventData,
@@ -365,10 +351,10 @@ export const getEventsfromGrp = (groupId:string) => (state: AppState) => {
 
 }
 
-// to be exported because some actions cross reducers
-type Action =       | AddEventAction
-                    | AddSearchedEventsAction
-                    | DeleteEventAction;
+export type Action =        | AddEventAction
+                            | AddSearchedEventsAction
+                            | DeleteEventAction;
+
 
 const eventsReducer = (state:Record<string, EventData> = {}, action: Action): Record<string, EventData> => {
     Object.freeze(state);
@@ -399,3 +385,4 @@ const eventsReducer = (state:Record<string, EventData> = {}, action: Action): Re
     }
 }
 export default eventsReducer;
+*/

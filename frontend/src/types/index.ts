@@ -93,3 +93,4 @@ export interface AppState {
     signups: Record<string, SignupData>,
     users: Record<string, UserData>
 }
+

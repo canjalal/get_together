@@ -42,7 +42,6 @@ if(@group)
             end
         end
     end
-
 else
     json.user nil
 end
