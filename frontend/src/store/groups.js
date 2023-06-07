@@ -35,12 +35,6 @@ export const getGroup = (groupId) => (state) => {
     return state.groups[groupId];
 
 }
-export const getGroupOwner = (groupId) => (state) => {
-    if(!state.users) return null;
-    if(!state.users[state.groups[groupId]]) return null;
-    return state.users[state.groups[groupId].ownerId];
-}
-
 
 export const createGroup = (group) => async (dispatch) => {
     const response = await csrfFetch('/api/groups', { 
