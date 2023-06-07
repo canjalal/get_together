@@ -21,6 +21,10 @@ export interface GroupPayload {
     users: Record<string, UserData>
 }
 
+export interface SearchedGroupPayload {
+    groups: Record<number, GroupData>
+}
+
 export type AddGroupAction = {
     type: typeof GroupActionTypes.ADD_GROUP,
     payload: GroupPayload
@@ -31,32 +35,32 @@ export const addGroup = (payload: GroupPayload):AddGroupAction => ({
     payload // will have both a group: {} and a groupKeywords: {}
 });
 
+export type DeleteGroupaAction = {
+    type: typeof GroupActionTypes.DELETE_GROUP,
+    groupId: string
+}
 
-// we may be able to remove the state parameter. Let's try this with the non-TypeScript version first
-export const deleteGroup = (groupId: string) => (state) => ({
-    type: DELETE_GROUP,
+export const deleteGroup = (groupId: string):DeleteGroupaAction => ({
+    type: GroupActionTypes.DELETE_GROUP,
     groupId
-
 });
 
-export const addSearchedGroups = (payload) => ({
-    type: ADD_SEARCHED_GROUPS,
+export type AddSearchedGroupsAction = {
+    type: typeof GroupActionTypes.ADD_SEARCHED_GROUPS,
+    payload: SearchedGroupPayload
+}
+
+export const addSearchedGroups = (payload: SearchedGroupPayload):AddSearchedGroupsAction => ({
+    type: GroupActionTypes.ADD_SEARCHED_GROUPS,
     payload
 })
 
 
-export const getGroup = (groupId) => (state) => {
+export const getGroup = (groupId:string) => (state: AppState):FullGroupData | null => {
     if(!state.groups) return null; // refactor it when you add entitites
 
     return state.groups[groupId];
-
 }
-export const getGroupOwner = (groupId) => (state) => {
-    if(!state.deleteGroupusers) return null;
-    if(!state.users[state.groups[groupId]]) return null;
-    return state.users[state.groups[groupId].ownerId];
-}
-
 
 export const createGroup = (group) => async (dispatch) => {
     const response = await csrfFetch('/api/groups', { 
