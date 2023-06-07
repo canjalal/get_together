@@ -17,7 +17,7 @@ export const addGroup = (payload) => ({
 });
 
 
-export const deleteGroup = (groupId) => (state) => ({
+export const deleteGroup = (groupId) => ({
     type: DELETE_GROUP,
     groupId
 

@@ -129,6 +129,14 @@ const sessionReducer = (state = initialState, action) => {
                 return { ...state,
                     searchedEvents: action.payload.events
                 }
+        case DELETE_GROUP:
+            const gid = action.groupId;
+            const newState = {...state};
+            newState.joinedGroups = state.joinedGroups.filter((ele) => ele !== gid);
+            newState.ownedGroups = state.ownedGroups.filter((ele) => ele !== gid);
+            newState.otherGroups.filter((ele) => ele !== gid);
+
+            return newState;
         default:
             return state;
     }

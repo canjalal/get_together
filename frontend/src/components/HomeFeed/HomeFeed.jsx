@@ -6,7 +6,6 @@ import Calendar from 'react-calendar';
 import './calendar.css';
 import './homefeed.css';
 import EventCalendar from './EventCalendar';
-import GroupPanel from '../GroupPanel/';
 import { HomeFeedPaginator } from './HomeFeedPaginator';
 
 const HomeFeed = () => {
@@ -66,7 +65,6 @@ const HomeFeed = () => {
         <h1>{(ownedGroups.length === 0 && joinedGroups.length === 0 ) ? "All" : "Other" } groups</h1>
         <div className="other-groups">
             <HomeFeedPaginator groupData={groups} selectedGroups={otherGroups} />
-            {/* { otherGroups.map((gid) => <GroupPanel group={groups[gid]} key={gid} /> )} */}
         </div>
     </div>
     )
