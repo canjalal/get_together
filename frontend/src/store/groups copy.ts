@@ -1,10 +1,11 @@
 
 // import { EventActionTypes } from "./events";
 import { updateGroupKeywords } from "./groupkeywords";
-import { AppState, EventData, FullGroupData, GroupData, GroupKeywordsData, MembershipData, UserData } from "../types";
+import { AppState, EventData, FullGroupData, GroupData, GroupFormData, GroupKeywordsData, GroupsData, MembershipData, ResponseData, UserData } from "../types";
 import csrfFetch from "./csrf";
 import { Dispatch, AnyAction } from "redux";
 import { ThunkAction, ThunkActionDispatch } from "redux-thunk";
+import { Action, EventActionTypes } from "./events copy";
 
 export enum GroupActionTypes {
     ADD_GROUP = 'groups/ADD_GROUP',
@@ -14,10 +15,14 @@ export enum GroupActionTypes {
 }
 
 export interface GroupPayload {
-    events?: Record<string, EventData>,
-    group?: FullGroupData,
-    groupKeywords?: Record<string, GroupKeywordsData>,
-    memberships?: Record<string, MembershipData>,
+    events: Record<string, EventData>,
+    group: FullGroupData,
+    groupKeywords: Record<string, GroupKeywordsData>,
+    memberships: Record<string, MembershipData>,
+    users: Record<string, UserData>
+}
+
+export interface LoggedOutGroupPayload {
     users: Record<string, UserData>
 }
 
@@ -35,12 +40,12 @@ export const addGroup = (payload: GroupPayload):AddGroupAction => ({
     payload // will have both a group: {} and a groupKeywords: {}
 });
 
-export type DeleteGroupaAction = {
+export type DeleteGroupAction = {
     type: typeof GroupActionTypes.DELETE_GROUP,
     groupId: string
 }
 
-export const deleteGroup = (groupId: string):DeleteGroupaAction => ({
+export const deleteGroup = (groupId: string):DeleteGroupAction => ({
     type: GroupActionTypes.DELETE_GROUP,
     groupId
 });
@@ -62,7 +67,7 @@ export const getGroup = (groupId:string) => (state: AppState):FullGroupData | nu
     return state.groups[groupId];
 }
 
-export const createGroup = (group) => async (dispatch) => {
+export const createGroup = (group: GroupFormData):ThunkAction<Promise<ResponseData<GroupPayload>>, AppState, unknown, AnyAction> => async (dispatch: Dispatch) => {
     const response = await csrfFetch('/api/groups', { 
         method: 'POST',
         headers: {
@@ -72,7 +77,7 @@ export const createGroup = (group) => async (dispatch) => {
         body: JSON.stringify(group)
     });
 
-        const data = await response.json();
+        const data = await response.json() as GroupPayload;
         dispatch(addGroup(data));
 
 
@@ -81,7 +86,7 @@ export const createGroup = (group) => async (dispatch) => {
  // dispatch two regular action creators, one for group and one for group_keywords?
 }
 
-export const searchGroups = (query) => async dispatch => {
+export const searchGroups = (query:string):ThunkAction<Promise<ResponseData<SearchedGroupPayload>>, AppState, unknown, AnyAction> => async dispatch => {
 
     const response = await csrfFetch('/api/groups/search', {
         method: 'POST',
@@ -91,14 +96,14 @@ export const searchGroups = (query) => async dispatch => {
         },
         body: JSON.stringify(query)
     });
-    const data = await response.json();
+    const data = await response.json() as SearchedGroupPayload;
 
     dispatch(addSearchedGroups(data));
 
     return { response, data};
 }
 
-export const removeGroup = (groupId) => async (dispatch) => {
+export const removeGroup = (groupId: string):ThunkAction<Promise<void>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`, {
         method: 'DELETE'
     });
@@ -107,7 +112,7 @@ export const removeGroup = (groupId) => async (dispatch) => {
     // clear keywords
 }
 
-export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
+export const patchGroupPhoto = (photo:FormData, groupId:string):ThunkAction<Promise<Response>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`, { 
         method: 'PATCH',
         headers: {
@@ -118,7 +123,7 @@ export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
         body: photo
     });
 
-        const data = await response.json();
+        const data = await response.json() as GroupPayload;
         dispatch(addGroup(data));
 
         return response;
@@ -126,7 +131,7 @@ export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
  // dispatch two regular action creators, one for group and one for group_keywords?
 }
 
-export const patchGroup = (fdata, groupId) => async (dispatch) => {
+export const patchGroup = (fdata: GroupFormData, groupId: string):ThunkAction<Promise<Response>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`, { 
         method: 'PATCH',
         headers: {
@@ -136,7 +141,7 @@ export const patchGroup = (fdata, groupId) => async (dispatch) => {
         body: JSON.stringify(fdata)
     });
 
-        const data = await response.json();
+        const data = await response.json() as GroupPayload;
         
         dispatch(addGroup(data));
         dispatch(updateGroupKeywords(data.groupKeywords));
@@ -144,41 +149,48 @@ export const patchGroup = (fdata, groupId) => async (dispatch) => {
         return response;
 }
 
-export const fetchGroup = (groupId) => async (dispatch) => {
+export const fetchGroup = (groupId: string):ThunkAction<Promise<Response>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch(`/api/groups/${groupId}`);
 
-    const data = await response.json();
+    const data = await response.json() as GroupPayload;
     dispatch(addGroup(data));
 
     return response;
 }
 
-export const addGroups = (payload) => ({
-    type: ADD_GROUPS,
+export type AddGroupsAction  = {
+    type: typeof GroupActionTypes.ADD_GROUPS,
+    payload: GroupsData
+}
+
+export const addGroups = (payload: GroupsData) => ({
+    type: GroupActionTypes.ADD_GROUPS,
     payload  
 })
 
-export const fetchGroups = () => async (dispatch) => {
+export const fetchGroups = ():ThunkAction<Promise<ResponseData<GroupsData>>, AppState, unknown, AnyAction> => async (dispatch) => {
 
     const response = await csrfFetch(`/api/groups`);
 
-    const data = await response.json();
+    const data = await response.json() as GroupsData;
     dispatch(addGroups(data));
 
     return { response, data};
 
 }
 
-const groupReducer = (state = {}, action) => {
+type GroupState = Record<string, FullGroupData>;
+
+const groupReducer = (state: GroupState = {}, action: Action):GroupState => {
     Object.freeze(state);
     const newState = {...state};
     switch(action.type) {
         case EventActionTypes.ADD_EVENT:
             // intentional fall through
-        case ADD_GROUP:
+        case GroupActionTypes.ADD_GROUP:
             newState[action.payload.group.id] = action.payload.group;
             return newState;
-        case DELETE_GROUP:
+        case GroupActionTypes.DELETE_GROUP:
             delete newState[action.groupId];
             return newState;
 

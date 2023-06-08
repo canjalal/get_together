@@ -1,4 +1,4 @@
-import { NullableValidationFunction } from "../../types";
+import { NullableValidationFunction } from "../../utils/utils.types";
 
 export const validateEmail:NullableValidationFunction = (email) => {
     if(!email) {

@@ -1,8 +1,9 @@
-import { AppState, EventData, EventFormData, GroupData } from "../types";
+import { AppState, EventData, EventFormData, GroupData, ResponseData } from "../types";
 import csrfFetch from "./csrf";
 import { ADD_GROUP } from "./groups";
 import { Dispatch, AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
+import { AddGroupAction, AddGroupsAction, AddSearchedGroupsAction, DeleteGroupAction, GroupActionTypes } from "./groups copy";
 
 export enum EventActionTypes {
     ADD_EVENT = "events/ADD_EVENT",
@@ -61,7 +62,7 @@ export const getanEvent = (eventId: number) => (state: AppState) => {
     return state.events[eventId];
 }
 
-export const createEvent = (event: EventFormData):ThunkAction<Promise<{response: Response, data: EventPayload}>, AppState, unknown, AnyAction> => async (dispatch: Dispatch) => {
+export const createEvent = (event: EventFormData):ThunkAction<Promise<ResponseData<EventPayload>>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(event)
@@ -74,7 +75,7 @@ export const createEvent = (event: EventFormData):ThunkAction<Promise<{response:
     return { response, data };
 }
 
-export const searchEvents = (query: string):ThunkAction<Promise<{response: Response, data: SearchedEventPayload}>, AppState, unknown, AnyAction> => async dispatch => {
+export const searchEvents = (query: string):ThunkAction<Promise<ResponseData<SearchedEventPayload>>, AppState, unknown, AnyAction> => async dispatch => {
 
     const response = await csrfFetch('/api/events/search', {
         method: 'POST',
@@ -91,7 +92,7 @@ export const searchEvents = (query: string):ThunkAction<Promise<{response: Respo
     return { response, data };
 }
 
-export const fetchWeeksEvents = (startDate: Date):ThunkAction<Promise<{response: Response, data: SearchedEventPayload}>, AppState, unknown, AnyAction> => async dispatch => {
+export const fetchWeeksEvents = (startDate: Date):ThunkAction<Promise<ResponseData<SearchedEventPayload>>, AppState, unknown, AnyAction> => async dispatch => {
 
     const response = await csrfFetch('/api/events/weekly', {
         method: 'POST',
@@ -116,7 +117,7 @@ export const removeEvent = (eventId: string):ThunkAction<Promise<void>, AppState
     dispatch(deleteEvent(eventId));
 }
 
-export const patchEvent = (event: EventFormData):ThunkAction<Promise<{response: Response, data: EventPayload}>, AppState, unknown, AnyAction> => async (dispatch) => {
+export const patchEvent = (event: EventFormData):ThunkAction<Promise<ResponseData<EventPayload>>, AppState, unknown, AnyAction> => async (dispatch) => {
     const response = await csrfFetch(`/api/events/${event.id}`, {
         method: 'PATCH',
         body: JSON.stringify(event)
@@ -181,10 +182,14 @@ export const getEventsfromGrp = (groupId:string) => (state: AppState) => {
 
 export type Action =        | AddEventAction
                             | AddSearchedEventsAction
-                            | DeleteEventAction;
+                            | DeleteEventAction
+                            | AddGroupAction
+                            | AddSearchedGroupsAction
+                            | DeleteGroupAction
+                            | AddGroupsAction
+type EventState = Record<string, EventData>
 
-
-const eventsReducer = (state:Record<string, EventData> = {}, action: Action): Record<string, EventData> => {
+const eventsReducer = (state:EventState = {}, action: Action): EventState => {
     Object.freeze(state);
 
     const newState = {...state};
@@ -197,10 +202,9 @@ const eventsReducer = (state:Record<string, EventData> = {}, action: Action): Re
         case EventActionTypes.DELETE_EVENT:
             delete newState[action.eventId];
             return newState;
-        case ADD_GROUP:
+        case GroupActionTypes.ADD_GROUP:
             for(let eid in action.payload.events) {
                 newState[eid] = action.payload.events[eid];
-            
             }
             return newState;
         case EventActionTypes.ADD_SEARCHED_EVENTS:

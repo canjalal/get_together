@@ -14,7 +14,7 @@ const GroupFormIntro = (props) => {
 
     const [formData, setFormData] = useState({
         location: "",
-        keywordIds: "",
+        keywordIds: {},
         name: "",
         description: ""
     });

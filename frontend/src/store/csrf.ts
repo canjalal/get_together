@@ -1,12 +1,4 @@
-type FetchOptions = {
-    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE',
-    body?: string,
-    headers?: {
-        'Content-Type'?: string | null,
-        'Accept'?: string,
-        'X-CSRF-Token'?: string | null
-    }
-}
+import { FetchOptions } from "./csrf.types";
 
 export const restoreCSRF = async () => {
     const res = await csrfFetch('/api/session');

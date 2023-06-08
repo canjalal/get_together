@@ -1,6 +1,3 @@
-export type NullableValidationFunction = (field: string) => string | null;
-export type ValidationFunction = NonNullable<NullableValidationFunction>;
-
 export interface EventData {
     count: number,
     dateTime: string,
@@ -37,6 +34,15 @@ export interface GroupData {
     updatedAt: string
 }
 
+export interface GroupFormData {
+    location: string,
+    keywordIds: Record<string, boolean>,
+    name: string,
+    description: string
+    ownerId: string
+    memberLabel?: string
+}
+
 export interface FullGroupData extends GroupData {
     isMember?: boolean,
     memberCount?: number
@@ -68,12 +74,19 @@ export interface KeywordData {
     keyword: string
 }
 
-export interface SessionData {
+export interface UserGroupsData {
     joinedGroups: number[],
     otherGroups: number[],
     ownedGroups: number[],
+}
+
+export interface SessionData extends UserGroupsData {
     searchedEvents: Record<string, EventData>,
     user: UserData | null
+}
+
+export interface GroupsData extends UserGroupsData {
+    groups: Record<string, FullGroupData>
 }
 
 export interface SignupData {
@@ -94,3 +107,7 @@ export interface AppState {
     users: Record<string, UserData>
 }
 
+export type ResponseData<T> = {
+    response: Response,
+    data: T
+}

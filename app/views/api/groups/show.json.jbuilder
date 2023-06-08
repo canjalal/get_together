@@ -43,5 +43,19 @@ if(@group)
         end
     end
 else
-    json.user nil
+    json.group do
+        json.empty_object!
+    end
+    json.group_keywords do
+        json.empty_object!
+    end
+    json.users do
+        json.empty_object!
+    end
+    json.memberships do
+        json.empty_object!
+    end
+    json.events do
+        json.empty_object!
+    end
 end

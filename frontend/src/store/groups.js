@@ -91,7 +91,6 @@ export const patchGroupPhoto = (photo, groupId) => async (dispatch) => {
         },
         body: photo
     });
-
         const data = await response.json();
         dispatch(addGroup(data));
 
@@ -138,6 +137,7 @@ export const fetchGroups = () => async (dispatch) => {
     const response = await csrfFetch(`/api/groups`);
 
     const data = await response.json();
+    console.log(data);
     dispatch(addGroups(data));
 
     return { response, data};
